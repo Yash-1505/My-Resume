@@ -7,13 +7,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
-  <!--
-    hCaptcha (free tier — works with Web3Forms free plan)
-    render=explicit → we control when/where the widget renders
-    onload callback → fires once the script is ready
-    Get your FREE sitekey at: https://dashboard.hcaptcha.com/
-  -->
-  <script src="https://js.hcaptcha.com/1/api.js?render=explicit&onload=onHcaptchaLoad" async defer></script>
+  <!-- No captcha widget needed: Web3Forms has built-in spam filtering + honeypot below -->
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -248,7 +242,7 @@
 
     /* ─── SECTIONS ─── */
     .section-inner { max-width: var(--container); margin: 0 auto; }
-    section { padding: var(--space-2xl) 1.5rem; }
+    section { padding: var(--space-2xl) 1.5rem; scroll-margin-top: 60px; }
     .section-label {
       font-family: var(--font-mono); font-size: clamp(0.65rem,1.5vw,0.75rem);
       color: var(--teal); letter-spacing: 0.15em; text-transform: uppercase;
@@ -424,13 +418,7 @@
     .form-input::placeholder, .form-textarea::placeholder { color: var(--text-muted); opacity: 0.6; }
     .form-textarea { resize: vertical; min-height: 110px; line-height: 1.6; }
 
-    /* hCaptcha container — sized to fit the widget naturally */
-    .hcaptcha-wrap {
-      margin: 1.1rem 0 0.85rem;
-      min-height: 78px;
-      display: flex;
-      align-items: center;
-    }
+    /* No captcha widget — Web3Forms handles spam protection natively */
 
     .form-error-msg {
       display: none; background: rgba(255,95,87,0.1); border: 1px solid rgba(255,95,87,0.3);
@@ -715,7 +703,7 @@
   <footer><p>Designed &amp; built by <span>Yashwanth Marella</span> · 2026 · Made with curiosity ✦</p></footer>
 
   <!-- ═══════════════════════════════════════
-       CONTACT MODAL — Web3Forms + hCaptcha
+       CONTACT MODAL — Web3Forms
        ═══════════════════════════════════════ -->
   <div class="modal-overlay" id="modalOverlay"
     role="dialog" aria-modal="true" aria-labelledby="modalTitle" aria-hidden="true">
@@ -771,13 +759,9 @@
         </div>
 
         <!--
-          hCaptcha renders here via explicit JS.
-          Web3Forms reads 'h-captcha-response' from the POST body
-          and verifies it server-side — free tier, no upgrade needed.
+          Web3Forms handles spam filtering server-side.
+          The honeypot field above gives additional bot protection.
         -->
-        <div class="hcaptcha-wrap">
-          <div id="hcaptcha-container"></div>
-        </div>
 
         <div class="form-error-msg" id="formErrorMsg" role="alert" aria-live="assertive"></div>
 
@@ -795,10 +779,9 @@
 
   <script>
     // ─────────────────────────────────────────────────────────────────────────
-    // CONFIG
-    // ────────────────────────────────────────────────────────────────────────
-    const WEB3FORMS_KEY    = 'fea16830-0993-4288-8c85-a2aec723394a';
-    const HCAPTCHA_SITEKEY = '600e09d0-f0b4-4bea-a060-e47e9a1ed7b8'; 
+    // CONFIG — Web3Forms key (already your real key, leave as-is)
+    // ─────────────────────────────────────────────────────────────────────────
+    const WEB3FORMS_KEY = 'fea16830-0993-4288-8c85-a2aec723394a';
 
     // ─────────────────────────────────────────────────────────────────────────
     // THEME
@@ -814,7 +797,6 @@
       html.setAttribute('data-theme', next);
       themeIcon.textContent  = isDark ? '🌙' : '☀️';
       themeLabel.textContent = isDark ? 'Dark' : 'Light';
-      syncHcaptchaTheme(next);
     });
 
     // ─────────────────────────────────────────────────────────────────────────
@@ -938,80 +920,8 @@
     }, { passive: true });
 
     // ═════════════════════════════════════════════════════════════════════════
-    // CONTACT MODAL — Web3Forms + hCaptcha
+    // CONTACT MODAL — Web3Forms (built-in spam protection, no captcha needed)
     // ═════════════════════════════════════════════════════════════════════════
-
-    // ── hCaptcha state ───────────────────────────────────────────────────────
-    let hcaptchaWidgetId = null;
-
-    /**
-     * getToken()
-     * hcaptcha.getResponse(widgetId) returns the token string, or '' if not
-     * yet solved. This is the canonical way to read the token — no DOM
-     * scraping needed, unlike Turnstile.
-     */
-    function getToken() {
-      if (window.hcaptcha && hcaptchaWidgetId !== null) {
-        return window.hcaptcha.getResponse(hcaptchaWidgetId) || '';
-      }
-      return '';
-    }
-
-    /**
-     * onHcaptchaLoad — global callback invoked by the hCaptcha script
-     * (registered via ?onload=onHcaptchaLoad in the script src).
-     */
-    window.onHcaptchaLoad = function () {
-      renderHcaptcha();
-    };
-
-    function renderHcaptcha() {
-      const el = document.getElementById('hcaptcha-container');
-      if (!el || !window.hcaptcha) return;
-      if (hcaptchaWidgetId !== null) return; // already rendered
-
-      hcaptchaWidgetId = window.hcaptcha.render(el, {
-        sitekey: HCAPTCHA_SITEKEY,
-        theme: html.getAttribute('data-theme') === 'dark' ? 'dark' : 'light',
-        size: 'normal',
-      });
-    }
-
-    /**
-     * syncHcaptchaTheme — hCaptcha supports theme toggling via execute() with
-     * a new theme, but the simplest reliable approach is to reset the widget
-     * (which re-renders with the current theme) when the theme changes.
-     * hCaptcha re-reads the theme from the original render config on reset,
-     * so we remove + re-render instead.
-     */
-    function syncHcaptchaTheme(theme) {
-      if (!window.hcaptcha) return;
-      const el = document.getElementById('hcaptcha-container');
-      if (!el) return;
-
-      // Remove the existing widget
-      if (hcaptchaWidgetId !== null) {
-        try { window.hcaptcha.remove(hcaptchaWidgetId); } catch (_) {}
-        hcaptchaWidgetId = null;
-      }
-
-      // Re-render with updated theme
-      hcaptchaWidgetId = window.hcaptcha.render(el, {
-        sitekey: HCAPTCHA_SITEKEY,
-        theme,
-        size: 'normal',
-      });
-    }
-
-    /**
-     * resetHcaptcha — resets the widget so the user can re-solve after a
-     * failed submission or modal close.
-     */
-    function resetHcaptcha() {
-      if (window.hcaptcha && hcaptchaWidgetId !== null) {
-        try { window.hcaptcha.reset(hcaptchaWidgetId); } catch (_) {}
-      }
-    }
 
     // ── Modal refs ────────────────────────────────────────────────────────────
     const modalOverlay     = document.getElementById('modalOverlay');
@@ -1028,11 +938,6 @@
       modalOverlay.classList.add('open');
       modalOverlay.setAttribute('aria-hidden', 'false');
       document.body.style.overflow = 'hidden';
-
-      // Render hCaptcha if the script loaded but the widget isn't placed yet
-      if (window.hcaptcha && hcaptchaWidgetId === null) {
-        renderHcaptcha();
-      }
 
       setTimeout(() => document.getElementById('cf-name')?.focus(), 320);
     }
@@ -1053,7 +958,6 @@
       hideError();
       submitBtn.disabled = false;
       submitBtn.innerHTML = sendBtnHTML();
-      resetHcaptcha();
     }
 
     // ── Close triggers ────────────────────────────────────────────────────────
@@ -1104,10 +1008,6 @@
         showError('Message must be at least 10 characters.');
         return false;
       }
-      if (!getToken()) {
-        showError('Please complete the security check.');
-        return false;
-      }
 
       return true;
     }
@@ -1137,9 +1037,6 @@
             email,
             subject: subject || `Portfolio Contact — ${name}`,
             message,
-            // Web3Forms reads this field and verifies it with hCaptcha's API.
-            // This works on the FREE Web3Forms plan — no upgrade required.
-            'h-captcha-response': getToken(),
             botcheck,
             from_name: 'Portfolio Contact',
           }),
@@ -1170,8 +1067,7 @@
     function restoreBtn() {
       submitBtn.disabled = false;
       submitBtn.innerHTML = sendBtnHTML();
-      resetHcaptcha();
     }
   </script>
 </body>
-                                                                 </html>
+</html>
