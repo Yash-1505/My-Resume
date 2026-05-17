@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="en" data-style="modern" data-pages="1">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Yashwanth Marella — Resume</title>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { min-height: 100vh; display: flex; flex-direction: column; align-items: center; padding: 4.5rem 1rem 5rem; transition: background 0.3s; }
+
+    /* ── CONTROLS ── */
+    .controls {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+      display: flex; align-items: center; justify-content: center;
+      gap: 0.4rem; padding: 0.55rem 1rem;
+      background: white; border-bottom: 1px solid #E2E8F0;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.07); flex-wrap: wrap;
+    }
+    .ctrl-group { display: flex; align-items: center; gap: 0.3rem; }
+    .ctrl-sep { width: 1px; height: 18px; background: #E2E8F0; margin: 0 0.2rem; }
+    .ctrl-label { font-size: 0.63rem; color: #94A3B8; font-family: 'JetBrains Mono', monospace; }
+    .tog {
+      border: 1.5px solid #E2E8F0; background: transparent; color: #64748B;
+      padding: 0.25rem 0.75rem; border-radius: 50px;
+      font-family: 'JetBrains Mono', monospace; font-size: 0.66rem;
+      cursor: pointer; transition: all 0.18s; white-space: nowrap;
+    }
+    .tog:hover { border-color: #12A090; color: #12A090; }
+    .tog.active { background: #12A090; border-color: #12A090; color: white; font-weight: 500; }
+    .print-btn {
+      background: #1A1410; color: white; border: none;
+      padding: 0.25rem 0.85rem; border-radius: 50px;
+      font-family: 'JetBrains Mono', monospace; font-size: 0.66rem;
+      cursor: pointer; transition: background 0.18s; margin-left: 0.2rem;
+    }
+    .print-btn:hover { background: #333; }
+
+    /* ── PAPER ── */
+    .paper {
+      width: 100%; max-width: 820px; background: white;
+      border-radius: 3px; box-shadow: 0 4px 40px rgba(0,0,0,0.13); overflow: hidden;
+    }
+
+    /* ── Visibility toggles ── */
+    [data-pages="1"] .p2-only      { display: none !important; }
+    [data-pages="2"] .p1-only      { display: none !important; }
+    [data-pages="1"] .desc-long    { display: none !important; }
+    [data-pages="2"] .desc-short   { display: none !important; }
+
+    /* ══════════════════════════════════════════
+       MODERN — shared base
+    ══════════════════════════════════════════ */
+    [data-style="modern"] body { background: #E8E3DB; font-family: 'DM Sans', sans-serif; }
+    [data-style="modern"] .ats-resume { display: none; }
+
+    [data-style="modern"] .m-header {
+      padding: 2rem 2.25rem 1.5rem; border-bottom: 1px solid #EDE9E0; position: relative;
+    }
+    [data-style="modern"] .m-header::before {
+      content:''; position:absolute; top:0; left:0; right:0; height:3.5px; background:#12A090;
+    }
+    [data-style="modern"] .m-name {
+      font-family:'Syne',sans-serif; font-size:2.1rem; font-weight:800;
+      color:#1A1410; letter-spacing:-0.03em; line-height:1; margin-bottom:0.2rem;
+    }
+    [data-style="modern"] .m-name em { color:#12A090; font-style:normal; }
+    [data-style="modern"] .m-role {
+      font-family:'JetBrains Mono',monospace; font-size:0.7rem;
+      color:#12A090; margin-bottom:0.85rem; letter-spacing:0.03em;
+    }
+    [data-style="modern"] .m-contact {
+      display:flex; flex-wrap:wrap; gap:0.4rem 1.4rem; font-size:0.76rem; color:#64748B;
+    }
+    [data-style="modern"] .m-contact a { color:#64748B; text-decoration:none; }
+    [data-style="modern"] .m-contact a:hover { color:#12A090; }
+
+    [data-style="modern"] .m-body { display:grid; grid-template-columns:248px 1fr; }
+    [data-style="modern"] .m-sidebar { padding:1.5rem 1.25rem; background:#F8F5F0; border-right:1px solid #EDE9E0; }
+    [data-style="modern"] .m-main { padding:1.5rem 2rem; }
+
+    [data-style="modern"] .sec { margin-bottom:1.35rem; }
+    [data-style="modern"] .sec-title {
+      font-family:'JetBrains Mono',monospace; font-size:0.58rem; font-weight:500;
+      letter-spacing:0.14em; text-transform:uppercase; color:#12A090;
+      padding-bottom:0.35rem; border-bottom:1.5px solid #E5E0D8; margin-bottom:0.75rem;
+    }
+
+    [data-style="modern"] .edu { margin-bottom:0.85rem; }
+    [data-style="modern"] .edu-deg { font-weight:600; font-size:0.83rem; color:#1A1410; line-height:1.3; }
+    [data-style="modern"] .edu-school { font-size:0.74rem; color:#64748B; margin-top:0.08rem; }
+    [data-style="modern"] .edu-year { font-family:'JetBrains Mono',monospace; font-size:0.62rem; color:#12A090; margin-top:0.08rem; }
+    [data-style="modern"] .edu-note { font-size:0.69rem; color:#94A3B8; margin-top:0.18rem; font-style:italic; line-height:1.4; }
+
+    [data-style="modern"] .proj { margin-bottom:1.15rem; padding-bottom:1.15rem; border-bottom:1px solid #F0EDE6; }
+    [data-style="modern"] .proj:last-child { border-bottom:none; margin-bottom:0; padding-bottom:0; }
+    [data-style="modern"] .proj-row { display:flex; justify-content:space-between; align-items:baseline; gap:0.5rem; margin-bottom:0.22rem; flex-wrap:wrap; }
+    [data-style="modern"] .proj-name { font-family:'Syne',sans-serif; font-weight:700; font-size:0.88rem; color:#1A1410; }
+    [data-style="modern"] .proj-badge { font-family:'JetBrains Mono',monospace; font-size:0.58rem; color:#94A3B8; background:#F0EDE6; padding:0.08rem 0.42rem; border-radius:50px; }
+    [data-style="modern"] .proj-links { display:flex; gap:0.55rem; }
+    [data-style="modern"] .proj-links a { font-family:'JetBrains Mono',monospace; font-size:0.61rem; color:#12A090; text-decoration:none; }
+    [data-style="modern"] .proj-links a:hover { text-decoration:underline; }
+    [data-style="modern"] .proj-desc { font-size:0.78rem; color:#64748B; line-height:1.58; margin-bottom:0.38rem; }
+    [data-style="modern"] .proj-stack { display:flex; flex-wrap:wrap; gap:0.2rem; }
+    [data-style="modern"] .stag {
+      background:rgba(18,160,144,0.08); color:#0C7A6C;
+      border:1px solid rgba(18,160,144,0.18); padding:0.08rem 0.42rem;
+      border-radius:50px; font-family:'JetBrains Mono',monospace; font-size:0.58rem;
+    }
+
+    [data-style="modern"] .sg { margin-bottom:0.72rem; }
+    [data-style="modern"] .sg-label { font-family:'JetBrains Mono',monospace; font-size:0.56rem; color:#B0A898; text-transform:uppercase; letter-spacing:0.08em; margin-bottom:0.28rem; }
+    [data-style="modern"] .sg-pills { display:flex; flex-wrap:wrap; gap:0.18rem; }
+    [data-style="modern"] .pill { background:white; border:1px solid #DDD8CE; color:#374151; padding:0.08rem 0.45rem; border-radius:50px; font-size:0.64rem; }
+
+    [data-style="modern"] .cert { margin-bottom:0.5rem; }
+    [data-style="modern"] .cert-name { font-size:0.72rem; font-weight:500; color:#1A1410; line-height:1.3; }
+    [data-style="modern"] .cert-name a { color:#1A1410; text-decoration:none; }
+    [data-style="modern"] .cert-name a:hover { color:#12A090; text-decoration:underline; }
+    [data-style="modern"] .cert-meta { font-family:'JetBrains Mono',monospace; font-size:0.59rem; color:#94A3B8; margin-top:0.02rem; }
+
+    [data-style="modern"] .events-sep {
+      font-family:'JetBrains Mono',monospace; font-size:0.58rem; font-weight:500;
+      letter-spacing:0.14em; text-transform:uppercase; color:#94A3B8;
+      padding-bottom:0.35rem; border-bottom:1px solid #E5E0D8;
+      margin-bottom:0.75rem; margin-top:0.9rem; display:block;
+    }
+    [data-style="modern"] .about-p { font-size:0.78rem; color:#64748B; line-height:1.65; margin-bottom:1.25rem; }
+
+    /* ── MODERN 1-PAGE: tighter spacing ── */
+    [data-pages="1"][data-style="modern"] .m-header { padding:1.4rem 2rem 1.15rem; }
+    [data-pages="1"][data-style="modern"] .m-name { font-size:1.8rem; }
+    [data-pages="1"][data-style="modern"] .m-role { margin-bottom:0.6rem; font-size:0.66rem; }
+    [data-pages="1"][data-style="modern"] .m-sidebar { padding:1.15rem 1.1rem; }
+    [data-pages="1"][data-style="modern"] .m-main { padding:1.15rem 1.75rem; }
+    [data-pages="1"][data-style="modern"] .sec { margin-bottom:0.95rem; }
+    [data-pages="1"][data-style="modern"] .sec-title { margin-bottom:0.5rem; padding-bottom:0.25rem; }
+    [data-pages="1"][data-style="modern"] .edu { margin-bottom:0.6rem; }
+    [data-pages="1"][data-style="modern"] .edu-deg { font-size:0.79rem; }
+    [data-pages="1"][data-style="modern"] .sg { margin-bottom:0.52rem; }
+    [data-pages="1"][data-style="modern"] .cert { margin-bottom:0.35rem; }
+    [data-pages="1"][data-style="modern"] .cert-name { font-size:0.68rem; }
+    [data-pages="1"][data-style="modern"] .proj { margin-bottom:0.85rem; padding-bottom:0.85rem; }
+    [data-pages="1"][data-style="modern"] .proj-desc { font-size:0.75rem; line-height:1.52; }
+    [data-pages="1"][data-style="modern"] .about-p { font-size:0.75rem; margin-bottom:0.9rem; }
+
+    /* ══════════════════════════════════════════
+       ATS — shared base
+    ══════════════════════════════════════════ */
+    [data-style="ats"] body { background: #C8C8C8; font-family: Arial, Helvetica, sans-serif; }
+    [data-style="ats"] .m-header,
+    [data-style="ats"] .m-body { display: none !important; }
+    [data-style="ats"] .ats-resume { display: block; padding: 2rem 2.5rem; color: #000; }
+
+    [data-style="ats"] .ats-name { font-size:1.7rem; font-weight:700; text-align:center; margin-bottom:0.22rem; }
+    [data-style="ats"] .ats-tagline { text-align:center; font-size:0.79rem; color:#333; margin-bottom:0.32rem; }
+    [data-style="ats"] .ats-contact { text-align:center; font-size:0.77rem; color:#000; margin-bottom:1.25rem; line-height:1.6; }
+    [data-style="ats"] .ats-contact a { color:#000; text-decoration:none; }
+
+    [data-style="ats"] .ats-sec { margin-bottom:0.95rem; }
+    [data-style="ats"] .ats-sec-title {
+      font-size:0.79rem; font-weight:700; text-transform:uppercase;
+      letter-spacing:0.07em; border-bottom:1.5px solid #000;
+      padding-bottom:0.18rem; margin-bottom:0.55rem;
+    }
+    [data-style="ats"] .ats-entry { margin-bottom:0.7rem; }
+    [data-style="ats"] .ats-row { display:flex; justify-content:space-between; align-items:baseline; flex-wrap:wrap; margin-bottom:0.08rem; }
+    [data-style="ats"] .ats-etitle { font-weight:700; font-size:0.83rem; }
+    [data-style="ats"] .ats-edate { font-size:0.76rem; color:#333; }
+    [data-style="ats"] .ats-esub { font-size:0.76rem; color:#333; margin-bottom:0.08rem; }
+    [data-style="ats"] .ats-ul { padding-left:1rem; margin-top:0.1rem; }
+    [data-style="ats"] .ats-ul li { font-size:0.76rem; margin-bottom:0.1rem; line-height:1.48; }
+    [data-style="ats"] .ats-skill-row { font-size:0.76rem; margin-bottom:0.2rem; line-height:1.48; }
+    [data-style="ats"] .ats-skill-row strong { font-weight:700; }
+    [data-style="ats"] .ats-cert-row { font-size:0.76rem; margin-bottom:0.16rem; }
+
+    /* ATS 1-page: even tighter */
+    [data-pages="1"][data-style="ats"] .ats-resume { padding:1.5rem 2.25rem; }
+    [data-pages="1"][data-style="ats"] .ats-name { font-size:1.45rem; }
+    [data-pages="1"][data-style="ats"] .ats-contact { margin-bottom:0.9rem; }
+    [data-pages="1"][data-style="ats"] .ats-sec { margin-bottom:0.65rem; }
+    [data-pages="1"][data-style="ats"] .ats-sec-title { margin-bottom:0.38rem; padding-bottom:0.12rem; }
+    [data-pages="1"][data-style="ats"] .ats-entry { margin-bottom:0.48rem; }
+    [data-pages="1"][data-style="ats"] .ats-ul li { font-size:0.72rem; margin-bottom:0.06rem; }
+    [data-pages="1"][data-style="ats"] .ats-skill-row { font-size:0.72rem; margin-bottom:0.13rem; }
+    [data-pages="1"][data-style="ats"] .ats-cert-row { font-size:0.72rem; margin-bottom:0.1rem; }
+    [data-pages="1"][data-style="ats"] .ats-etitle { font-size:0.79rem; }
+    [data-pages="1"][data-style="ats"] .ats-esub { font-size:0.72rem; }
+
+    /* ── PRINT ── */
+    @media print {
+      @page { size: A4; margin: 12mm 14mm; }
+      .controls { display: none !important; }
+      body { padding: 0; background: white !important; }
+      .paper { box-shadow: none; max-width: 100%; width: 100%; border-radius: 0; }
+      [data-style="modern"] .m-sidebar { background: #F8F5F0 !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+      [data-style="modern"] .m-header::before { background: #12A090 !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    }
+
+    @media (max-width: 680px) {
+      [data-style="modern"] .m-body { grid-template-columns: 1fr; }
+      [data-style="modern"] .m-sidebar { border-right: none; border-bottom: 1px solid #EDE9E0; }
+      .controls { gap: 0.3rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ═══════════════ CONTROLS ═══════════════ -->
+  <div class="controls">
+    <div class="ctrl-group">
+      <span class="ctrl-label">Style</span>
+      <button class="tog active" id="btnModern" onclick="setStyle('modern')">✦ Modern</button>
+      <button class="tog" id="btnAts" onclick="setStyle('ats')">ATS-Safe</button>
+    </div>
+    <div class="ctrl-sep"></div>
+    <div class="ctrl-group">
+      <span class="ctrl-label">Length</span>
+      <button class="tog active" id="btn1" onclick="setPages('1')">1 Page (A4)</button>
+      <button class="tog" id="btn2" onclick="setPages('2')">2 Pages (A4)</button>
+    </div>
+    <div class="ctrl-sep"></div>
+    <button class="print-btn" onclick="window.print()">⬇ Print / Save PDF</button>
+  </div>
+
+  <!-- ═══════════════ PAPER ═══════════════ -->
+  <div class="paper">
+
+    <!-- ══════════════════════════════════════
+         MODERN RESUME
+    ══════════════════════════════════════ -->
+    <div class="m-header">
+      <div class="m-name">Yashwanth <em>Marella.</em></div>
+      <div class="m-role">Explorer · Problem Solver · Builder</div>
+      <div class="m-contact">
+        <span>📱 <a href="tel:+917981621267">+91 79816 21267</a></span>
+        <span>✉ <a href="mailto:itsyashwanth@myyahoo.com">itsyashwanth@myyahoo.com</a></span>
+        <span>🔗 <a href="https://linkedin.com/in/itsyashwanth" target="_blank">linkedin.com/in/itsyashwanth</a></span>
+        <span>⌥ <a href="https://github.com/Yash-1505" target="_blank">github.com/Yash-1505</a></span>
+        <span>🌐 <a href="https://itsyashwanth.vercel.app" target="_blank">itsyashwanth.vercel.app</a></span>
+        <span>📍 Vadodara, India</span>
+      </div>
+    </div>
+
+    <div class="m-body">
+
+      <!-- ─── SIDEBAR ─── -->
+      <div class="m-sidebar">
+
+        <div class="sec">
+          <div class="sec-title">Education</div>
+          <div class="edu">
+            <div class="edu-deg">B.Tech — AI &amp; Data Science</div>
+            <div class="edu-school">Parul University, Vadodara</div>
+            <div class="edu-year">2024 – Present</div>
+          </div>
+          <div class="edu">
+            <div class="edu-deg">Diploma — Neural Networks &amp; Deep Learning</div>
+            <div class="edu-school">Parul University (Simultaneous)</div>
+            <div class="edu-year">2025 – 2026</div>
+            <div class="edu-note p2-only">CNNs · RNNs · GANs · Deep Learning · SQL · Backpropagation</div>
+          </div>
+        </div>
+
+        <!-- Skills 1-page: condensed -->
+        <div class="sec p1-only">
+          <div class="sec-title">Skills</div>
+          <div class="sg">
+            <div class="sg-label">AI / ML</div>
+            <div class="sg-pills">
+              <span class="pill">Python</span><span class="pill">TensorFlow</span><span class="pill">Keras</span>
+              <span class="pill">CNNs</span><span class="pill">RNNs</span><span class="pill">LSTMs</span><span class="pill">GANs</span>
+            </div>
+          </div>
+          <div class="sg">
+            <div class="sg-label">Web</div>
+            <div class="sg-pills">
+              <span class="pill">TypeScript</span><span class="pill">React</span><span class="pill">Next.js</span>
+              <span class="pill">Django</span><span class="pill">Flask</span><span class="pill">MongoDB</span>
+            </div>
+          </div>
+          <div class="sg">
+            <div class="sg-label">Tools &amp; Data</div>
+            <div class="sg-pills">
+              <span class="pill">SQL</span><span class="pill">Git</span><span class="pill">LLMs</span>
+              <span class="pill">Prompt Eng.</span><span class="pill">EDA</span><span class="pill">Stats</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Skills 2-page: full -->
+        <div class="sec p2-only">
+          <div class="sec-title">Skills</div>
+          <div class="sg">
+            <div class="sg-label">AI / ML / Deep Learning</div>
+            <div class="sg-pills">
+              <span class="pill">Python</span><span class="pill">TensorFlow</span><span class="pill">Keras</span>
+              <span class="pill">NumPy</span><span class="pill">Pandas</span><span class="pill">CNNs</span>
+              <span class="pill">RNNs</span><span class="pill">LSTMs</span><span class="pill">GANs</span>
+            </div>
+          </div>
+          <div class="sg">
+            <div class="sg-label">Web &amp; Full Stack</div>
+            <div class="sg-pills">
+              <span class="pill">JavaScript</span><span class="pill">TypeScript</span><span class="pill">React</span>
+              <span class="pill">Next.js</span><span class="pill">Django</span><span class="pill">Flask</span>
+              <span class="pill">MongoDB</span><span class="pill">HTML5</span><span class="pill">CSS3</span>
+            </div>
+          </div>
+          <div class="sg">
+            <div class="sg-label">Languages &amp; Tools</div>
+            <div class="sg-pills">
+              <span class="pill">C</span><span class="pill">C++</span><span class="pill">Java</span>
+              <span class="pill">SQL</span><span class="pill">Git</span><span class="pill">GitHub</span>
+            </div>
+          </div>
+          <div class="sg">
+            <div class="sg-label">Generative AI</div>
+            <div class="sg-pills">
+              <span class="pill">LLMs</span><span class="pill">Prompt Eng.</span>
+              <span class="pill">Gen AI</span><span class="pill">AI Ethics</span>
+            </div>
+          </div>
+          <div class="sg">
+            <div class="sg-label">Data</div>
+            <div class="sg-pills">
+              <span class="pill">EDA</span><span class="pill">Statistics</span>
+              <span class="pill">Data Viz</span><span class="pill">Supervised ML</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Certs 1-page: compact (top 5) -->
+        <div class="sec p1-only">
+          <div class="sec-title">Certifications</div>
+          <div class="cert"><div class="cert-name"><a href="https://nptel.ac.in/noc/E_Certificate/NOC26CS35S258540292204257663" target="_blank">NPTEL — Computer Networks &amp; IP ↗</a></div><div class="cert-meta">NPTEL · 4 Credits · 2026</div></div>
+          <div class="cert"><div class="cert-name"><a href="https://verify.skilljar.com/c/fcjcka4cdxfv" target="_blank">AI Fluency for Students ↗</a></div><div class="cert-meta">Anthropic · 2026</div></div>
+          <div class="cert"><div class="cert-name"><a href="https://learn.microsoft.com/en-us/users/itsyashwanth/" target="_blank">Generative AI Fundamentals (7 Badges) ↗</a></div><div class="cert-meta">Microsoft Learn · 2026</div></div>
+          <div class="cert"><div class="cert-name"><a href="https://www.credly.com/badges/01ce7ddb-adf8-4f00-9412-557f8d13b899" target="_blank">IT Specialist — JavaScript ↗</a></div><div class="cert-meta">Certiport / Credly · 2025</div></div>
+          <div class="cert"><div class="cert-name"><a href="https://www.credly.com/badges/ee79d10c-c66d-40d8-ab00-14f80b82a3ea" target="_blank">IT Specialist — HTML &amp; CSS ↗</a></div><div class="cert-meta">Certiport / Credly · 2025</div></div>
+        </div>
+
+        <!-- Certs 2-page: all + events -->
+        <div class="sec p2-only">
+          <div class="sec-title">Certifications</div>
+          <div class="cert"><div class="cert-name"><a href="https://nptel.ac.in/noc/E_Certificate/NOC26CS35S258540292204257663" target="_blank">NPTEL — Computer Networks &amp; IP ↗</a></div><div class="cert-meta">NPTEL · Jan–Apr 2026 · 4 Credits</div></div>
+          <div class="cert"><div class="cert-name"><a href="https://verify.skilljar.com/c/fcjcka4cdxfv" target="_blank">AI Fluency for Students ↗</a></div><div class="cert-meta">Anthropic (Claude) · 2026</div></div>
+          <div class="cert"><div class="cert-name"><a href="https://learn.microsoft.com/en-us/users/itsyashwanth/" target="_blank">Generative AI Fundamentals (7 Badges) ↗</a></div><div class="cert-meta">Microsoft Learn · 2026</div></div>
+          <div class="cert"><div class="cert-name"><a href="https://courses.etrain.skillsnetwork.site/certificates/d8a64e0862134a7c86bebd594e0372a0" target="_blank">Statistics 101 ↗</a></div><div class="cert-meta">eTrain (IBM) · 2026</div></div>
+          <div class="cert"><div class="cert-name"><a href="https://courses.etrain.skillsnetwork.site/certificates/7471e9d87f4246a18b5c0eb52d6fd3a6" target="_blank">Python ↗</a></div><div class="cert-meta">eTrain (IBM) · Jul 2025</div></div>
+          <div class="cert"><div class="cert-name"><a href="https://www.credly.com/badges/01ce7ddb-adf8-4f00-9412-557f8d13b899" target="_blank">IT Specialist — JavaScript ↗</a></div><div class="cert-meta">Certiport / Credly · 2025</div></div>
+          <div class="cert"><div class="cert-name"><a href="https://www.credly.com/badges/ee79d10c-c66d-40d8-ab00-14f80b82a3ea" target="_blank">IT Specialist — HTML &amp; CSS ↗</a></div><div class="cert-meta">Certiport / Credly · 2025</div></div>
+          <span class="events-sep">Events &amp; Workshops</span>
+          <div class="cert"><div class="cert-name"><a href="./certs/vadodara-hackathon.pdf" target="_blank">Vadodara Hackathon 6.0 ↗</a></div><div class="cert-meta">PIERC, Parul University · Sep 2025</div></div>
+          <div class="cert"><div class="cert-name"><a href="./certs/jetson-ai.jpg" target="_blank">21 Days Masterclass — Jetson AI ↗</a></div><div class="cert-meta">Pantech e Learning / IETE · Nov–Dec 2024</div></div>
+        </div>
+
+      </div><!-- /sidebar -->
+
+      <!-- ─── MAIN ─── -->
+      <div class="m-main">
+
+        <div class="sec">
+          <div class="sec-title">About</div>
+          <p class="about-p desc-short">I spot problems others scroll past, have the idea, and use AI to actually ship it. 2nd year B.Tech AI &amp; DS student at Parul University, also doing a One Year Diploma in Neural Networks &amp; Deep Learning.</p>
+          <p class="about-p desc-long">I spot problems that others scroll past. I come up with the idea. Then I use AI to actually build it — no waiting, no excuses, just ship. 2nd year B.Tech AI &amp; DS student at Parul University, simultaneously doing a One Year Diploma in Neural Networks &amp; Deep Learning — not because the curriculum asked, but because the field moves fast and I want to move faster.</p>
+        </div>
+
+        <div class="sec">
+          <div class="sec-title">Projects</div>
+
+          <div class="proj">
+            <div class="proj-row">
+              <span class="proj-name">StudentMind</span>
+              <div class="proj-links">
+                <a href="https://studentmind-v1.vercel.app" target="_blank">↗ Live</a>
+                <a href="https://github.com/Yash-1505/studentmind-v1" target="_blank">⌥ GitHub</a>
+              </div>
+            </div>
+            <p class="proj-desc desc-short">Removed the prompt-crafting barrier — select a mode, upload a PDF/doc, get a summary/cheat sheet/quiz instantly. No backend; API key stays local. Solved: rate limiting, localStorage persistence (30 sessions), voice input, PDF/DOCX export, 16-language support.</p>
+            <p class="proj-desc desc-long">Students waste the first five minutes of every AI session crafting the right prompt. StudentMind removes that entirely — select a mode (summary, cheat sheet, learning path, quiz, resource finder), upload a PDF or doc, get exactly what you need. No backend; API key (Gemini or Groq, both free-tier) stays local. Real engineering challenges solved: rate limiting across providers, localStorage chat persistence (30 sessions), voice input, PDF/DOCX export, and 16-language support via Sarvam AI.</p>
+            <div class="proj-stack">
+              <span class="stag">TypeScript</span><span class="stag">React 19</span><span class="stag">Vite</span>
+              <span class="stag">Tailwind v4</span><span class="stag">Gemini API</span><span class="stag">Groq API</span>
+            </div>
+          </div>
+
+          <div class="proj">
+            <div class="proj-row">
+              <span class="proj-name">NotebookLM Prompt Vault</span>
+              <div class="proj-links">
+                <a href="https://notebooklm-prompt-vault.vercel.app" target="_blank">↗ Live</a>
+                <a href="https://github.com/Yash-1505/notebooklm-prompt-vault" target="_blank">⌥ GitHub</a>
+              </div>
+            </div>
+            <p class="proj-desc desc-short">Curated prompt library for PIET students — organised by program, semester, subject, and unit from official syllabi. The real power of AI is knowing exactly what to ask.</p>
+            <p class="proj-desc desc-long">Curated prompt library for PIET students using NotebookLM — organised by program, semester, subject, and unit from official syllabi across B.Tech AI/DS, AI/ML, and NNDL Diploma batches. Built because the real power of AI tools is knowing exactly what to ask, and no one had made that easy for students.</p>
+            <div class="proj-stack">
+              <span class="stag">JavaScript</span><span class="stag">HTML/CSS</span><span class="stag">Prompt Engineering</span>
+            </div>
+          </div>
+
+          <div class="proj">
+            <div class="proj-row">
+              <span class="proj-name">Fake News Detection</span>
+              <span class="proj-badge">Academic · In Progress</span>
+            </div>
+            <p class="proj-desc desc-short">Applying CNN &amp; RNN architectures to classify news as real or fake. Academic capstone for NNDL Diploma — NLP preprocessing, model training, and evaluation.</p>
+            <p class="proj-desc desc-long">Academic capstone for the NNDL Diploma. Applying CNN and RNN architectures to classify news articles as real or fake — covers the full pipeline: NLP text preprocessing, architecture choices, training, and performance evaluation. Working from data to a deployable model.</p>
+            <div class="proj-stack">
+              <span class="stag">Python</span><span class="stag">TensorFlow</span>
+              <span class="stag">Keras</span><span class="stag">NLP</span><span class="stag">Deep Learning</span>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="sec p2-only">
+          <div class="sec-title">Currently Learning</div>
+          <p class="about-p" style="margin-bottom:0">Deep Learning architectures (CNNs, RNNs, LSTM, Attention, GANs) through formal coursework and hands-on practicals. Django &amp; Flask for backend web development. SQL &amp; Data Visualization. Tying it all together through the Fake News Detection project.</p>
+        </div>
+
+      </div><!-- /main -->
+    </div><!-- /m-body -->
+
+
+    <!-- ══════════════════════════════════════
+         ATS RESUME
+    ══════════════════════════════════════ -->
+    <div class="ats-resume">
+
+      <div class="ats-name">YASHWANTH MARELLA</div>
+      <div class="ats-tagline">Explorer · Problem Solver · Builder</div>
+      <div class="ats-contact">
+        +91 79816 21267 &nbsp;|&nbsp; itsyashwanth@myyahoo.com &nbsp;|&nbsp; linkedin.com/in/itsyashwanth<br>
+        github.com/Yash-1505 &nbsp;|&nbsp; itsyashwanth.vercel.app &nbsp;|&nbsp; Vadodara, India
+      </div>
+
+      <div class="ats-sec">
+        <div class="ats-sec-title">Summary</div>
+        <p class="ats-skill-row desc-short">2nd year B.Tech AI &amp; DS student at Parul University, simultaneously completing an NNDL Diploma. Two live shipped projects, NPTEL certified, Vadodara Hackathon 6.0 participant.</p>
+        <p class="ats-skill-row desc-long">2nd year B.Tech AI &amp; Data Science student at Parul University, simultaneously completing a One Year Diploma in Neural Networks &amp; Deep Learning. I spot real-world problems, form the idea, and use AI to ship working solutions. Shipped two live projects with active users. NPTEL certified in Computer Networks. Participated in Vadodara Hackathon 6.0.</p>
+      </div>
+
+      <div class="ats-sec">
+        <div class="ats-sec-title">Education</div>
+        <div class="ats-entry">
+          <div class="ats-row">
+            <span class="ats-etitle">B.Tech — Artificial Intelligence &amp; Data Science</span>
+            <span class="ats-edate">2024 – Present</span>
+          </div>
+          <div class="ats-esub">Parul University, Vadodara, Gujarat, India</div>
+        </div>
+        <div class="ats-entry">
+          <div class="ats-row">
+            <span class="ats-etitle">One Year Diploma — Neural Networks &amp; Deep Learning</span>
+            <span class="ats-edate">2025 – 2026</span>
+          </div>
+          <div class="ats-esub">Parul University (Simultaneous / Additional Program)</div>
+          <div class="ats-esub p2-only">Coursework: Fundamentals of Neural Networks, Deep Learning (CNNs, RNNs, GANs, LSTM, Attention), SQL &amp; Data Visualization, ML Fundamentals, Statistics &amp; EDA</div>
+        </div>
+      </div>
+
+      <div class="ats-sec">
+        <div class="ats-sec-title">Projects</div>
+
+        <div class="ats-entry">
+          <div class="ats-row">
+            <span class="ats-etitle">StudentMind — AI Study Companion</span>
+            <span class="ats-edate">studentmind-v1.vercel.app</span>
+          </div>
+          <div class="ats-esub">TypeScript · React 19 · Vite · Tailwind v4 | github.com/Yash-1505/studentmind-v1</div>
+          <ul class="ats-ul">
+            <li>Removed the prompt-crafting barrier for students — select a mode (summary, cheat sheet, quiz, learning path), upload a PDF/doc, get contextual AI output instantly</li>
+            <li class="p2-only">No backend; API key stays local in browser; supports Gemini and Groq (both free-tier)</li>
+            <li>Engineered rate limiting across providers, localStorage chat persistence (30 sessions), voice input, PDF/DOCX export, and 16-language support via Sarvam AI</li>
+          </ul>
+        </div>
+
+        <div class="ats-entry">
+          <div class="ats-row">
+            <span class="ats-etitle">NotebookLM Prompt Vault</span>
+            <span class="ats-edate">notebooklm-prompt-vault.vercel.app</span>
+          </div>
+          <div class="ats-esub">JavaScript · HTML/CSS · Prompt Engineering | github.com/Yash-1505/notebooklm-prompt-vault</div>
+          <ul class="ats-ul">
+            <li>Curated prompt library organised by program, semester, subject, and unit from official PIET syllabi</li>
+            <li class="p2-only">Covers B.Tech AI/DS, AI/ML, and NNDL Diploma batches — makes NotebookLM immediately useful without prompt trial-and-error</li>
+          </ul>
+        </div>
+
+        <div class="ats-entry">
+          <div class="ats-row">
+            <span class="ats-etitle">Fake News Detection using Deep Learning</span>
+            <span class="ats-edate">Academic · In Progress</span>
+          </div>
+          <div class="ats-esub">Python · TensorFlow · Keras · NLP</div>
+          <ul class="ats-ul">
+            <li>Applying CNN and RNN architectures to classify news articles as real or fake</li>
+            <li class="p2-only">NNDL Diploma capstone — full pipeline: NLP preprocessing, model training, evaluation metrics</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="ats-sec">
+        <div class="ats-sec-title">Skills</div>
+        <div class="ats-skill-row"><strong>AI / ML / Deep Learning:</strong> Python, TensorFlow, Keras, NumPy, Pandas, CNNs, RNNs, LSTMs, GANs, Backpropagation, Supervised ML, Unsupervised ML</div>
+        <div class="ats-skill-row"><strong>Web &amp; Full Stack:</strong> JavaScript, TypeScript, React, Next.js, HTML5, CSS3, MongoDB, Django, Flask</div>
+        <div class="ats-skill-row"><strong>Languages &amp; Tools:</strong> C, C++, Java, SQL, Git, GitHub</div>
+        <div class="ats-skill-row p2-only"><strong>Generative AI:</strong> LLMs, Prompt Engineering, Generative AI, AI Ethics</div>
+        <div class="ats-skill-row p2-only"><strong>Data:</strong> Statistical Analysis, EDA, Data Visualization</div>
+      </div>
+
+      <div class="ats-sec">
+        <div class="ats-sec-title">Certifications</div>
+        <div class="ats-cert-row">NPTEL — Computer Networks &amp; Internet Protocol | NPTEL | Jan–Apr 2026 | 4 Credits</div>
+        <div class="ats-cert-row">AI Fluency for Students | Anthropic (Claude) | 2026</div>
+        <div class="ats-cert-row">Generative AI Fundamentals (7 Badges) | Microsoft Learn | 2026</div>
+        <div class="ats-cert-row">Statistics 101 | eTrain (IBM) | 2026</div>
+        <div class="ats-cert-row p2-only">Python | eTrain (IBM) | Jul 2025</div>
+        <div class="ats-cert-row">IT Specialist — JavaScript | Certiport / Pearson VUE | 2025</div>
+        <div class="ats-cert-row">IT Specialist — HTML &amp; CSS | Certiport / Pearson VUE | 2025</div>
+      </div>
+
+      <div class="ats-sec p2-only">
+        <div class="ats-sec-title">Events &amp; Workshops</div>
+        <div class="ats-cert-row">Vadodara Hackathon 6.0 | Parul Innovation &amp; Entrepreneurship Research Centre | Sep 2025</div>
+        <div class="ats-cert-row">21 Days Masterclass on Jetson AI | Pantech e Learning / IETE | Nov–Dec 2024</div>
+      </div>
+
+    </div><!-- /ats-resume -->
+
+  </div><!-- /paper -->
+
+  <script>
+    function setStyle(s) {
+      document.documentElement.setAttribute('data-style', s);
+      document.getElementById('btnModern').classList.toggle('active', s === 'modern');
+      document.getElementById('btnAts').classList.toggle('active', s === 'ats');
+    }
+    function setPages(p) {
+      document.documentElement.setAttribute('data-pages', p);
+      document.getElementById('btn1').classList.toggle('active', p === '1');
+      document.getElementById('btn2').classList.toggle('active', p === '2');
+    }
+  </script>
+
+</body>
+</html>
