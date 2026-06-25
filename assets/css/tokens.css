@@ -1,0 +1,175 @@
+/*
+ * tokens.css — Shared design tokens
+ * Portfolio v2.0.0 · itsyashwanth.vercel.app
+ *
+ * Single source of truth for all CSS custom properties.
+ * Consumed by: index.css, resume.css
+ *
+ * Sections:
+ *   1. Brand palette — Stitch Fluid Creative Night (Void/Copper)
+ *   2. Semantic status tokens
+ *   3. macOS traffic-light chrome (form header)
+ *   4. Print / ATS stylesheet tokens
+ *   5. Spacing scale
+ *   6. Typography
+ *   7. Radii
+ *   8. Motion
+ *   9. Layout
+ *  10. Light theme overrides
+ */
+
+/* =============================================
+   1. BRAND PALETTE — STITCH FLUID CREATIVE NIGHT
+   ============================================= */
+:root {
+  --bg:          #161312;
+  --surface-lo:  #100e0d;
+  --surface:     #1e1b1a;
+  --surface-2:   #221f1e;
+  --surface-3:   #2d2928;
+  --surface-4:   #383433;
+  --text-1:      #e9e1df;
+  --text-2:      #dcc0bc;
+  --text-3:      #a48b87;
+  --accent:      #ffb4a7;
+  --accent-dim:  #df705f;
+  --accent-2:    #f5ba90;
+  --border:      #56423f;
+  --border-lo:   rgba(255,255,255,0.08);
+  --glass:       rgba(22,19,18,0.45);
+  --glass-b:     rgba(255,180,167,0.12);
+
+  /* =============================================
+     2. SEMANTIC STATUS TOKENS
+     ============================================= */
+  --color-on-accent:      #1e1b18;
+  --color-success:        #5CBF60;
+  --color-success-bg:     rgba(76,175,80,0.12);
+  --color-success-border: rgba(76,175,80,0.3);
+  --color-error:          #E07777;
+  --color-error-bg:       rgba(224,85,85,0.08);
+  --color-error-border:   rgba(224,85,85,0.3);
+
+  /* =============================================
+     3. MACOS TRAFFIC-LIGHT CHROME (form header)
+     ============================================= */
+  --color-traffic-red:    #FF5F57;
+  --color-traffic-yellow: #FEBC2E;
+  --color-traffic-green:  #28C840;
+
+  /* =============================================
+     4. PRINT / ATS STYLESHEET TOKENS
+     Used exclusively inside @media print in resume.css.
+     Defined here so they share the same token system.
+     ============================================= */
+  --print-bg:              #ffffff;
+  --print-text-primary:    #111111;
+  --print-text-body:       #222222;
+  --print-text-secondary:  #333333;
+  --print-text-meta:       #444444;
+  --print-text-faint:      #555555;
+  --print-text-caption:    #888888;
+  --print-border:          #cccccc;
+  --print-border-light:    #dddddd;
+  --print-border-section:  #333333;
+  --print-separator:       #aaaaaa;
+
+  /* =============================================
+     5. SPACING SCALE
+     ============================================= */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 1rem;
+  --space-4: calc(var(--space-3) * 1.5);
+  --space-5: calc(var(--space-3) * 2);
+  --space-6: calc(var(--space-3) * 3);
+  --space-7: calc(var(--space-3) * 5);
+  --space-8: calc(var(--space-3) * 8);
+  --section-gap: clamp(4rem, 8vw, 10rem);
+
+  /* =============================================
+     6. TYPOGRAPHY
+     ============================================= */
+  --font-display: 'Syne', system-ui, sans-serif;
+  --font-body:    'DM Sans', system-ui, sans-serif;
+  --font-mono:    'JetBrains Mono', 'Fira Code', monospace;
+
+  --text-hero:    clamp(2.8rem, 8vw, 6rem);
+  --text-display: clamp(2rem, 5vw, 3rem);
+  --text-xl:      clamp(1.4rem, 3vw, 1.75rem);
+  --text-lg:      clamp(1.1rem, 2vw, 1.25rem);
+  --text-base:    clamp(0.95rem, 1.2vw, 1.05rem);
+  --text-sm:      clamp(0.82rem, 1vw, 0.9rem);
+  --text-xs:      0.75rem;
+
+  /* =============================================
+     7. RADII
+     ============================================= */
+  --r-sm:   4px;
+  --r-md:   8px;
+  --r-lg:   16px;
+  --r-xl:   24px;
+  --r-2xl:  32px;
+  --r-full: 9999px;
+
+  /* =============================================
+     8. MOTION
+     ============================================= */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --dur:      220ms;
+
+  /* =============================================
+     9. LAYOUT
+     ============================================= */
+  --nav-h: 72px;
+
+  /* =============================================
+     10. DOWNLOAD SYSTEM TOKENS
+     Used by download modal, status dot, comparison
+     toast, and error modal in resume.css.
+     Maps to existing palette — no new colours added.
+     ============================================= */
+
+  /* Traffic-light status dot — maps to §3 tokens */
+  --dl-dot-warming: var(--color-traffic-red);
+  --dl-dot-ready:   var(--color-traffic-green);
+
+  /* Modal surface + backdrop */
+  --dl-modal-bg:      var(--surface-2);
+  --dl-modal-border:  var(--border);
+  --dl-modal-shadow:  0 24px 64px rgba(0,0,0,0.6);
+  --dl-backdrop:      rgba(0,0,0,0.7);
+
+  /* Option button hover */
+  --dl-option-hover:  var(--surface-3);
+  --dl-option-border: var(--border-lo);
+
+  /* Comparison toast + error modal */
+  --dl-toast-bg:      var(--surface-3);
+  --dl-toast-border:  var(--border);
+  --dl-error-bg:      var(--surface-2);
+}
+
+/* =============================================
+   10. LIGHT THEME OVERRIDES
+   Brand token overrides only — component-specific
+   light-mode rules live in index.css.
+   ============================================= */
+[data-theme="light"] {
+  --bg:          #faf6f2;
+  --surface-lo:  #ffffff;
+  --surface:     #f4ede8;
+  --surface-2:   #ece4de;
+  --surface-3:   #e3dad4;
+  --surface-4:   #dad0ca;
+  --text-1:      #1a1614;
+  --text-2:      #3e2e2a;
+  --text-3:      #7a6360;
+  --accent:      #b54e3a;
+  --accent-dim:  #d06050;
+  --accent-2:    #7a4a20;
+  --border:      #bfa8a2;
+  --border-lo:   rgba(0,0,0,0.13);
+  --glass:       rgba(250,246,242,0.98);
+  --glass-b:     rgba(181,78,58,0.16);
+}

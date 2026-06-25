@@ -1,0 +1,68 @@
+# ═══════════════════════════════════════════
+#  robots.txt — itsyashwanth.vercel.app
+#  Yashwanth Marella Portfolio
+#  Updated: 2026
+# ═══════════════════════════════════════════
+
+# ─── Standard search engines ────────────────
+User-agent: *
+Allow: /
+
+# ─── Google ─────────────────────────────────
+User-agent: Googlebot
+Allow: /
+
+User-agent: Googlebot-Image
+Allow: /
+
+# Google AI (Bard / Gemini) — allow indexing
+User-agent: Google-Extended
+Allow: /
+
+# ─── Bing / Microsoft ───────────────────────
+User-agent: Bingbot
+Allow: /
+
+# ─── AI / LLM Crawlers ──────────────────────
+# Allowing all LLM crawlers so Yashwanth Marella
+# appears in AI-powered search results and knowledge bases.
+
+# OpenAI / ChatGPT
+User-agent: GPTBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+# Anthropic / Claude
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+# Perplexity
+User-agent: PerplexityBot
+Allow: /
+
+# Meta / Llama
+User-agent: FacebookBot
+Allow: /
+
+# Common Crawl (training data)
+User-agent: CCBot
+Allow: /
+
+# Cohere
+User-agent: cohere-ai
+Allow: /
+
+# You.com
+User-agent: YouBot
+Allow: /
+
+# ─── Sitemap ────────────────────────────────
+Sitemap: https://itsyashwanth.vercel.app/sitemap.xml
+
+# ─── Host ───────────────────────────────────
+Host: itsyashwanth.vercel.app

@@ -1,0 +1,1004 @@
+/*
+ * resume.css — Resume page component styles
+ * Portfolio v2.0.0 · itsyashwanth.vercel.app
+ *
+ * Requires: tokens.css (loaded first via resume.html <head>)
+ *
+ * Sections:
+ *   Screen base · Layout · Nav · Resume header
+ *   Contact row · Section headings · Experience
+ *   Skills · Projects · Certifications · Education
+ *   Print / ATS stylesheet  (@media print)
+ *
+ * All @media print color values reference --print-* tokens
+ * defined in tokens.css so brand changes propagate here too.
+ */
+
+
+/* =============================================
+   SCREEN BASE
+   ============================================= */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text-1);
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+  min-height: 100vh;
+}
+
+a { color: var(--accent); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+/* =============================================
+   TOP NAV BAR
+   ============================================= */
+.resume-nav {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: rgba(22,19,18,0.7);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border-lo);
+  padding: 0.75rem clamp(1.5rem, 5vw, 4rem);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.nav-brand {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 1.1rem;
+  letter-spacing: -0.03em;
+  color: var(--accent);
+}
+
+.nav-brand-period { color: var(--accent); }
+
+.nav-actions { display: flex; gap: 0.75rem; align-items: center; }
+
+.btn-back {
+  font-size: 0.82rem;
+  padding: 0.4rem 1rem;
+  border-radius: var(--r-full);
+  border: 1px solid var(--border-lo);
+  color: var(--text-2);
+  background: transparent;
+  cursor: pointer;
+  display: inline-block;
+  transition: border-color 0.2s, color 0.2s;
+}
+.btn-back:hover { border-color: var(--accent); color: var(--accent); text-decoration: none; }
+
+.btn-print {
+  font-size: 0.82rem;
+  font-weight: 600;
+  padding: 0.4rem 1rem;
+  border-radius: var(--r-full);
+  border: none;
+  background: var(--accent);
+  color: var(--color-on-accent);
+  cursor: pointer;
+  display: inline-block;
+  transition: box-shadow 0.2s, transform 0.2s;
+}
+.btn-print:hover { transform: translateY(-1px); box-shadow: 0 6px 20px rgba(255,180,167,0.3); text-decoration: none; }
+
+/* =============================================
+   PRINT-DESTINATION HINT (screen only)
+   ============================================= */
+.print-tip-banner {
+  text-align: center;
+  font-size: 0.78rem;
+  color: var(--text-2);
+  background: color-mix(in srgb, var(--accent) 8%, transparent);
+  border-bottom: 1px solid var(--border-lo);
+  padding: 0.55rem 1rem;
+  margin: 0;
+}
+
+.print-tip-banner strong { color: var(--accent); }
+
+/* =============================================
+   PAGE WRAPPER — A4-like column
+   ============================================= */
+.page-wrap {
+  max-width: 860px;
+  margin: 2.5rem auto;
+  padding: 0 clamp(1.5rem, 5vw, 3rem);
+  padding-bottom: 5rem;
+}
+
+/* =============================================
+   RESUME HEADER
+   ============================================= */
+.resume-header {
+  background: var(--glass);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--glass-b);
+  border-radius: var(--r-xl);
+  padding: 2rem 2.5rem;
+  margin-bottom: 1.5rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.resume-header::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--accent), transparent 70%);
+}
+
+.resume-name {
+  font-family: var(--font-display);
+  font-size: clamp(1.8rem, 5vw, 2.6rem);
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  line-height: 1;
+  margin-bottom: 0.35rem;
+  color: var(--text-1);
+}
+
+.resume-name .period { color: var(--accent); }
+
+.resume-role {
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  color: var(--accent);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: 1.25rem;
+}
+
+.contact-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1.5rem;
+  font-size: 0.82rem;
+  font-family: var(--font-mono);
+  color: var(--text-2);
+}
+
+.contact-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  color: var(--text-2);
+}
+
+.contact-item a { color: var(--text-2); }
+.contact-item a:hover { color: var(--accent); }
+
+.contact-sep { color: var(--border); }
+
+/* =============================================
+   SECTION
+   ============================================= */
+.resume-section {
+  background: var(--glass);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--glass-b);
+  border-radius: var(--r-xl);
+  padding: 1.75rem 2.5rem;
+  margin-bottom: 1.25rem;
+}
+
+.section-title {
+  font-family: var(--font-display);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 1.25rem;
+  padding-bottom: 0.6rem;
+  border-bottom: 1px solid var(--border-lo);
+}
+
+/* =============================================
+   SUMMARY
+   ============================================= */
+.summary-text {
+  color: var(--text-2);
+  line-height: 1.8;
+  font-size: 0.93rem;
+}
+
+/* =============================================
+   EDUCATION
+   ============================================= */
+.edu-item { margin-bottom: 1.1rem; }
+.edu-item:last-child { margin-bottom: 0; }
+
+.edu-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 0.25rem;
+  margin-bottom: 0.2rem;
+}
+
+.edu-degree {
+  font-family: var(--font-display);
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--text-1);
+}
+
+.edu-date {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--text-3);
+  white-space: nowrap;
+}
+
+.edu-school {
+  font-size: 0.88rem;
+  color: var(--text-2);
+}
+
+.edu-detail {
+  font-size: 0.82rem;
+  color: var(--text-3);
+  font-family: var(--font-mono);
+  margin-top: 0.2rem;
+}
+
+/* =============================================
+   SKILLS
+   ============================================= */
+.skills-list { display: flex; flex-direction: column; gap: 0.65rem; }
+
+.skill-row {
+  display: grid;
+  grid-template-columns: 140px 1fr;
+  gap: 0.75rem;
+  align-items: baseline;
+}
+
+.skill-cat {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--accent);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.skill-vals {
+  font-size: 0.85rem;
+  color: var(--text-2);
+  line-height: 1.5;
+}
+
+/* =============================================
+   PROJECTS
+   ============================================= */
+.project-item { margin-bottom: 1.35rem; }
+.project-item:last-child { margin-bottom: 0; }
+
+.project-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 0.4rem;
+}
+
+.project-name {
+  font-family: var(--font-display);
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--text-1);
+}
+
+.project-links { display: flex; gap: 0.6rem; flex-wrap: wrap; }
+
+.project-link {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--accent);
+  background: color-mix(in srgb, var(--accent) 10%, transparent);
+  border: 1px solid color-mix(in srgb, var(--accent) 25%, transparent);
+  padding: 0.15rem 0.5rem;
+  border-radius: var(--r-sm);
+}
+.project-link:hover { background: color-mix(in srgb, var(--accent) 20%, transparent); text-decoration: none; }
+
+.project-desc {
+  font-size: 0.88rem;
+  color: var(--text-2);
+  line-height: 1.75;
+  margin-bottom: 0.5rem;
+}
+
+.project-stack {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+}
+
+.stack-tag {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  color: var(--text-3);
+  background: var(--surface-2);
+  border: 1px solid var(--border-lo);
+  padding: 0.15rem 0.5rem;
+  border-radius: 3px;
+}
+
+/* =============================================
+   CERTIFICATIONS
+   ============================================= */
+.cert-list { display: flex; flex-direction: column; gap: 0; }
+
+.cert-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 0.25rem 1rem;
+  padding: 0.55rem 0;
+  border-bottom: 1px solid var(--border-lo);
+}
+.cert-item:last-child { border-bottom: none; }
+
+.cert-name {
+  font-size: 0.88rem;
+  font-weight: 500;
+  color: var(--text-1);
+  flex: 1;
+}
+
+.cert-issuer {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--text-3);
+  white-space: nowrap;
+}
+
+/* =============================================
+   FOOTER
+   ============================================= */
+.resume-footer {
+  text-align: center;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--text-3);
+  margin-top: 2rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border-lo);
+}
+
+/* =============================================
+   RESPONSIVE
+   ============================================= */
+@media (max-width: 600px) {
+  .resume-header { padding: 1.5rem; }
+  .resume-section { padding: 1.25rem 1.5rem; }
+  .skill-row { grid-template-columns: 110px 1fr; }
+  .project-header { flex-direction: column; }
+}
+
+/* =============================================
+   PRINT / ATS STYLESHEET
+   ATS parsers read printed/screen text — this
+   ensures clean, single-column, high-contrast,
+   serif-free output when saved as PDF.
+   ============================================= */
+@media print {
+  @page {
+    margin: 0.6in 0.65in;
+    size: A4;
+  }
+
+  /* IMPORTANT — keeps the PDF text-extractable instead of a flat image.
+     Chromium has a known print bug: if ANY element on the page uses
+     backdrop-filter, the browser falls back to rasterizing the entire
+     page into a single bitmap for print/"Save as PDF" — even elements
+     that are display:none. This page uses backdrop-filter for the glass
+     effect on .resume-header / .resume-section / .resume-nav, so it must
+     be killed everywhere (not just the elements that visibly use it) to
+     guarantee real, selectable/copyable, ATS-parseable text in the
+     exported PDF. `filter` and `box-shadow` are reset for the same reason
+     — both can also force GPU rasterization in print. */
+  * {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    filter: none !important;
+    box-shadow: none !important;
+  }
+
+  * {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  body {
+    background: var(--print-bg) !important;
+    color: var(--print-text-primary) !important;
+    font-family: Arial, Helvetica, sans-serif !important;
+    font-size: 10.5pt !important;
+    line-height: 1.55 !important;
+  }
+
+  a { color: var(--print-text-primary) !important; text-decoration: none !important; }
+
+  /* Hide nav and print button */
+  .resume-nav,
+  .btn-print,
+  .btn-back,
+  .print-tip-banner { display: none !important; }
+
+  /* Remove backdrop filters and glass effects */
+  .page-wrap {
+    max-width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  .resume-header,
+  .resume-section {
+    background: transparent !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    border: none !important;
+    border-radius: 0 !important;
+    padding: 0 !important;
+    margin-bottom: 0 !important;
+    box-shadow: none !important;
+  }
+
+  .resume-header::before { display: none !important; }
+
+  /* Section separators become lines */
+  .resume-section {
+    margin-bottom: 0.1in !important;
+    padding-bottom: 0.1in !important;
+    border-bottom: 1px solid var(--print-border) !important;
+    page-break-inside: avoid;
+  }
+
+  .resume-section:last-of-type {
+    border-bottom: none !important;
+  }
+
+  /* Name */
+  .resume-name {
+    font-family: Arial, sans-serif !important;
+    font-size: 20pt !important;
+    font-weight: bold !important;
+    color: var(--print-text-primary) !important;
+    margin-bottom: 2pt !important;
+    letter-spacing: 0 !important;
+  }
+
+  .resume-name .period { color: var(--print-text-primary) !important; }
+
+  /* Role */
+  .resume-role {
+    font-family: Arial, sans-serif !important;
+    font-size: 10pt !important;
+    color: var(--print-text-meta) !important;
+    text-transform: none !important;
+    letter-spacing: 0 !important;
+    margin-bottom: 6pt !important;
+  }
+
+  /* Contact row */
+  .contact-row {
+    font-family: Arial, sans-serif !important;
+    font-size: 9.5pt !important;
+    color: var(--print-text-secondary) !important;
+    gap: 0.2rem 1rem !important;
+    margin-bottom: 0.1in !important;
+  }
+
+  .contact-item a { color: var(--print-text-secondary) !important; }
+
+  /* Section titles */
+  .section-title {
+    font-family: Arial, sans-serif !important;
+    font-size: 10pt !important;
+    font-weight: bold !important;
+    color: var(--print-text-primary) !important;
+    letter-spacing: 0.04em !important;
+    text-transform: uppercase !important;
+    margin-bottom: 6pt !important;
+    padding-bottom: 3pt !important;
+    border-bottom: 1.5px solid var(--print-border-section) !important;
+  }
+
+  /* Summary */
+  .summary-text {
+    font-family: Arial, sans-serif !important;
+    font-size: 10.5pt !important;
+    color: var(--print-text-body) !important;
+    line-height: 1.5 !important;
+  }
+
+  /* Education */
+  .edu-degree {
+    font-family: Arial, sans-serif !important;
+    font-size: 10.5pt !important;
+    font-weight: bold !important;
+    color: var(--print-text-primary) !important;
+  }
+
+  .edu-date {
+    font-family: Arial, sans-serif !important;
+    font-size: 9.5pt !important;
+    color: var(--print-text-faint) !important;
+  }
+
+  .edu-school, .edu-detail {
+    font-family: Arial, sans-serif !important;
+    font-size: 10pt !important;
+    color: var(--print-text-secondary) !important;
+  }
+
+  /* Skills */
+  .skill-row {
+    grid-template-columns: 130pt 1fr !important;
+  }
+
+  .skill-cat {
+    font-family: Arial, sans-serif !important;
+    font-size: 9.5pt !important;
+    font-weight: bold !important;
+    color: var(--print-text-primary) !important;
+    text-transform: none !important;
+    letter-spacing: 0 !important;
+  }
+
+  .skill-vals {
+    font-family: Arial, sans-serif !important;
+    font-size: 10pt !important;
+    color: var(--print-text-body) !important;
+  }
+
+  /* Projects */
+  .project-name {
+    font-family: Arial, sans-serif !important;
+    font-size: 10.5pt !important;
+    font-weight: bold !important;
+    color: var(--print-text-primary) !important;
+  }
+
+  .project-desc {
+    font-family: Arial, sans-serif !important;
+    font-size: 10pt !important;
+    color: var(--print-text-body) !important;
+  }
+
+  .project-link {
+    font-family: Arial, sans-serif !important;
+    font-size: 9pt !important;
+    color: var(--print-text-meta) !important;
+    background: transparent !important;
+    border: none !important;
+    padding: 0 !important;
+  }
+
+  .project-stack { margin-top: 3pt !important; }
+
+  .stack-tag {
+    font-family: Arial, sans-serif !important;
+    font-size: 9pt !important;
+    color: var(--print-text-meta) !important;
+    background: transparent !important;
+    border: none !important;
+    padding: 0 !important;
+  }
+
+  .stack-tag::after { content: " · "; color: var(--print-separator); }
+  .stack-tag:last-child::after { content: ""; }
+
+  /* Certs */
+  .cert-item {
+    border-bottom: 0.5px solid var(--print-border-light) !important;
+    padding: 4pt 0 !important;
+  }
+
+  .cert-name {
+    font-family: Arial, sans-serif !important;
+    font-size: 10pt !important;
+    color: var(--print-text-primary) !important;
+  }
+
+  .cert-issuer {
+    font-family: Arial, sans-serif !important;
+    font-size: 9pt !important;
+    color: var(--print-text-faint) !important;
+  }
+
+  /* Footer */
+  .resume-footer {
+    font-family: Arial, sans-serif !important;
+    font-size: 8pt !important;
+    color: var(--print-text-caption) !important;
+  }
+}
+
+/* ─────────────────────────────────────────────────────────────
+   DOWNLOAD SYSTEM — v3.0.0
+   Components: status dot, download modal, option buttons,
+               comparison toast, error modal, pdf-export-mode
+   All tokens sourced from tokens.css §10.
+   ───────────────────────────────────────────────────────────── */
+
+/* ── Traffic-light status dot ────────────────────────────────
+   Sits in .nav-actions next to #downloadBtn.
+   data-state: 'warming' | 'ready' | 'failed'
+   ------------------------------------------------------------ */
+.dl-status-dot {
+  display:       inline-block;
+  width:         8px;
+  height:        8px;
+  border-radius: 50%;
+  flex-shrink:   0;
+  transition:    background-color 400ms var(--ease-out),
+                 box-shadow       400ms var(--ease-out);
+}
+
+.dl-status-dot[data-state="warming"],
+.dl-status-dot[data-state="failed"] {
+  background-color: var(--dl-dot-warming);
+  box-shadow:       0 0 0 0 var(--dl-dot-warming);
+  animation:        dl-dot-pulse 1.6s ease-in-out infinite;
+}
+
+.dl-status-dot[data-state="failed"] {
+  animation: none; /* static red on failed */
+}
+
+.dl-status-dot[data-state="ready"] {
+  background-color: var(--dl-dot-ready);
+  box-shadow:       0 0 6px 1px rgba(40,200,64,0.4);
+  animation:        none;
+}
+
+@keyframes dl-dot-pulse {
+  0%,100% { box-shadow: 0 0 0 0   rgba(255,95,87,0.6); }
+  50%      { box-shadow: 0 0 0 6px rgba(255,95,87,0);   }
+}
+
+/* ── Download Modal ──────────────────────────────────────────
+   Centered dialog overlay.
+   ------------------------------------------------------------ */
+.dl-modal {
+  position:       fixed;
+  inset:          0;
+  z-index:        9000;
+  display:        flex;
+  align-items:    center;
+  justify-content: center;
+}
+
+.dl-modal[hidden] { display: none; }
+
+.dl-modal-backdrop {
+  position:   absolute;
+  inset:      0;
+  background: var(--dl-backdrop);
+  backdrop-filter: blur(4px);
+}
+
+.dl-modal-panel {
+  position:         relative;
+  z-index:          1;
+  background:       var(--dl-modal-bg);
+  border:           1px solid var(--dl-modal-border);
+  border-radius:    var(--r-xl);
+  box-shadow:       var(--dl-modal-shadow);
+  padding:          2rem;
+  width:            min(92vw, 440px);
+  display:          flex;
+  flex-direction:   column;
+  gap:              1rem;
+}
+
+.dl-modal-header {
+  display:     flex;
+  align-items: center;
+  gap:         0.75rem;
+}
+
+.dl-modal-header h3 {
+  font-family:  var(--font-display);
+  font-size:    var(--text-lg);
+  font-weight:  700;
+  color:        var(--text-1);
+  margin:       0;
+  flex:         1;
+}
+
+.dl-modal-hint {
+  font-size:  var(--text-sm);
+  color:      var(--text-3);
+  margin:     0;
+}
+
+.dl-options {
+  display:        flex;
+  flex-direction: column;
+  gap:            0.75rem;
+}
+
+/* ── Option buttons (ATS / Modern) ─────────────────────────── */
+.dl-option {
+  display:        flex;
+  align-items:    center;
+  gap:            1rem;
+  padding:        1rem 1.25rem;
+  background:     var(--surface);
+  border:         1px solid var(--dl-option-border);
+  border-radius:  var(--r-lg);
+  cursor:         pointer;
+  text-align:     left;
+  transition:     background var(--dur) var(--ease-out),
+                  border-color var(--dur) var(--ease-out),
+                  transform 120ms var(--ease-out);
+  width:          100%;
+}
+
+.dl-option:hover,
+.dl-option:focus-visible {
+  background:     var(--dl-option-hover);
+  border-color:   var(--accent);
+  transform:      translateY(-1px);
+  outline:        none;
+}
+
+.dl-option:active { transform: translateY(0); }
+
+.dl-option-icon {
+  font-size:   1.5rem;
+  flex-shrink: 0;
+  line-height: 1;
+}
+
+.dl-option-info {
+  display:        flex;
+  flex-direction: column;
+  gap:            0.2rem;
+}
+
+.dl-option-info strong {
+  font-size:   var(--text-base);
+  font-weight: 700;
+  color:       var(--text-1);
+}
+
+.dl-option-info span {
+  font-size:  var(--text-xs);
+  color:      var(--text-3);
+  line-height: 1.4;
+}
+
+/* Close button */
+.dl-modal-close {
+  position:      absolute;
+  top:           1rem;
+  right:         1rem;
+  background:    none;
+  border:        none;
+  color:         var(--text-3);
+  font-size:     1.25rem;
+  line-height:   1;
+  cursor:        pointer;
+  padding:       0.25rem 0.5rem;
+  border-radius: var(--r-sm);
+  transition:    color var(--dur), background var(--dur);
+}
+.dl-modal-close:hover { color: var(--text-1); background: var(--surface-3); }
+
+/* ── Comparison Toast ────────────────────────────────────────
+   Bottom-center toast after Modern PDF download.
+   ------------------------------------------------------------ */
+.dl-comparison-toast {
+  position:       fixed;
+  bottom:         1.5rem;
+  left:           50%;
+  transform:      translateX(-50%) translateY(120%);
+  z-index:        9100;
+  display:        flex;
+  align-items:    center;
+  gap:            0.75rem;
+  padding:        0.75rem 1rem;
+  background:     var(--dl-toast-bg);
+  border:         1px solid var(--dl-toast-border);
+  border-radius:  var(--r-full);
+  box-shadow:     0 8px 32px rgba(0,0,0,0.4);
+  white-space:    nowrap;
+  opacity:        0;
+  transition:     transform 300ms var(--ease-out),
+                  opacity  300ms var(--ease-out);
+}
+
+.dl-comparison-toast.dl-toast--visible {
+  transform: translateX(-50%) translateY(0);
+  opacity:   1;
+}
+
+.dl-comparison-toast.dl-toast--hiding {
+  transform: translateX(-50%) translateY(120%);
+  opacity:   0;
+}
+
+.dl-toast-check {
+  color:       var(--color-success);
+  font-size:   var(--text-base);
+  font-weight: 700;
+}
+
+.dl-toast-msg {
+  font-size:  var(--text-sm);
+  color:      var(--text-2);
+}
+
+.dl-toast-compare {
+  font-size:     var(--text-sm);
+  color:         var(--accent);
+  font-weight:   600;
+  background:    none;
+  border:        none;
+  cursor:        pointer;
+  padding:       0;
+  transition:    color var(--dur);
+  white-space:   nowrap;
+}
+.dl-toast-compare:hover { color: var(--accent-2); }
+
+.dl-toast-dismiss {
+  background:    none;
+  border:        none;
+  color:         var(--text-3);
+  font-size:     1rem;
+  cursor:        pointer;
+  padding:       0 0.25rem;
+  line-height:   1;
+  transition:    color var(--dur);
+}
+.dl-toast-dismiss:hover { color: var(--text-1); }
+
+/* ── Error Modal ─────────────────────────────────────────────
+   Last-resort failure dialog.
+   ------------------------------------------------------------ */
+.dl-error-modal {
+  position:        fixed;
+  inset:           0;
+  z-index:         9200;
+  display:         flex;
+  align-items:     center;
+  justify-content: center;
+}
+
+.dl-error-backdrop {
+  position:   absolute;
+  inset:      0;
+  background: var(--dl-backdrop);
+}
+
+.dl-error-panel {
+  position:       relative;
+  z-index:        1;
+  background:     var(--dl-error-bg);
+  border:         1px solid var(--color-error-border);
+  border-radius:  var(--r-xl);
+  box-shadow:     var(--dl-modal-shadow);
+  padding:        2rem;
+  width:          min(92vw, 400px);
+  display:        flex;
+  flex-direction: column;
+  gap:            1rem;
+}
+
+.dl-error-title {
+  font-family: var(--font-display);
+  font-size:   var(--text-lg);
+  font-weight: 700;
+  color:       var(--color-error);
+  margin:      0;
+}
+
+.dl-error-body {
+  font-size:   var(--text-sm);
+  color:       var(--text-2);
+  line-height: 1.6;
+  margin:      0;
+}
+
+.dl-error-actions {
+  display:   flex;
+  gap:       0.75rem;
+  flex-wrap: wrap;
+}
+
+.dl-error-btn {
+  padding:       0.6rem 1.25rem;
+  border-radius: var(--r-md);
+  font-size:     var(--text-sm);
+  font-weight:   600;
+  cursor:        pointer;
+  border:        1px solid transparent;
+  transition:    background var(--dur), border-color var(--dur);
+}
+
+.dl-error-btn--primary {
+  background:   var(--accent);
+  color:        var(--color-on-accent);
+  border-color: var(--accent);
+}
+.dl-error-btn--primary:hover { background: var(--accent-dim); border-color: var(--accent-dim); }
+
+.dl-error-btn--ghost {
+  background:   transparent;
+  color:        var(--text-2);
+  border-color: var(--border);
+}
+.dl-error-btn--ghost:hover { background: var(--surface-3); }
+
+/* ── pdf-export-mode ─────────────────────────────────────────
+   Applied to <html> during html2pdf.js canvas render (M5).
+   Strips backdrop-filter so html2canvas can paint surfaces.
+   ------------------------------------------------------------ */
+.pdf-export-mode *,
+.pdf-export-mode *::before,
+.pdf-export-mode *::after {
+  backdrop-filter:         none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+.pdf-export-mode .resume-header,
+.pdf-export-mode .section-card,
+.pdf-export-mode .project-card,
+.pdf-export-mode .cert-card,
+.pdf-export-mode .page-wrap {
+  background: var(--surface) !important;
+}
+
+/* html2canvas can't parse color-mix(); it has no native fallback,
+   and erroring on this value is the likely reason the Modern
+   (html2pdf) path fails outright rather than just mis-rendering. */
+.pdf-export-mode .project-link {
+  background:   var(--surface-3) !important;
+  border-color: var(--accent-dim) !important;
+}
+.pdf-export-mode .project-link:hover {
+  background: var(--surface-4) !important;
+}
+
+/* ── Modern PDF rendering fixes (v3.2.0) ────────────────────
+   Fix 1: Cert items stack name/issuer vertically so long cert-names
+   (e.g. "Vadodara Hackathon 6.0 — Participant") don't wrap mid-text
+   when the issuer string holds its full nowrap width alongside.
+   Fix 2: Prevent html2pdf from splitting section/project cards
+   across pages, which leaves large blank gaps. break-inside and
+   page-break-inside must both be set for cross-browser canvas render.
+   ------------------------------------------------------------ */
+.pdf-export-mode .cert-item {
+  flex-direction: column !important;
+  align-items:    flex-start !important;
+  gap:            0.05rem !important;
+}
+
+.pdf-export-mode .section-card,
+.pdf-export-mode .project-card,
+.pdf-export-mode .cert-card {
+  break-inside:      avoid !important;
+  page-break-inside: avoid !important;
+}

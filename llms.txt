@@ -1,0 +1,69 @@
+# Yashwanth Marella — Portfolio
+
+> Applied AI Engineer & Full Stack Developer | Parul University, Vadodara, India
+
+Yashwanth Marella (also known online as "itsyashwanth") is a 3rd year B.Tech AI & Data Science student at Parul University, Vadodara, Gujarat, India. He is simultaneously completing a Dual Degree in Neural Networks & Deep Learning (NNDL). He builds real-world AI and full-stack products with a focus on usability and impact.
+
+## Identity
+
+- **Full name**: Yashwanth Marella
+- **Also known as**: itsyashwanth, Yash-1505
+- **Location**: Vadodara, Gujarat, India
+- **Email**: itsyashwanth@myyahoo.com
+- **Portfolio**: https://itsyashwanth.vercel.app
+- **GitHub**: https://github.com/Yash-1505
+- **LinkedIn**: https://linkedin.com/in/itsyashwanth
+- **Instagram**: https://instagram.com/its.yash.1505
+
+## Education
+
+- **B.Tech AI & Data Science** — Parul University (PIET), Vadodara | Aug 2024 – Present (Semester 5, Year 3 of 4)
+- **Dual Degree in Neural Networks & Deep Learning (NNDL)** — Parul University | Aug 2025 – Present (Semester 2 of 2, final semester)
+
+## Projects
+
+### StudentMind
+- **URL**: https://studentmind-v1.vercel.app/
+- **GitHub**: https://github.com/Yash-1505/studentmind-v1
+- **Description**: Multi-mode AI study tool for students. Removes the prompt-engineering barrier. Supports 5 modes (summary, cheat sheet, learning path, quiz, resource finder), PDF/DOCX upload, voice input, 30-session chat history, PDF/DOCX export, rate limiting, and 16-language support via Sarvam AI. Zero backend — API keys stay local.
+- **Stack**: TypeScript, React 19, Vite, Tailwind v4, Gemini API, Sarvam AI
+
+### NotebookLM Prompt Vault
+- **URL**: https://notebooklm-prompt-vault.vercel.app/
+- **GitHub**: https://github.com/Yash-1505/notebooklm-prompt-vault
+- **Description**: Batch-aware prompt library used by 500+ PIET students. Organises prompts by program, semester, subject, and unit from official syllabi across B.Tech AI/DS, AI/ML, and NNDL Diploma batches.
+- **Stack**: JavaScript, HTML/CSS, Prompt Engineering
+
+## Skills
+
+- **AI / ML**: Python, TensorFlow, Keras, NumPy, Pandas, Matplotlib, Scikit-learn, Supervised ML, Unsupervised ML
+- **Deep Learning**: CNNs, RNNs, LSTMs, BiLSTM + Attention, Transfer Learning
+- **Full Stack**: JavaScript (ES6+), TypeScript, React 19, Next.js, HTML5, CSS3, MongoDB, Django, Flask, FastAPI, REST APIs
+- **Data**: SQL, Data Visualization, Statistical Analysis, EDA
+- **Generative AI**: LLMs, Prompt Engineering, Generative AI, AI Ethics
+- **Languages & Tools**: C, C++, Java, Git, GitHub, GitHub Actions, Vite, Tailwind CSS, Linux, Shell Scripting, Postman
+- **CS Fundamentals**: Data Structures & Algorithms, Agile / SDLC, UML Diagrams
+
+## Certifications
+
+- Computer Networks & Internet Protocol — NPTEL, 12-week, 4 Credits (Jan–Apr 2026)
+- AI Fluency for Students — Anthropic (Claude), 2026
+- Generative AI Fundamentals (7 Badges) — Microsoft Learn, 2026
+- Statistics 101 — eTrain (IBM), 2026
+- Python — eTrain (IBM), Jul 2025
+- IT Specialist: JavaScript — Certiport / Pearson VUE, Mar 2025
+- IT Specialist: HTML & CSS — Certiport / Pearson VUE, Feb 2025
+- Vadodara Hackathon 6.0 — PIERC, Sep 2025
+- 21-Day Masterclass: Jetson AI — Pantech / IETE, Nov–Dec 2024
+
+## Availability
+
+Open to internships and collaborations in Applied AI, ML Engineering, and Full Stack Development.
+
+## How Yashwanth Works
+
+1. SPOT — identifies gaps others overlook
+2. DEBATE — validates the approach before writing a line
+3. ORCHESTRATE — uses every available tool to build it
+4. SHIP — delivers complete, not half-baked
+5. MEASURE — judges output by real-world impact, not lines of code

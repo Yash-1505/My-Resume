@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="dark light">
+  <meta name="theme-color" content="#161312" media="(prefers-color-scheme: dark)">
+  <meta name="theme-color" content="#faf6f2" media="(prefers-color-scheme: light)">
+  <title>Yashwanth Marella — Resume</title>
+  <meta name="description" content="Resume of Yashwanth Marella — Applied AI Engineer, B.Tech AI & DS student at Parul University, Vadodara.">
+  <meta name="author" content="Yashwanth Marella">
+  <link rel="canonical" href="https://itsyashwanth.vercel.app/resume">
+
+  <!-- ═══ FONTS ═══ -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <!-- ═══ STYLESHEETS ═══ -->
+  <!-- tokens.css must be first — all other sheets depend on its custom properties -->
+  <link rel="stylesheet" href="assets/css/tokens.css">
+  <link rel="stylesheet" href="assets/css/resume.css">
+</head>
+<body>
+
+  <!-- NAV (screen only — hidden on print) -->
+  <nav class="resume-nav">
+    <a href="/" class="nav-brand">YM<span class="nav-brand-period">.</span></a>
+    <div class="nav-actions">
+      <a href="/" class="btn-back">← Back to Portfolio</a>
+      <!-- Traffic-light dot: data-state driven by M1 LibCheck in resume.js
+           warming = libs loading | ready = libs loaded | failed = load error -->
+      <span
+        id="dlStatusDot"
+        class="dl-status-dot"
+        data-state="warming"
+        aria-label="PDF generator loading…"
+        title="PDF generator status"
+      ></span>
+      <button class="btn-print" id="downloadBtn" aria-haspopup="dialog">
+        Download PDF ↓
+      </button>
+    </div>
+  </nav>
+
+  <div class="page-wrap">
+
+    <!-- ─── HEADER ─── -->
+    <header class="resume-header">
+      <h1 class="resume-name">Yashwanth Marella<span class="period">.</span></h1>
+      <p class="resume-role">Applied AI Engineer &nbsp;·&nbsp; B.Tech AI &amp; Data Science</p>
+      <div class="contact-row">
+        <span class="contact-item">
+          <span>✉</span>
+          <a href="mailto:itsyashwanth@myyahoo.com">itsyashwanth@myyahoo.com</a>
+        </span>
+        <span class="contact-sep">|</span>
+        <span class="contact-item">
+          <span>🌐</span>
+          <a href="https://itsyashwanth.vercel.app" target="_blank">itsyashwanth.vercel.app</a>
+        </span>
+        <span class="contact-sep">|</span>
+        <span class="contact-item">
+          <span>in</span>
+          <a href="https://linkedin.com/in/itsyashwanth" target="_blank">linkedin.com/in/itsyashwanth</a>
+        </span>
+        <span class="contact-sep">|</span>
+        <span class="contact-item">
+          <span>⌥</span>
+          <a href="https://github.com/Yash-1505" target="_blank">github.com/Yash-1505</a>
+        </span>
+        <span class="contact-sep">|</span>
+        <span class="contact-item">
+          <span>📍</span>
+          Vadodara, Gujarat, India
+        </span>
+      </div>
+    </header>
+
+    <!-- ─── SUMMARY ─── -->
+    <section class="resume-section" aria-label="Professional Summary">
+      <h2 class="section-title">Summary</h2>
+      <p class="summary-text">
+        3rd year B.Tech AI &amp; Data Science student at Parul University, Vadodara, simultaneously completing a Dual Degree
+        in Neural Networks &amp; Deep Learning. Focused on applied machine learning, deep learning architectures, and
+        full-stack development. I build real products — StudentMind (React 19 + Gemini API, live) and NotebookLM Prompt
+        Vault (live) — both with actual users. Open to internships and collaborations in AI/ML engineering, applied AI
+        product development, and full-stack roles.
+      </p>
+    </section>
+
+    <!-- ─── EDUCATION ─── -->
+    <section class="resume-section" aria-label="Education">
+      <h2 class="section-title">Education</h2>
+
+      <div class="edu-item">
+        <div class="edu-header">
+          <h3 class="edu-degree">B.Tech — Artificial Intelligence &amp; Data Science</h3>
+          <span class="edu-date">Aug 2024 – Present</span>
+        </div>
+        <p class="edu-school">Parul University (PIET), Vadodara, Gujarat, India</p>
+        <p class="edu-detail">Course: 303105308 — AI Laboratory &amp; practicals · CGPA: In progress · Currently in Semester 5 (Year 3 of 4)</p>
+      </div>
+
+      <div class="edu-item">
+        <div class="edu-header">
+          <h3 class="edu-degree">Dual Degree — Neural Networks &amp; Deep Learning</h3>
+          <span class="edu-date">Aug 2025 – Present</span>
+        </div>
+        <p class="edu-school">Parul University, Vadodara, Gujarat, India</p>
+        <p class="edu-detail">Concurrent dual degree alongside B.Tech, currently in Semester 2 of 2 (final semester) — covers CNNs, RNNs, LSTMs, attention mechanisms, GANs, transfer learning</p>
+      </div>
+    </section>
+
+    <!-- ─── SKILLS ─── -->
+    <section class="resume-section" aria-label="Technical Skills">
+      <h2 class="section-title">Technical Skills</h2>
+      <div class="skills-list">
+        <div class="skill-row">
+          <span class="skill-cat">AI / ML</span>
+          <span class="skill-vals">Python, TensorFlow, Keras, NumPy, Pandas, Matplotlib, Scikit-learn, Supervised ML, Unsupervised ML</span>
+        </div>
+        <div class="skill-row">
+          <span class="skill-cat">Deep Learning</span>
+          <span class="skill-vals">CNNs, RNNs, LSTMs, BiLSTM + Attention, Transfer Learning</span>
+        </div>
+        <div class="skill-row">
+          <span class="skill-cat">Full Stack</span>
+          <span class="skill-vals">JavaScript (ES6+), TypeScript, React 19, Next.js, HTML5, CSS3, MongoDB, Django, Flask, FastAPI, REST APIs</span>
+        </div>
+        <div class="skill-row">
+          <span class="skill-cat">Data</span>
+          <span class="skill-vals">SQL, Data Visualization, Statistical Analysis, EDA</span>
+        </div>
+        <div class="skill-row">
+          <span class="skill-cat">Generative AI</span>
+          <span class="skill-vals">LLMs, Prompt Engineering, Generative AI, AI Ethics</span>
+        </div>
+        <div class="skill-row">
+          <span class="skill-cat">Languages &amp; Tools</span>
+          <span class="skill-vals">C, C++, Java, Git, GitHub, GitHub Actions, Vite, Tailwind CSS, Linux, Shell Scripting, Postman</span>
+        </div>
+        <div class="skill-row">
+          <span class="skill-cat">CS Fundamentals</span>
+          <span class="skill-vals">Data Structures &amp; Algorithms, Agile / SDLC, UML Diagrams</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── PROJECTS ─── -->
+    <section class="resume-section" aria-label="Projects">
+      <h2 class="section-title">Projects</h2>
+
+      <div class="project-item">
+        <div class="project-header">
+          <h3 class="project-name">StudentMind</h3>
+          <div class="project-links">
+            <a href="https://studentmind-v1.vercel.app/" target="_blank" class="project-link">Live ↗</a>
+            <a href="https://github.com/Yash-1505/studentmind-v1" target="_blank" class="project-link">GitHub ↗</a>
+          </div>
+        </div>
+        <p class="project-desc">
+          AI-powered study assistant — select a mode (Summary, Cheat Sheet, Learning Path, Quiz, Resource Finder),
+          upload a PDF or document, and receive structured output instantly. Built with no backend: the Gemini API key
+          stays in the user's browser. Features rate limiting across providers, localStorage persistence with 30-session
+          history, voice input, PDF/DOCX export, and 16-language support via Sarvam AI.
+        </p>
+        <div class="project-stack">
+          <span class="stack-tag">TypeScript</span>
+          <span class="stack-tag">React 19</span>
+          <span class="stack-tag">Vite</span>
+          <span class="stack-tag">Tailwind v4</span>
+          <span class="stack-tag">Gemini API</span>
+          <span class="stack-tag">Sarvam AI</span>
+        </div>
+      </div>
+
+      <div class="project-item">
+        <div class="project-header">
+          <h3 class="project-name">NotebookLM Prompt Vault</h3>
+          <div class="project-links">
+            <a href="https://notebooklm-prompt-vault.vercel.app/" target="_blank" class="project-link">Live ↗</a>
+            <a href="https://github.com/Yash-1505/notebooklm-prompt-vault" target="_blank" class="project-link">GitHub ↗</a>
+          </div>
+        </div>
+        <p class="project-desc">
+          Multi-page, batch-aware prompt library for PIET students using Google's NotebookLM. Organises curated prompts
+          by program, semester, subject, and unit — sourced from official Parul University syllabi across B.Tech AI/DS,
+          AI/ML, and the NNDL Diploma batches. Reduces prompt-crafting friction for students with limited AI experience.
+        </p>
+        <div class="project-stack">
+          <span class="stack-tag">JavaScript</span>
+          <span class="stack-tag">HTML5 / CSS3</span>
+          <span class="stack-tag">Prompt Engineering</span>
+          <span class="stack-tag">Vercel</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── CERTIFICATIONS ─── -->
+    <section class="resume-section" aria-label="Certifications">
+      <h2 class="section-title">Certifications</h2>
+      <div class="cert-list">
+        <div class="cert-item">
+          <span class="cert-name">Computer Networks &amp; Internet Protocol</span>
+          <span class="cert-issuer">NPTEL · 12-week · 4 Credits · Jan–Apr 2026</span>
+        </div>
+        <div class="cert-item">
+          <span class="cert-name">AI Fluency for Students</span>
+          <span class="cert-issuer">Anthropic (Claude) · 2026</span>
+        </div>
+        <div class="cert-item">
+          <span class="cert-name">Generative AI Fundamentals — 7 Badges</span>
+          <span class="cert-issuer">Microsoft Learn · 2026</span>
+        </div>
+        <div class="cert-item">
+          <span class="cert-name">Statistics 101</span>
+          <span class="cert-issuer">eTrain (IBM) · 2026</span>
+        </div>
+        <div class="cert-item">
+          <span class="cert-name">Python</span>
+          <span class="cert-issuer">eTrain (IBM) · Jul 2025</span>
+        </div>
+        <div class="cert-item">
+          <span class="cert-name">IT Specialist — JavaScript</span>
+          <span class="cert-issuer">Certiport / Pearson VUE · Mar 2025</span>
+        </div>
+        <div class="cert-item">
+          <span class="cert-name">IT Specialist — HTML &amp; CSS</span>
+          <span class="cert-issuer">Certiport / Pearson VUE · Feb 2025</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── EVENTS ─── -->
+    <section class="resume-section" aria-label="Events and Workshops">
+      <h2 class="section-title">Events &amp; Workshops</h2>
+      <div class="cert-list">
+        <div class="cert-item">
+          <span class="cert-name">Vadodara Hackathon 6.0 — Participant</span>
+          <span class="cert-issuer">Parul Innovation &amp; Entrepreneurship Research Centre · Sep 2025</span>
+        </div>
+        <div class="cert-item">
+          <span class="cert-name">21 Days Masterclass — Jetson AI</span>
+          <span class="cert-issuer">Pantech e Learning / IETE · Nov–Dec 2024</span>
+        </div>
+      </div>
+    </section>
+
+    <footer class="resume-footer">
+      Yashwanth Marella · itsyashwanth.vercel.app · itsyashwanth@myyahoo.com · Last updated June 2026
+    </footer>
+
+  </div><!-- end page-wrap -->
+
+  <!-- ═══ DOWNLOAD MODAL ═══
+       M2 DownloadModal in resume.js owns all interaction.
+       hidden attribute keeps it invisible until JS opens it.
+  ══════════════════════════════════════════════════════════ -->
+  <div
+    id="dlModal"
+    class="dl-modal"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="dlModalTitle"
+    hidden
+    aria-hidden="true"
+  >
+    <!-- Backdrop — click closes modal -->
+    <div class="dl-modal-backdrop" aria-hidden="true"></div>
+
+    <div class="dl-modal-panel">
+      <!-- Close -->
+      <button class="dl-modal-close" id="dlModalClose" aria-label="Close download options">×</button>
+
+      <!-- Title -->
+      <div class="dl-modal-header">
+        <h3 id="dlModalTitle">Download Resume</h3>
+      </div>
+      <p class="dl-modal-hint">Choose the format that fits your need.</p>
+
+      <!-- Options -->
+      <div class="dl-options" role="group" aria-label="Download format">
+
+        <!-- ATS PDF -->
+        <button class="dl-option" id="dlATSBtn" type="button">
+          <span class="dl-option-icon" aria-hidden="true">📄</span>
+          <span class="dl-option-info">
+            <strong>ATS PDF</strong>
+            <span>Clean black-on-white · fully text-searchable · recruiter &amp; scanner safe</span>
+          </span>
+        </button>
+
+        <!-- Modern PDF -->
+        <button class="dl-option" id="dlModernBtn" type="button">
+          <span class="dl-option-icon" aria-hidden="true">✨</span>
+          <span class="dl-option-info">
+            <strong>Modern PDF</strong>
+            <span>Branded styled version · matches your current theme · portfolio quality</span>
+          </span>
+        </button>
+
+      </div><!-- end .dl-options -->
+    </div><!-- end .dl-modal-panel -->
+  </div><!-- end #dlModal -->
+
+  <!-- ═══ SCRIPTS ═══
+       Vendor libs served same-origin from /assets/js/lib/ (script-src 'self' ✓).
+       html2pdf.bundle requires 'unsafe-eval' (html2canvas) — set in vercel.json.
+       resume.js deferred — all libs load first.
+  ══════════════════════════════════════════════════════════ -->
+  <script src="assets/js/lib/jspdf.umd.min.js"></script>
+  <script src="assets/js/lib/html2pdf.bundle.min.js"></script>
+  <script src="assets/js/resume.js" defer></script>
+</body>
+</html>
