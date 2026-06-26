@@ -160,17 +160,19 @@
           </div>
         </div>
         <p class="project-desc">
-          AI-powered study assistant — select a mode (Summary, Cheat Sheet, Learning Path, Quiz, Resource Finder),
-          upload a PDF or document, and receive structured output instantly. Built with no backend: the Gemini API key
-          stays in the user's browser. Features rate limiting across providers, localStorage persistence with 30-session
-          history, voice input, PDF/DOCX export, and 16-language support via Sarvam AI.
+          Multi-provider AI study companion integrating 6 LLM providers (Gemini, Groq, OpenAI, Anthropic, Mistral,
+          Cohere) with zero backend dependency — API keys stay client-side. Select a mode (Summary, Cheat Sheet,
+          Learning Path, Quiz, Resource Finder), upload a PDF or document, and receive structured output instantly.
+          Features a localStorage session manager with 30+ saved conversations, one-click PDF / DOCX / Markdown
+          export via html2pdf.js and the docx library, 16-language support via Sarvam and Google Translate APIs,
+          and GitHub Actions CI/CD shipped under a BUSL 1.1 production licence.
         </p>
         <div class="project-stack">
           <span class="stack-tag">TypeScript</span>
           <span class="stack-tag">React 19</span>
           <span class="stack-tag">Vite</span>
           <span class="stack-tag">Tailwind v4</span>
-          <span class="stack-tag">Gemini API</span>
+          <span class="stack-tag">Gemini · Groq · OpenAI</span>
           <span class="stack-tag">Sarvam AI</span>
         </div>
       </div>
@@ -184,15 +186,17 @@
           </div>
         </div>
         <p class="project-desc">
-          Multi-page, batch-aware prompt library for PIET students using Google's NotebookLM. Organises curated prompts
-          by program, semester, subject, and unit — sourced from official Parul University syllabi across B.Tech AI/DS,
-          AI/ML, and the NNDL Diploma batches. Reduces prompt-crafting friction for students with limited AI experience.
+          Multi-page, batch-aware prompt library for Parul University students — organises 2,700+ lines of curriculum
+          data across 7+ academic programs using a vanilla JavaScript ES-module architecture with a barrel-import
+          pattern (curricula/index.js) for dynamic per-subject prompt generation. Cross-tab state sync via the
+          Storage API, persistent theming via localStorage, custom security headers, and dual-hosted on Vercel +
+          Netlify with 4+ shipped bug fixes covering state persistence, cross-tab desync, and race conditions.
         </p>
         <div class="project-stack">
           <span class="stack-tag">JavaScript</span>
           <span class="stack-tag">HTML5 / CSS3</span>
           <span class="stack-tag">Prompt Engineering</span>
-          <span class="stack-tag">Vercel</span>
+          <span class="stack-tag">Vercel + Netlify</span>
         </div>
       </div>
     </section>

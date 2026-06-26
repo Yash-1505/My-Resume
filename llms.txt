@@ -25,14 +25,14 @@ Yashwanth Marella (also known online as "itsyashwanth") is a 3rd year B.Tech AI 
 ### StudentMind
 - **URL**: https://studentmind-v1.vercel.app/
 - **GitHub**: https://github.com/Yash-1505/studentmind-v1
-- **Description**: Multi-mode AI study tool for students. Removes the prompt-engineering barrier. Supports 5 modes (summary, cheat sheet, learning path, quiz, resource finder), PDF/DOCX upload, voice input, 30-session chat history, PDF/DOCX export, rate limiting, and 16-language support via Sarvam AI. Zero backend — API keys stay local.
-- **Stack**: TypeScript, React 19, Vite, Tailwind v4, Gemini API, Sarvam AI
+- **Description**: Multi-provider AI study companion integrating 6 LLM providers (Gemini, Groq, OpenAI, Anthropic, Mistral, Cohere) with zero backend dependency — API keys stay client-side. Five study modes (Summary, Cheat Sheet, Learning Path, Quiz, Resource Finder), PDF/DOCX upload, voice input, localStorage session manager with 30+ saved conversations, one-click PDF/DOCX/Markdown export, 16-language support via Sarvam and Google Translate APIs, GitHub Actions CI/CD, BUSL 1.1 licence.
+- **Stack**: TypeScript, React 19, Vite, Tailwind v4, Gemini API, Groq, OpenAI, Anthropic, Mistral, Cohere, Sarvam AI
 
 ### NotebookLM Prompt Vault
 - **URL**: https://notebooklm-prompt-vault.vercel.app/
 - **GitHub**: https://github.com/Yash-1505/notebooklm-prompt-vault
-- **Description**: Batch-aware prompt library used by 500+ PIET students. Organises prompts by program, semester, subject, and unit from official syllabi across B.Tech AI/DS, AI/ML, and NNDL Diploma batches.
-- **Stack**: JavaScript, HTML/CSS, Prompt Engineering
+- **Description**: Multi-page, batch-aware prompt library for Parul University students — organises 2,700+ lines of curriculum data across 7+ academic programs using vanilla JavaScript ES modules with a barrel-import pattern (curricula/index.js) for dynamic per-subject prompt generation. Cross-tab state sync via Storage API, persistent theming via localStorage, custom security headers, dual-hosted on Vercel + Netlify, 4+ shipped bug fixes (state persistence, cross-tab desync, race conditions).
+- **Stack**: JavaScript, HTML5, CSS3, Prompt Engineering, Vercel, Netlify
 
 ## Skills
 
