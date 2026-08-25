@@ -40,6 +40,7 @@
     gap: var(--space-3);
   }
   .item-row:last-child { border-bottom: none; }
+  .item-body { flex: 1; min-width: 0; }
   .item-title { font-weight: 600; font-size: var(--text-sm); }
   .item-meta { color: var(--text-3); font-size: var(--text-xs); }
   .tabs { display: flex; gap: var(--space-2); margin-bottom: var(--space-4); }
@@ -52,3 +53,19 @@
   .toolbar { display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--space-4); }
 .card-subhead { margin: 0 0 var(--space-2); font-size: var(--text-lg); }
 .btn-inline { margin-top: 0; }
+.btn-sm { padding: 0.3rem 0.7rem; font-size: var(--text-xs); }
+
+.list-hd {
+  display: flex; justify-content: space-between; align-items: center;
+  flex-wrap: wrap; gap: var(--space-2); margin-bottom: var(--space-1);
+}
+.list-hd .card-subhead { margin-bottom: 0; }
+.sort-btns { display: flex; gap: var(--space-1); }
+
+.drag-hint { color: var(--text-3); font-size: var(--text-xs); margin: 0 0 var(--space-2); }
+.drag-handle-icon { cursor: grab; color: var(--text-3); }
+
+.item-row[draggable="true"] { cursor: grab; }
+.item-row.dragging { opacity: 0.4; }
+.item-row.drag-over-top { border-top: 2px solid var(--accent); }
+.item-row.drag-over-bottom { border-bottom: 2px solid var(--accent); }

@@ -3,10 +3,116 @@
   const loginView = document.getElementById('login-view');
   const dashView = document.getElementById('dash-view');
 
+  // In-memory caches so drag reordering can rearrange instantly without a
+  // network round-trip, then persist afterward.
+  let certsCache = [];
+  let eventsCache = [];
+  let projectsCache = [];
+
   function showMsg(el, text, ok) {
     el.textContent = text;
     el.className = 'msg ' + (ok ? 'ok' : 'err');
   }
+
+  // ═══ Reusable drag-and-drop + sort for any list of {id, sort_order, ...} ═══
+  // Native HTML5 DnD only — no external library, since CSP (script-src 'self')
+  // rules out CDN-hosted sortable libraries anyway.
+  function makeReorderable(container, getItems, setItems, upsertFn, getKey) {
+    let draggedId = null;
+
+    container.addEventListener('dragstart', (e) => {
+      const row = e.target.closest('.item-row');
+      if (!row) return;
+      draggedId = row.dataset.id;
+      row.classList.add('dragging');
+      e.dataTransfer.effectAllowed = 'move';
+    });
+
+    container.addEventListener('dragend', (e) => {
+      const row = e.target.closest('.item-row');
+      if (row) row.classList.remove('dragging');
+      container.querySelectorAll('.drag-over-top,.drag-over-bottom').forEach(el =>
+        el.classList.remove('drag-over-top', 'drag-over-bottom'));
+    });
+
+    container.addEventListener('dragover', (e) => {
+      e.preventDefault();
+      const row = e.target.closest('.item-row');
+      if (!row || row.dataset.id === draggedId) return;
+      container.querySelectorAll('.drag-over-top,.drag-over-bottom').forEach(el =>
+        el.classList.remove('drag-over-top', 'drag-over-bottom'));
+      const rect = row.getBoundingClientRect();
+      const before = (e.clientY - rect.top) < rect.height / 2;
+      row.classList.add(before ? 'drag-over-top' : 'drag-over-bottom');
+    });
+
+    container.addEventListener('drop', async (e) => {
+      e.preventDefault();
+      const targetRow = e.target.closest('.item-row');
+      container.querySelectorAll('.drag-over-top,.drag-over-bottom').forEach(el =>
+        el.classList.remove('drag-over-top', 'drag-over-bottom'));
+      if (!targetRow || !draggedId || targetRow.dataset.id === draggedId) return;
+
+      const items = getItems();
+      const fromIdx = items.findIndex(i => getKey(i) === draggedId);
+      let toIdx = items.findIndex(i => getKey(i) === targetRow.dataset.id);
+      if (fromIdx === -1 || toIdx === -1) return;
+
+      const rect = targetRow.getBoundingClientRect();
+      const before = (e.clientY - rect.top) < rect.height / 2;
+      if (!before) toIdx += 1;
+
+      const [moved] = items.splice(fromIdx, 1);
+      items.splice(fromIdx < toIdx ? toIdx - 1 : toIdx, 0, moved);
+
+      // Renumber in steps of 10 so future manual DB edits have room between rows.
+      items.forEach((item, i) => { item.sort_order = (i + 1) * 10; });
+      setItems(items);
+      await persistOrder(items, upsertFn);
+    });
+  }
+
+  async function persistOrder(items, upsertFn) {
+    // Personal-scale lists (a dozen or so items) — persisting all of them on
+    // every reorder is simpler and safer than diffing for "what changed".
+    try {
+      await Promise.all(items.map(item => upsertFn(item)));
+    } catch (e) {
+      alert('Reorder saved locally but failed to sync: ' + e.message);
+    }
+  }
+
+  function sortItems(items, mode) {
+    const copy = items.slice();
+    if (mode === 'az') copy.sort((a, b) => a.title.localeCompare(b.title));
+    if (mode === 'za') copy.sort((a, b) => b.title.localeCompare(a.title));
+    if (mode === 'new') copy.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
+    if (mode === 'old') copy.sort((a, b) => new Date(a.created_at) - new Date(b.created_at));
+    copy.forEach((item, i) => { item.sort_order = (i + 1) * 10; });
+    return copy;
+  }
+
+  document.querySelectorAll('.sort-btns').forEach(group => {
+    group.addEventListener('click', async (e) => {
+      const btn = e.target.closest('button[data-sort]');
+      if (!btn) return;
+      const which = group.dataset.list;
+      const mode = btn.dataset.sort;
+      if (which === 'certs') {
+        certsCache = sortItems(certsCache, mode);
+        renderCertList(document.getElementById('certs-list'), certsCache);
+        await persistOrder(certsCache, r => CMS.upsertCertification(r));
+      } else if (which === 'events') {
+        eventsCache = sortItems(eventsCache, mode);
+        renderCertList(document.getElementById('events-list'), eventsCache);
+        await persistOrder(eventsCache, r => CMS.upsertCertification(r));
+      } else if (which === 'projects') {
+        projectsCache = sortItems(projectsCache, mode);
+        renderProjectList(projectsCache);
+        await persistOrder(projectsCache, r => CMS.upsertProject(r));
+      }
+    });
+  });
 
   async function boot() {
     const ok = await CMS.verify();
@@ -43,20 +149,26 @@
       document.getElementById('panel-account').classList.toggle('hidden', name !== 'account');
       if (name === 'events') document.getElementById('cert-category').value = 'event';
       if (name === 'certs') document.getElementById('cert-category').value = 'certification';
+      // Only recompute the "append to end" default if not currently editing an item.
+      if ((name === 'certs' || name === 'events') && !document.getElementById('cert-id').value) resetCertForm();
     });
   });
 
   // ── certs/events ──
   async function loadCerts() {
     const all = await CMS.fetchCertifications();
-    renderCertList(document.getElementById('certs-list'), all.filter(c => c.category === 'certification'));
-    renderCertList(document.getElementById('events-list'), all.filter(c => c.category === 'event'));
+    certsCache = all.filter(c => c.category === 'certification');
+    eventsCache = all.filter(c => c.category === 'event');
+    renderCertList(document.getElementById('certs-list'), certsCache);
+    renderCertList(document.getElementById('events-list'), eventsCache);
+    resetCertForm();
   }
 
   function renderCertList(container, items) {
     container.innerHTML = items.map(c => `
-      <div class="item-row">
-        <div>
+      <div class="item-row" draggable="true" data-id="${c.id}">
+        <span class="drag-handle-icon">⠿</span>
+        <div class="item-body">
           <div class="item-title">${c.icon || ''} ${escapeHTML(c.title)}</div>
           <div class="item-meta">${escapeHTML(c.issuer_line)}</div>
         </div>
@@ -66,6 +178,17 @@
         </div>
       </div>`).join('') || '<p class="item-meta">Nothing here yet.</p>';
   }
+
+  makeReorderable(
+    document.getElementById('certs-list'),
+    () => certsCache, (items) => { certsCache = items; renderCertList(document.getElementById('certs-list'), items); },
+    (row) => CMS.upsertCertification(row), (item) => item.id
+  );
+  makeReorderable(
+    document.getElementById('events-list'),
+    () => eventsCache, (items) => { eventsCache = items; renderCertList(document.getElementById('events-list'), items); },
+    (row) => CMS.upsertCertification(row), (item) => item.id
+  );
 
   // Event delegation: one listener catches all Edit/Delete clicks in either
   // list, since CSP (script-src 'self') blocks inline onclick="" attributes.
@@ -86,8 +209,7 @@
   }
 
   async function editCert(id) {
-    const all = await CMS.fetchCertifications();
-    const c = all.find(x => x.id === id);
+    const c = certsCache.find(x => x.id === id) || eventsCache.find(x => x.id === id);
     if (!c) return;
     document.getElementById('cert-id').value = c.id;
     document.getElementById('cert-category').value = c.category;
@@ -104,7 +226,8 @@
   document.getElementById('cert-cancel-btn').addEventListener('click', resetCertForm);
   function resetCertForm() {
     ['cert-id','cert-title','cert-issuer','cert-url','cert-icon'].forEach(id => document.getElementById(id).value = '');
-    document.getElementById('cert-sort').value = 0;
+    const activeList = document.getElementById('cert-category').value === 'event' ? eventsCache : certsCache;
+    document.getElementById('cert-sort').value = (activeList.length + 1) * 10; // append to end by default
     document.getElementById('cert-form-heading').textContent = 'Add certification';
     document.getElementById('cert-cancel-btn').classList.add('hidden');
   }
@@ -132,10 +255,16 @@
 
   // ── projects ──
   async function loadProjects() {
-    const items = await CMS.fetchProjects();
+    projectsCache = await CMS.fetchProjects();
+    renderProjectList(projectsCache);
+    resetProjectForm();
+  }
+
+  function renderProjectList(items) {
     document.getElementById('projects-list').innerHTML = items.map(p => `
-      <div class="item-row">
-        <div>
+      <div class="item-row" draggable="true" data-id="${p.id}">
+        <span class="drag-handle-icon">⠿</span>
+        <div class="item-body">
           <div class="item-title">${escapeHTML(p.title)}</div>
           <div class="item-meta">${(p.tags || []).join(', ')}</div>
         </div>
@@ -145,6 +274,12 @@
         </div>
       </div>`).join('') || '<p class="item-meta">Nothing here yet.</p>';
   }
+
+  makeReorderable(
+    document.getElementById('projects-list'),
+    () => projectsCache, (items) => { projectsCache = items; renderProjectList(items); },
+    (row) => CMS.upsertProject(row), (item) => item.id
+  );
 
   document.getElementById('projects-list').addEventListener('click', onProjectListClick);
   function onProjectListClick(e) {
@@ -162,8 +297,7 @@
   }
 
   async function editProject(id) {
-    const items = await CMS.fetchProjects();
-    const p = items.find(x => x.id === id);
+    const p = projectsCache.find(x => x.id === id);
     if (!p) return;
     document.getElementById('proj-id').value = p.id;
     document.getElementById('proj-title').value = p.title;
@@ -180,7 +314,7 @@
   document.getElementById('proj-cancel-btn').addEventListener('click', resetProjectForm);
   function resetProjectForm() {
     ['proj-id','proj-title','proj-desc','proj-tags','proj-live','proj-github'].forEach(id => document.getElementById(id).value = '');
-    document.getElementById('proj-sort').value = 0;
+    document.getElementById('proj-sort').value = (projectsCache.length + 1) * 10; // append to end by default
     document.getElementById('proj-form-heading').textContent = 'Add project';
     document.getElementById('proj-cancel-btn').classList.add('hidden');
   }

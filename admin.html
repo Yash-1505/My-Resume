@@ -46,6 +46,7 @@
         <h2 id="cert-form-heading" class="card-subhead">Add certification</h2>
         <input type="hidden" id="cert-id">
         <input type="hidden" id="cert-category" value="certification">
+        <input type="hidden" id="cert-sort" value="0">
         <label>Title</label>
         <input type="text" id="cert-title" placeholder="e.g. Advanced Prompt Engineering">
         <label>Issuer line (shown under the title)</label>
@@ -54,8 +55,6 @@
         <input type="text" id="cert-url" placeholder="https://...">
         <label>Icon (single emoji)</label>
         <input type="text" id="cert-icon" placeholder="📄" maxlength="4">
-        <label>Sort order (lower = earlier in the grid)</label>
-        <input type="number" id="cert-sort" value="0">
         <div class="row">
           <button id="cert-save-btn">Save</button>
           <button class="ghost hidden" id="cert-cancel-btn">Cancel edit</button>
@@ -63,11 +62,29 @@
         <p class="msg hidden" id="cert-msg"></p>
       </div>
       <div class="card">
-        <h2 class="card-subhead">Certifications</h2>
+        <div class="list-hd">
+          <h2 class="card-subhead">Certifications</h2>
+          <div class="sort-btns" data-list="certs">
+            <button class="ghost btn-inline btn-sm" data-sort="az">A–Z</button>
+            <button class="ghost btn-inline btn-sm" data-sort="za">Z–A</button>
+            <button class="ghost btn-inline btn-sm" data-sort="new">Newest</button>
+            <button class="ghost btn-inline btn-sm" data-sort="old">Oldest</button>
+          </div>
+        </div>
+        <p class="drag-hint">Drag <span class="drag-handle-icon">⠿</span> to reorder — saves automatically.</p>
         <div id="certs-list"></div>
       </div>
       <div class="card">
-        <h2 class="card-subhead">Events &amp; Masterclasses</h2>
+        <div class="list-hd">
+          <h2 class="card-subhead">Events &amp; Masterclasses</h2>
+          <div class="sort-btns" data-list="events">
+            <button class="ghost btn-inline btn-sm" data-sort="az">A–Z</button>
+            <button class="ghost btn-inline btn-sm" data-sort="za">Z–A</button>
+            <button class="ghost btn-inline btn-sm" data-sort="new">Newest</button>
+            <button class="ghost btn-inline btn-sm" data-sort="old">Oldest</button>
+          </div>
+        </div>
+        <p class="drag-hint">Drag <span class="drag-handle-icon">⠿</span> to reorder — saves automatically.</p>
         <div id="events-list"></div>
       </div>
     </div>
@@ -77,6 +94,7 @@
       <div class="card">
         <h2 id="proj-form-heading" class="card-subhead">Add project</h2>
         <input type="hidden" id="proj-id">
+        <input type="hidden" id="proj-sort" value="0">
         <label>Title</label>
         <input type="text" id="proj-title">
         <label>Description</label>
@@ -87,8 +105,6 @@
         <input type="text" id="proj-live">
         <label>GitHub URL (optional)</label>
         <input type="text" id="proj-github">
-        <label>Sort order</label>
-        <input type="number" id="proj-sort" value="0">
         <div class="row">
           <button id="proj-save-btn">Save</button>
           <button class="ghost hidden" id="proj-cancel-btn">Cancel edit</button>
@@ -96,7 +112,16 @@
         <p class="msg hidden" id="proj-msg"></p>
       </div>
       <div class="card">
-        <h2 class="card-subhead">Projects</h2>
+        <div class="list-hd">
+          <h2 class="card-subhead">Projects</h2>
+          <div class="sort-btns" data-list="projects">
+            <button class="ghost btn-inline btn-sm" data-sort="az">A–Z</button>
+            <button class="ghost btn-inline btn-sm" data-sort="za">Z–A</button>
+            <button class="ghost btn-inline btn-sm" data-sort="new">Newest</button>
+            <button class="ghost btn-inline btn-sm" data-sort="old">Oldest</button>
+          </div>
+        </div>
+        <p class="drag-hint">Drag <span class="drag-handle-icon">⠿</span> to reorder — saves automatically.</p>
         <div id="projects-list"></div>
       </div>
     </div>
