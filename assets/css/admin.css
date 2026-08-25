@@ -1,0 +1,54 @@
+/*
+ * admin.css — Admin panel styling
+ * Kept as an external file (not inline <style>) so the site's strict
+ * Content-Security-Policy (style-src 'self') doesn't block it.
+ */
+* { box-sizing: border-box; }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--bg); color: var(--text-1);
+    font-family: var(--font-body); min-height: 100vh;
+    padding: var(--space-6) var(--space-4);
+  }
+  .wrap { max-width: 760px; margin: 0 auto; }
+  h1 { font-family: var(--font-display); font-size: var(--text-xl); margin-bottom: var(--space-1); }
+  .sub { color: var(--text-3); font-size: var(--text-sm); margin-bottom: var(--space-6); }
+  .card {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: var(--r-lg); padding: var(--space-5); margin-bottom: var(--space-4);
+  }
+  label { display: block; font-size: var(--text-sm); color: var(--text-2); margin-bottom: var(--space-1); margin-top: var(--space-3); }
+  label:first-child { margin-top: 0; }
+  input, textarea, select {
+    width: 100%; background: var(--surface-2); border: 1px solid var(--border-strong);
+    color: var(--text-1); border-radius: var(--r-md); padding: 0.6rem 0.75rem;
+    font-family: var(--font-body); font-size: var(--text-sm);
+  }
+  textarea { min-height: 90px; resize: vertical; }
+  button {
+    background: var(--accent); color: #1e1b18; border: none; border-radius: var(--r-full);
+    padding: 0.6rem 1.4rem; font-weight: 700; font-size: var(--text-sm); cursor: pointer;
+    margin-top: var(--space-4);
+  }
+  button.ghost { background: transparent; color: var(--text-2); border: 1px solid var(--border-strong); }
+  button.danger { background: var(--accent-dim); color: #1e1b18; }
+  button:disabled { opacity: 0.5; cursor: not-allowed; }
+  .row { display: flex; gap: var(--space-3); align-items: center; }
+  .item-row {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: var(--space-3) 0; border-bottom: 1px solid var(--border-lo);
+    gap: var(--space-3);
+  }
+  .item-row:last-child { border-bottom: none; }
+  .item-title { font-weight: 600; font-size: var(--text-sm); }
+  .item-meta { color: var(--text-3); font-size: var(--text-xs); }
+  .tabs { display: flex; gap: var(--space-2); margin-bottom: var(--space-4); }
+  .tab { padding: 0.5rem 1rem; border-radius: var(--r-full); border: 1px solid var(--border-strong); cursor: pointer; font-size: var(--text-sm); color: var(--text-2); }
+  .tab.active { background: var(--accent); color: #1e1b18; border-color: var(--accent); font-weight: 700; }
+  .hidden { display: none !important; }
+  .msg { font-size: var(--text-sm); margin-top: var(--space-2); }
+  .msg.err { color: var(--accent-dim); }
+  .msg.ok { color: #7ac47f; }
+  .toolbar { display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--space-4); }
+.card-subhead { margin: 0 0 var(--space-2); font-size: var(--text-lg); }
+.btn-inline { margin-top: 0; }
