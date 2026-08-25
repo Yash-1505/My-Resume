@@ -23,12 +23,6 @@
   <meta property="og:site_name" content="Yashwanth Marella">
   <meta property="og:locale" content="en_IN">
 
-  <!-- ═══ TWITTER / X ═══ -->
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Yashwanth Marella — Applied AI Engineer">
-  <meta name="twitter:description" content="3rd year B.Tech AI & DS student building real things with AI. Open to internships and collaborations.">
-  <meta name="twitter:creator" content="@itsyashwanth">
-
   <!-- ═══ STRUCTURED DATA ═══ -->
   <script type="application/ld+json">
   {
@@ -38,11 +32,11 @@
     "url": "https://itsyashwanth.vercel.app",
     "jobTitle": "Applied AI Engineer",
     "description": "3rd year B.Tech AI & Data Science student at Parul University, Vadodara, building real-world products with machine learning, deep learning, and full-stack development.",
-    "email": "itsyashwanth@myyahoo.com",
+    "email": "yashwanth.marella@yahoo.com",
     "nationality": "Indian",
     "address": { "@type": "PostalAddress", "addressLocality": "Vadodara", "addressRegion": "Gujarat", "addressCountry": "IN" },
     "alumniOf": { "@type": "CollegeOrUniversity", "name": "Parul University", "url": "https://paruluniversity.ac.in" },
-    "sameAs": ["https://github.com/Yash-1505","https://linkedin.com/in/itsyashwanth","https://instagram.com/its.yash.1505"]
+    "sameAs": ["https://github.com/Yash-1505","https://linkedin.com/in/itsyashwanth","https://instagram.com/yashwanth.marella"]
   }
   </script>
 
@@ -73,7 +67,7 @@
         <li><a href="#connect">Connect</a></li>
       </ul>
       <div class="nav-actions">
-        <button class="btn-theme" id="themeBtn" aria-label="Toggle theme">☀️</button>
+        <button class="btn-theme" id="themeBtn" aria-label="Toggle theme"><span id="themeBtnIcon">☀️</span><span class="btn-theme-label" id="themeBtnLabel">Light</span></button>
         <button type="button" id="navConnectBtn" class="btn-contact-nav nav-desktop-only">Connect</button>
         <a href="/resume" target="_blank" rel="noopener noreferrer" class="btn-resume-nav nav-desktop-only">Resume ↗</a>
         <button class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
@@ -89,8 +83,8 @@
     <a href="#skills"         class="mnav-link">Skills</a>
     <a href="#projects"       class="mnav-link">Projects</a>
     <a href="#certifications" class="mnav-link">Certs</a>
-    <a href="#connect"        class="mnav-link">Connect</a>
     <div class="mnav-bottom">
+      <button type="button" id="mnavConnectBtn" class="btn-primary mnav-cta">Get In Touch</button>
       <a href="/resume" target="_blank" rel="noopener noreferrer" class="btn-resume-nav">Resume ↗</a>
     </div>
   </div>
@@ -121,7 +115,7 @@
               <span class="sv">B.Tech AI &amp; DS · Year 3<br>Parul University (PIET), Vadodara</span>
             </div>
             <div class="status-row">
-              <span class="sk">dual_deg</span>
+              <span class="sk">diploma</span>
               <span class="sv">Neural Networks &amp; Deep Learning <span class="badge badge-green">Sem 2/2 ↗</span></span>
             </div>
             <div class="status-row">
@@ -189,9 +183,9 @@
         </div>
         <div class="about-grid">
           <div class="about-text reveal reveal-left">
-            <p>I spot problems that others scroll past — not because I'm looking harder, but because <strong>I actually stop</strong> when something feels broken and ask why nobody fixed it yet.</p>
-            <p>I'm a 3rd year B.Tech AI &amp; DS student at Parul University, simultaneously completing a Dual Degree in <strong>Neural Networks &amp; Deep Learning</strong> — not because the curriculum asked, but because the field moves fast and I wanted to move faster.</p>
-            <p>Here's the honest part: I don't write every line myself. <strong>I orchestrate.</strong> I debate the approach until it holds, then use every tool available to ship something complete. The measure was never the code — it was always whether it <strong>reaches someone and helps them.</strong></p>
+            <p>StudentMind started because I was tired of losing the first five minutes of every study session to prompt-crafting — so I <strong>stopped and built the fix</strong> instead of living with it. That's the pattern: notice the friction everyone just works around, then remove it.</p>
+            <p>I'm a 3rd year B.Tech AI &amp; DS student at Parul University, simultaneously completing a Diploma in <strong>Neural Network &amp; Deep Learning</strong> — not because the curriculum asked, but because the field moves fast and I wanted to move faster.</p>
+            <p>I lean on every tool available — AI included — the same way I'd lean on a library or a teammate: to move faster on execution while I stay accountable for the approach. I debate the design until it holds, verify what comes out the other end, and ship things complete. The measure was never which tool did the typing — it was always whether it <strong>reaches someone and helps them.</strong></p>
             <p>Outside of building — music, anime, and books. Currently reading <em>Ikigai</em> and <em>The Art of Being Alone.</em> Both changed how I think about what I'm doing and why.</p>
           </div>
           <div class="reveal reveal-right">
@@ -261,7 +255,7 @@
           <h2 class="section-title">Things I've Built</h2>
           <p class="section-sub">Real products, real users. Every project started with a problem I couldn't stop thinking about.</p>
         </div>
-        <div class="projects-grid">
+        <div class="projects-grid" id="cms-projects-grid">
           <article class="pcard reveal reveal-up">
             <div class="pcard-top">
               <span class="pnum">01</span>
@@ -298,7 +292,7 @@
           <span class="section-label">Certifications</span>
           <h2 class="section-title">Credentials</h2>
         </div>
-        <div class="certs-grid reveal-stagger">
+        <div class="certs-grid reveal-stagger" id="cms-certs-grid">
           <a href="https://nptel.ac.in/noc/E_Certificate/NOC26CS35S258540292204257663" target="_blank" rel="noopener" class="cert-card">
             <div class="cert-icon-wrap">🌐</div>
             <div class="cert-info"><div class="cert-name">Computer Networks &amp; Internet Protocol</div><div class="cert-meta">NPTEL · 12-week · 4 Credits · Jan–Apr 2026</div></div>
@@ -337,7 +331,7 @@
         </div>
 
         <p class="certs-sub reveal reveal-up">Events &amp; Workshops</p>
-        <div class="certs-grid reveal-stagger">
+        <div class="certs-grid reveal-stagger" id="cms-events-grid">
           <a href="/assets/certs/vadodara-hackathon.pdf" target="_blank" class="cert-card">
             <div class="cert-icon-wrap">🏆</div>
             <div class="cert-info"><div class="cert-name">Vadodara Hackathon 6.0</div><div class="cert-meta">Parul Innovation &amp; Entrepreneurship Research Centre · Sep 2025</div></div>
@@ -348,7 +342,38 @@
             <div class="cert-info"><div class="cert-name">21 Days Masterclass — Jetson AI</div><div class="cert-meta">Pantech e Learning / IETE · Nov–Dec 2024</div></div>
             <span class="cert-arrow">↗</span>
           </a>
+          <a href="https://moonshot.scaler.com/s/sl/z2vKijgfpM" target="_blank" rel="noopener" class="cert-card">
+            <div class="cert-icon-wrap">🔎</div>
+            <div class="cert-info"><div class="cert-name">Designing Scalable RAG Pipelines</div><div class="cert-meta">Scaler Masterclass · 11 Aug 2026</div></div>
+            <span class="cert-arrow">↗</span>
+          </a>
+          <a href="https://moonshot.scaler.com/s/sl/_pzKvx7ILE" target="_blank" rel="noopener" class="cert-card">
+            <div class="cert-icon-wrap">🧬</div>
+            <div class="cert-info"><div class="cert-name">Data Science vs Machine Learning vs Artificial Intelligence</div><div class="cert-meta">Scaler Masterclass · 14 Aug 2026</div></div>
+            <span class="cert-arrow">↗</span>
+          </a>
+          <a href="https://moonshot.scaler.com/s/sl/fteaEuFLWD" target="_blank" rel="noopener" class="cert-card">
+            <div class="cert-icon-wrap">🐳</div>
+            <div class="cert-info"><div class="cert-name">Fundamentals of Docker &amp; Kubernetes</div><div class="cert-meta">Scaler Masterclass · 17 Aug 2026</div></div>
+            <span class="cert-arrow">↗</span>
+          </a>
+          <a href="https://moonshot.scaler.com/s/sl/E5WS6BgkrO" target="_blank" rel="noopener" class="cert-card">
+            <div class="cert-icon-wrap">📈</div>
+            <div class="cert-info"><div class="cert-name">Become an AI Product Manager</div><div class="cert-meta">Scaler · Online PGP in Business and AI · 18 Aug 2026</div></div>
+            <span class="cert-arrow">↗</span>
+          </a>
+          <a href="https://moonshot.scaler.com/s/sl/sSuYkHstNg" target="_blank" rel="noopener" class="cert-card">
+            <div class="cert-icon-wrap">🎯</div>
+            <div class="cert-info"><div class="cert-name">How to Crack AI Roles in Companies like OpenAI, Emergent?</div><div class="cert-meta">Scaler Masterclass · 20 Aug 2026</div></div>
+            <span class="cert-arrow">↗</span>
+          </a>
+          <a href="https://moonshot.scaler.com/s/sl/YFkzKL0yQE" target="_blank" rel="noopener" class="cert-card">
+            <div class="cert-icon-wrap">🧠</div>
+            <div class="cert-info"><div class="cert-name">Understand RAG vs AI Agents vs Agentic AI</div><div class="cert-meta">Scaler Masterclass · 20 Aug 2026</div></div>
+            <span class="cert-arrow">↗</span>
+          </a>
         </div>
+        <button type="button" id="eventsShowMoreBtn" class="btn-show-more hidden">Show all events ↓</button>
       </div>
     </section>
 
@@ -366,13 +391,16 @@
               <h2 class="contact-heading">Let's build something <span class="accent">worth building.</span></h2>
               <p class="contact-desc">Open to internships, collaborations, or just a conversation about something exciting in AI. If you're building something interesting — I want to hear about it.</p>
               <div class="contact-list">
-                <a href="mailto:itsyashwanth@myyahoo.com" class="clink"><span class="clink-icon">✉</span>itsyashwanth@myyahoo.com</a>
+                <span class="clink-group-label">Professional</span>
+                <a href="mailto:yashwanth.marella@yahoo.com" class="clink"><span class="clink-icon">✉</span>yashwanth.marella@yahoo.com</a>
                 <a href="https://linkedin.com/in/itsyashwanth" target="_blank" rel="noopener" class="clink"><span class="clink-icon">in</span>linkedin.com/in/itsyashwanth</a>
                 <a href="https://github.com/Yash-1505" target="_blank" rel="noopener" class="clink">
                   <span class="clink-icon"><svg width="13" height="13" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg></span>
                   github.com/Yash-1505
                 </a>
-                <a href="https://instagram.com/its.yash.1505" target="_blank" rel="noopener" class="clink"><span class="clink-icon">✦</span>@its.yash.1505</a>
+
+                <span class="clink-group-label">Personal / Social</span>
+                <a href="https://instagram.com/yashwanth.marella" target="_blank" rel="noopener" class="clink"><span class="clink-icon">✦</span>@yashwanth.marella</a>
               </div>
               <div class="response-note"><span>⚡</span><span>Usually responds within <strong>24 hours</strong></span></div>
             </div>
@@ -400,6 +428,7 @@
     <div class="container">
       <div class="footer-inner">
         <p class="footer-text">Designed &amp; built by <span class="accent">Yashwanth Marella</span> · 2026</p>
+        <a href="mailto:yashwanth.marella@yahoo.com" class="footer-text footer-email">yashwanth.marella@yahoo.com</a>
         <p class="footer-text">Made with curiosity <span class="accent">✦</span></p>
       </div>
     </div>
@@ -461,6 +490,27 @@
 
   <!-- ═══ SCRIPTS ═══ -->
   <!-- Deferred so HTML is fully parsed before JS runs — no DOMContentLoaded wrapper needed -->
+  <script>
+    // Lazy-load the CMS (Supabase + cms.js, ~210KB) only once the browser is
+    // idle, so it never competes with initial paint/interactivity. The static
+    // HTML already shown is accurate as of the last deploy — live sync is a
+    // nice-to-have, not something worth spending first-load budget on.
+    function loadPortfolioCMS() {
+      var s1 = document.createElement('script');
+      s1.src = 'assets/js/vendor/supabase.min.js';
+      s1.onload = function () {
+        var s2 = document.createElement('script');
+        s2.src = 'assets/js/cms.js';
+        document.body.appendChild(s2);
+      };
+      document.body.appendChild(s1);
+    }
+    if ('requestIdleCallback' in window) {
+      requestIdleCallback(loadPortfolioCMS, { timeout: 3000 });
+    } else {
+      window.addEventListener('load', function () { setTimeout(loadPortfolioCMS, 1200); });
+    }
+  </script>
   <script src="assets/js/index.js" defer></script>
 </body>
 </html>

@@ -17,20 +17,24 @@
 
   /* ── 1. THEME ─────────────────────────────────────────────────────────── */
 
-  const html     = document.documentElement;
-  const themeBtn = document.getElementById('themeBtn');
+  const html          = document.documentElement;
+  const themeBtn      = document.getElementById('themeBtn');
+  const themeBtnIcon  = document.getElementById('themeBtnIcon');
+  const themeBtnLabel = document.getElementById('themeBtnLabel');
 
   /** Hard-default dark — no localStorage dependency. */
   function initTheme() {
     html.setAttribute('data-theme', 'dark');
-    themeBtn.textContent = '☀️';
+    themeBtnIcon.textContent  = '☀️';
+    themeBtnLabel.textContent = 'Light';
   }
 
   function onThemeToggle() {
     const next     = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
     const canvas   = document.getElementById('shader-canvas');
     html.setAttribute('data-theme', next);
-    themeBtn.textContent      = next === 'dark' ? '☀️' : '🌙';
+    themeBtnIcon.textContent  = next === 'dark' ? '☀️' : '🌙';
+    themeBtnLabel.textContent = next === 'dark' ? 'Light' : 'Dark';
     canvas.style.opacity      = next === 'light' ? '0' : '1';
   }
 
@@ -254,7 +258,7 @@
     if (!isWeb3FormsConfigured()) {
       showFormStatus(
         'fail',
-        "✗ This form isn't connected yet — please email me directly at itsyashwanth@myyahoo.com"
+        "✗ This form isn't connected yet — please email me directly at yashwanth.marella@yahoo.com"
       );
       return;
     }
@@ -293,8 +297,8 @@
       showFormStatus(
         'fail',
         isTimeout
-          ? '✗ Request timed out. Please try again or email me directly at itsyashwanth@myyahoo.com'
-          : '✗ Something went wrong. Email me directly at itsyashwanth@myyahoo.com'
+          ? '✗ Request timed out. Please try again or email me directly at yashwanth.marella@yahoo.com'
+          : '✗ Something went wrong. Email me directly at yashwanth.marella@yahoo.com'
       );
     } finally {
       resetSubmitButton();
@@ -425,6 +429,7 @@
   const contactModal      = document.getElementById('contactModal');
   const modalCloseBtn     = document.getElementById('modalCloseBtn');
   const navConnectBtn     = document.getElementById('navConnectBtn');
+  const mnavConnectBtn    = document.getElementById('mnavConnectBtn');
   const heroConnectBtn    = document.getElementById('heroConnectBtn');
   const connectSectionBtn = document.getElementById('connectSectionBtn');
   let modalLastFocusedEl  = null;
@@ -452,9 +457,30 @@
   if (heroConnectBtn)    heroConnectBtn.addEventListener('click', openModal);
   if (connectSectionBtn) connectSectionBtn.addEventListener('click', openModal);
   if (modalCloseBtn)     modalCloseBtn.addEventListener('click', closeModal);
+  if (mnavConnectBtn)    mnavConnectBtn.addEventListener('click', () => { closeMobileNav(); openModal(); });
 
   document.querySelectorAll('[data-modal-dismiss]').forEach((el) =>
     el.addEventListener('click', closeModal)
   );
   document.addEventListener('keydown', onModalKeydown);
+
+  // ═══ EVENTS GRID — SHOW MORE (clutter control now that there are 8+ entries) ═══
+  const EVENTS_COLLAPSE_LIMIT = 4;
+  function applyEventsCollapse() {
+    const grid = document.getElementById('cms-events-grid');
+    const btn = document.getElementById('eventsShowMoreBtn');
+    if (!grid || !btn) return;
+    const cards = Array.from(grid.children);
+    cards.forEach((card, i) => card.classList.remove('cert-collapsed'));
+    if (cards.length <= EVENTS_COLLAPSE_LIMIT) { btn.classList.add('hidden'); return; }
+    cards.forEach((card, i) => { if (i >= EVENTS_COLLAPSE_LIMIT) card.classList.add('cert-collapsed'); });
+    btn.textContent = `Show all events (${cards.length}) ↓`;
+    btn.classList.remove('hidden');
+    btn.onclick = () => {
+      cards.forEach((card) => card.classList.remove('cert-collapsed'));
+      btn.classList.add('hidden');
+    };
+  }
+  window.__applyEventsCollapse = applyEventsCollapse;
+  applyEventsCollapse(); // static fallback content is already in the DOM at this point
 })();

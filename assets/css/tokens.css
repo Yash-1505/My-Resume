@@ -20,21 +20,41 @@
 
 /* =============================================
    1. BRAND PALETTE — STITCH FLUID CREATIVE NIGHT
+   Text (--text-1/2/3) and accent (--accent/-dim/-2)
+   are derived from ONE golden contrast ladder:
+   target contrast = 5.2 × φⁿ (n=0,1,2) → 5.2, 8.41,
+   13.61. Base=5.2 sits just above the real WCAG AA
+   floor (4.5:1) for the 10–12px text these tokens are
+   actually used at, with headroom so it still clears
+   AA even layered on the lightest card surface.
+   Hue/saturation are held fixed per family (H=9,
+   text S=0.20, accent S=0.72) so only lightness moves
+   — preserves the Void/Copper warmth (Refactoring
+   UI: "saturate your darks") instead of fading to gray.
+   --accent is solved against the fixed dark
+   --color-on-accent (#1e1b18), since it doubles as a
+   button background with dark text on top, not just
+   page text — a plain page-bg contrast target would
+   have made the CTA buttons unreadable.
+   Surfaces use the classic golden-section split
+   (23.6% / 38.2% / 61.8% / 100%) interpolated from
+   --bg to --surface-4.
    ============================================= */
 :root {
   --bg:          #161312;
   --surface-lo:  #100e0d;
   --surface:     #1e1b1a;
-  --surface-2:   #221f1e;
-  --surface-3:   #2d2928;
+  --surface-2:   #23201f;
+  --surface-3:   #2b2726;
   --surface-4:   #383433;
-  --text-1:      #e9e1df;
-  --text-2:      #dcc0bc;
-  --text-3:      #a48b87;
-  --accent:      #ffb4a7;
-  --accent-dim:  #df705f;
-  --accent-2:    #f5ba90;
+  --text-1:      #e5dbd9;
+  --text-2:      #c3aaa5;
+  --text-3:      #a57f79;
+  --accent:      #f9e0db;
+  --accent-dim:  #e36852;
+  --accent-2:    #eea295;
   --border:      #56423f;
+  --border-strong: #7d6663;
   --border-lo:   rgba(255,255,255,0.08);
   --glass:       rgba(22,19,18,0.45);
   --glass-b:     rgba(255,180,167,0.12);
@@ -152,23 +172,36 @@
 
 /* =============================================
    10. LIGHT THEME OVERRIDES
-   Brand token overrides only — component-specific
-   light-mode rules live in index.css.
+   --text-1/2/3 and surfaces follow the same golden
+   ladder/golden-section logic as the dark theme above.
+   --accent/-dim/-2 are kept at their original values
+   here, NOT run through the ladder: --accent doubles
+   as a button background under fixed dark on-accent
+   text, and simultaneously as standalone colored text
+   against this light page background — two opposite
+   lightness needs on one token. The original values
+   are the working compromise between them; a clean
+   golden-ratio value for one job actively breaks the
+   other (verified: a page-bg-optimized dark accent
+   drops CTA-button-text contrast to ~1.4:1). Rather
+   than silently ship a broken button, this one family
+   is left alone in light mode.
    ============================================= */
 [data-theme="light"] {
   --bg:          #faf6f2;
   --surface-lo:  #ffffff;
-  --surface:     #f4ede8;
-  --surface-2:   #ece4de;
-  --surface-3:   #e3dad4;
+  --surface:     #f2ede9;
+  --surface-2:   #eee7e3;
+  --surface-3:   #e6dfd9;
   --surface-4:   #dad0ca;
-  --text-1:      #1a1614;
-  --text-2:      #3e2e2a;
-  --text-3:      #7a6360;
+  --text-1:      #312724;
+  --text-2:      #584440;
+  --text-3:      #7d625b;
   --accent:      #b54e3a;
   --accent-dim:  #d06050;
   --accent-2:    #7a4a20;
   --border:      #bfa8a2;
+  --border-strong: #9c8681;
   --border-lo:   rgba(0,0,0,0.13);
   --glass:       rgba(250,246,242,0.98);
   --glass-b:     rgba(181,78,58,0.16);

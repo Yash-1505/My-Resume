@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Admin · Yashwanth Marella</title>
+<link rel="stylesheet" href="assets/css/tokens.css">
+<style>
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--bg); color: var(--text-1);
+    font-family: var(--font-body); min-height: 100vh;
+    padding: var(--space-6) var(--space-4);
+  }
+  .wrap { max-width: 760px; margin: 0 auto; }
+  h1 { font-family: var(--font-display); font-size: var(--text-xl); margin-bottom: var(--space-1); }
+  .sub { color: var(--text-3); font-size: var(--text-sm); margin-bottom: var(--space-6); }
+  .card {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: var(--r-lg); padding: var(--space-5); margin-bottom: var(--space-4);
+  }
+  label { display: block; font-size: var(--text-sm); color: var(--text-2); margin-bottom: var(--space-1); margin-top: var(--space-3); }
+  label:first-child { margin-top: 0; }
+  input, textarea, select {
+    width: 100%; background: var(--surface-2); border: 1px solid var(--border-strong);
+    color: var(--text-1); border-radius: var(--r-md); padding: 0.6rem 0.75rem;
+    font-family: var(--font-body); font-size: var(--text-sm);
+  }
+  textarea { min-height: 90px; resize: vertical; }
+  button {
+    background: var(--accent); color: #1e1b18; border: none; border-radius: var(--r-full);
+    padding: 0.6rem 1.4rem; font-weight: 700; font-size: var(--text-sm); cursor: pointer;
+    margin-top: var(--space-4);
+  }
+  button.ghost { background: transparent; color: var(--text-2); border: 1px solid var(--border-strong); }
+  button.danger { background: var(--accent-dim); color: #1e1b18; }
+  button:disabled { opacity: 0.5; cursor: not-allowed; }
+  .row { display: flex; gap: var(--space-3); align-items: center; }
+  .item-row {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: var(--space-3) 0; border-bottom: 1px solid var(--border-lo);
+    gap: var(--space-3);
+  }
+  .item-row:last-child { border-bottom: none; }
+  .item-title { font-weight: 600; font-size: var(--text-sm); }
+  .item-meta { color: var(--text-3); font-size: var(--text-xs); }
+  .tabs { display: flex; gap: var(--space-2); margin-bottom: var(--space-4); }
+  .tab { padding: 0.5rem 1rem; border-radius: var(--r-full); border: 1px solid var(--border-strong); cursor: pointer; font-size: var(--text-sm); color: var(--text-2); }
+  .tab.active { background: var(--accent); color: #1e1b18; border-color: var(--accent); font-weight: 700; }
+  .hidden { display: none !important; }
+  .msg { font-size: var(--text-sm); margin-top: var(--space-2); }
+  .msg.err { color: var(--accent-dim); }
+  .msg.ok { color: #7ac47f; }
+  .toolbar { display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--space-4); }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- ═══ LOGIN ═══ -->
+  <div id="login-view">
+    <h1>Admin</h1>
+    <p class="sub">yashwanth.marella@yahoo.com — this page is not linked from the site.</p>
+    <div class="card">
+      <label for="pw">Password</label>
+      <input type="password" id="pw" autocomplete="current-password">
+      <button id="login-btn">Log in</button>
+      <p class="msg err hidden" id="login-msg"></p>
+    </div>
+  </div>
+
+  <!-- ═══ DASHBOARD ═══ -->
+  <div id="dash-view" class="hidden">
+    <div class="toolbar">
+      <div>
+        <h1>Portfolio CMS</h1>
+        <p class="sub">Changes here go live on the site immediately.</p>
+      </div>
+      <button class="ghost" id="logout-btn" style="margin-top:0;">Log out</button>
+    </div>
+
+    <div class="tabs">
+      <div class="tab active" data-tab="certs">Certifications</div>
+      <div class="tab" data-tab="events">Events / Masterclasses</div>
+      <div class="tab" data-tab="projects">Projects</div>
+      <div class="tab" data-tab="account">Account</div>
+    </div>
+
+    <!-- Certs / Events shared panel -->
+    <div id="panel-certs" class="tab-panel">
+      <div class="card">
+        <h2 id="cert-form-heading" style="margin:0 0 var(--space-2);font-size:var(--text-lg);">Add certification</h2>
+        <input type="hidden" id="cert-id">
+        <input type="hidden" id="cert-category" value="certification">
+        <label>Title</label>
+        <input type="text" id="cert-title" placeholder="e.g. Advanced Prompt Engineering">
+        <label>Issuer line (shown under the title)</label>
+        <input type="text" id="cert-issuer" placeholder="e.g. Scaler Masterclass · 25 Aug 2026">
+        <label>Link (optional)</label>
+        <input type="text" id="cert-url" placeholder="https://...">
+        <label>Icon (single emoji)</label>
+        <input type="text" id="cert-icon" placeholder="📄" maxlength="4">
+        <label>Sort order (lower = earlier in the grid)</label>
+        <input type="number" id="cert-sort" value="0">
+        <div class="row">
+          <button id="cert-save-btn">Save</button>
+          <button class="ghost" id="cert-cancel-btn" style="display:none;">Cancel edit</button>
+        </div>
+        <p class="msg hidden" id="cert-msg"></p>
+      </div>
+      <div class="card">
+        <h2 style="margin:0 0 var(--space-2);font-size:var(--text-lg);">Certifications</h2>
+        <div id="certs-list"></div>
+      </div>
+      <div class="card">
+        <h2 style="margin:0 0 var(--space-2);font-size:var(--text-lg);">Events &amp; Masterclasses</h2>
+        <div id="events-list"></div>
+      </div>
+    </div>
+
+    <!-- Projects panel -->
+    <div id="panel-projects" class="tab-panel hidden">
+      <div class="card">
+        <h2 id="proj-form-heading" style="margin:0 0 var(--space-2);font-size:var(--text-lg);">Add project</h2>
+        <input type="hidden" id="proj-id">
+        <label>Title</label>
+        <input type="text" id="proj-title">
+        <label>Description</label>
+        <textarea id="proj-desc"></textarea>
+        <label>Tags (comma-separated)</label>
+        <input type="text" id="proj-tags" placeholder="React, TypeScript, Supabase">
+        <label>Live URL (optional)</label>
+        <input type="text" id="proj-live">
+        <label>GitHub URL (optional)</label>
+        <input type="text" id="proj-github">
+        <label>Sort order</label>
+        <input type="number" id="proj-sort" value="0">
+        <div class="row">
+          <button id="proj-save-btn">Save</button>
+          <button class="ghost" id="proj-cancel-btn" style="display:none;">Cancel edit</button>
+        </div>
+        <p class="msg hidden" id="proj-msg"></p>
+      </div>
+      <div class="card">
+        <h2 style="margin:0 0 var(--space-2);font-size:var(--text-lg);">Projects</h2>
+        <div id="projects-list"></div>
+      </div>
+    </div>
+
+    <!-- Account panel -->
+    <div id="panel-account" class="tab-panel hidden">
+      <div class="card">
+        <h2 style="margin:0 0 var(--space-2);font-size:var(--text-lg);">Change password</h2>
+        <label>New password</label>
+        <input type="password" id="new-pw">
+        <button id="change-pw-btn">Update password</button>
+        <p class="msg hidden" id="pw-msg"></p>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script src="assets/js/vendor/supabase.min.js"></script>
+<script src="assets/js/cms.js"></script>
+<script>
+(function () {
+  const CMS = window.PortfolioCMS;
+  const loginView = document.getElementById('login-view');
+  const dashView = document.getElementById('dash-view');
+
+  function showMsg(el, text, ok) {
+    el.textContent = text;
+    el.className = 'msg ' + (ok ? 'ok' : 'err');
+  }
+
+  async function boot() {
+    const ok = await CMS.verify();
+    if (ok) { loginView.classList.add('hidden'); dashView.classList.remove('hidden'); loadAll(); }
+    else { loginView.classList.remove('hidden'); dashView.classList.add('hidden'); }
+  }
+
+  document.getElementById('login-btn').addEventListener('click', async () => {
+    const pw = document.getElementById('pw').value;
+    const msg = document.getElementById('login-msg');
+    msg.classList.remove('hidden');
+    try {
+      await CMS.login(pw);
+      showMsg(msg, 'Logged in.', true);
+      boot();
+    } catch (e) {
+      showMsg(msg, 'Wrong password.', false);
+    }
+  });
+
+  document.getElementById('logout-btn').addEventListener('click', async () => {
+    await CMS.logout();
+    boot();
+  });
+
+  // ── tabs ──
+  document.querySelectorAll('.tab').forEach(tab => {
+    tab.addEventListener('click', () => {
+      document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+      tab.classList.add('active');
+      const name = tab.dataset.tab;
+      document.getElementById('panel-certs').classList.toggle('hidden', !(name === 'certs' || name === 'events'));
+      document.getElementById('panel-projects').classList.toggle('hidden', name !== 'projects');
+      document.getElementById('panel-account').classList.toggle('hidden', name !== 'account');
+      if (name === 'events') document.getElementById('cert-category').value = 'event';
+      if (name === 'certs') document.getElementById('cert-category').value = 'certification';
+    });
+  });
+
+  // ── certs/events ──
+  async function loadCerts() {
+    const all = await CMS.fetchCertifications();
+    renderCertList(document.getElementById('certs-list'), all.filter(c => c.category === 'certification'));
+    renderCertList(document.getElementById('events-list'), all.filter(c => c.category === 'event'));
+  }
+
+  function renderCertList(container, items) {
+    container.innerHTML = items.map(c => `
+      <div class="item-row">
+        <div>
+          <div class="item-title">${c.icon || ''} ${escapeHTML(c.title)}</div>
+          <div class="item-meta">${escapeHTML(c.issuer_line)}</div>
+        </div>
+        <div class="row">
+          <button class="ghost" style="margin-top:0;" onclick="window.__editCert('${c.id}')">Edit</button>
+          <button class="danger" style="margin-top:0;" onclick="window.__deleteCert('${c.id}')">Delete</button>
+        </div>
+      </div>`).join('') || '<p class="item-meta">Nothing here yet.</p>';
+  }
+
+  window.__deleteCert = async function (id) {
+    if (!confirm('Delete this?')) return;
+    await CMS.deleteCertification(id);
+    loadCerts();
+  };
+
+  window.__editCert = async function (id) {
+    const all = await CMS.fetchCertifications();
+    const c = all.find(x => x.id === id);
+    if (!c) return;
+    document.getElementById('cert-id').value = c.id;
+    document.getElementById('cert-category').value = c.category;
+    document.getElementById('cert-title').value = c.title;
+    document.getElementById('cert-issuer').value = c.issuer_line;
+    document.getElementById('cert-url').value = c.url || '';
+    document.getElementById('cert-icon').value = c.icon || '';
+    document.getElementById('cert-sort').value = c.sort_order || 0;
+    document.getElementById('cert-form-heading').textContent = 'Edit certification';
+    document.getElementById('cert-cancel-btn').style.display = 'inline-block';
+    window.scrollTo(0, 0);
+  };
+
+  document.getElementById('cert-cancel-btn').addEventListener('click', resetCertForm);
+  function resetCertForm() {
+    ['cert-id','cert-title','cert-issuer','cert-url','cert-icon'].forEach(id => document.getElementById(id).value = '');
+    document.getElementById('cert-sort').value = 0;
+    document.getElementById('cert-form-heading').textContent = 'Add certification';
+    document.getElementById('cert-cancel-btn').style.display = 'none';
+  }
+
+  document.getElementById('cert-save-btn').addEventListener('click', async () => {
+    const msg = document.getElementById('cert-msg');
+    msg.classList.remove('hidden');
+    const row = {
+      id: document.getElementById('cert-id').value || null,
+      title: document.getElementById('cert-title').value.trim(),
+      issuer_line: document.getElementById('cert-issuer').value.trim(),
+      url: document.getElementById('cert-url').value.trim(),
+      icon: document.getElementById('cert-icon').value.trim() || '📄',
+      category: document.getElementById('cert-category').value,
+      sort_order: parseInt(document.getElementById('cert-sort').value, 10) || 0
+    };
+    if (!row.title || !row.issuer_line) { showMsg(msg, 'Title and issuer line are required.', false); return; }
+    try {
+      await CMS.upsertCertification(row);
+      showMsg(msg, 'Saved.', true);
+      resetCertForm();
+      loadCerts();
+    } catch (e) { showMsg(msg, 'Save failed: ' + e.message, false); }
+  });
+
+  // ── projects ──
+  async function loadProjects() {
+    const items = await CMS.fetchProjects();
+    document.getElementById('projects-list').innerHTML = items.map(p => `
+      <div class="item-row">
+        <div>
+          <div class="item-title">${escapeHTML(p.title)}</div>
+          <div class="item-meta">${(p.tags || []).join(', ')}</div>
+        </div>
+        <div class="row">
+          <button class="ghost" style="margin-top:0;" onclick="window.__editProject('${p.id}')">Edit</button>
+          <button class="danger" style="margin-top:0;" onclick="window.__deleteProject('${p.id}')">Delete</button>
+        </div>
+      </div>`).join('') || '<p class="item-meta">Nothing here yet.</p>';
+  }
+
+  window.__deleteProject = async function (id) {
+    if (!confirm('Delete this?')) return;
+    await CMS.deleteProject(id);
+    loadProjects();
+  };
+
+  window.__editProject = async function (id) {
+    const items = await CMS.fetchProjects();
+    const p = items.find(x => x.id === id);
+    if (!p) return;
+    document.getElementById('proj-id').value = p.id;
+    document.getElementById('proj-title').value = p.title;
+    document.getElementById('proj-desc').value = p.description;
+    document.getElementById('proj-tags').value = (p.tags || []).join(', ');
+    document.getElementById('proj-live').value = p.live_url || '';
+    document.getElementById('proj-github').value = p.github_url || '';
+    document.getElementById('proj-sort').value = p.sort_order || 0;
+    document.getElementById('proj-form-heading').textContent = 'Edit project';
+    document.getElementById('proj-cancel-btn').style.display = 'inline-block';
+    window.scrollTo(0, 0);
+  };
+
+  document.getElementById('proj-cancel-btn').addEventListener('click', resetProjectForm);
+  function resetProjectForm() {
+    ['proj-id','proj-title','proj-desc','proj-tags','proj-live','proj-github'].forEach(id => document.getElementById(id).value = '');
+    document.getElementById('proj-sort').value = 0;
+    document.getElementById('proj-form-heading').textContent = 'Add project';
+    document.getElementById('proj-cancel-btn').style.display = 'none';
+  }
+
+  document.getElementById('proj-save-btn').addEventListener('click', async () => {
+    const msg = document.getElementById('proj-msg');
+    msg.classList.remove('hidden');
+    const row = {
+      id: document.getElementById('proj-id').value || null,
+      title: document.getElementById('proj-title').value.trim(),
+      description: document.getElementById('proj-desc').value.trim(),
+      tags: document.getElementById('proj-tags').value.split(',').map(s => s.trim()).filter(Boolean),
+      live_url: document.getElementById('proj-live').value.trim(),
+      github_url: document.getElementById('proj-github').value.trim(),
+      sort_order: parseInt(document.getElementById('proj-sort').value, 10) || 0
+    };
+    if (!row.title || !row.description) { showMsg(msg, 'Title and description are required.', false); return; }
+    try {
+      await CMS.upsertProject(row);
+      showMsg(msg, 'Saved.', true);
+      resetProjectForm();
+      loadProjects();
+    } catch (e) { showMsg(msg, 'Save failed: ' + e.message, false); }
+  });
+
+  // ── account ──
+  document.getElementById('change-pw-btn').addEventListener('click', async () => {
+    const msg = document.getElementById('pw-msg');
+    msg.classList.remove('hidden');
+    const val = document.getElementById('new-pw').value;
+    if (val.length < 8) { showMsg(msg, 'Use at least 8 characters.', false); return; }
+    try {
+      await CMS.changePassword(val);
+      showMsg(msg, 'Password updated.', true);
+      document.getElementById('new-pw').value = '';
+    } catch (e) { showMsg(msg, 'Failed: ' + e.message, false); }
+  });
+
+  function escapeHTML(s) {
+    return String(s == null ? '' : s).replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+  }
+
+  function loadAll() { loadCerts(); loadProjects(); }
+
+  boot();
+})();
+</script>
+</body>
+</html>

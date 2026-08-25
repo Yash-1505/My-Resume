@@ -7,10 +7,12 @@
 # ─── Standard search engines ────────────────
 User-agent: *
 Allow: /
+Disallow: /admin.html
 
 # ─── Google ─────────────────────────────────
 User-agent: Googlebot
 Allow: /
+Disallow: /admin.html
 
 User-agent: Googlebot-Image
 Allow: /

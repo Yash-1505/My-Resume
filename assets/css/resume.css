@@ -948,7 +948,7 @@ a:hover { text-decoration: underline; }
 .dl-error-btn--ghost {
   background:   transparent;
   color:        var(--text-2);
-  border-color: var(--border);
+  border-color: var(--border-strong);
 }
 .dl-error-btn--ghost:hover { background: var(--surface-3); }
 
