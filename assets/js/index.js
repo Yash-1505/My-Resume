@@ -19,13 +19,11 @@
 
   const html          = document.documentElement;
   const themeBtn      = document.getElementById('themeBtn');
-  const themeBtnIcon  = document.getElementById('themeBtnIcon');
   const themeBtnLabel = document.getElementById('themeBtnLabel');
 
   /** Hard-default dark — no localStorage dependency. */
   function initTheme() {
     html.setAttribute('data-theme', 'dark');
-    themeBtnIcon.textContent  = '☀️';
     themeBtnLabel.textContent = 'Light';
   }
 
@@ -33,7 +31,6 @@
     const next     = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
     const canvas   = document.getElementById('shader-canvas');
     html.setAttribute('data-theme', next);
-    themeBtnIcon.textContent  = next === 'dark' ? '☀️' : '🌙';
     themeBtnLabel.textContent = next === 'dark' ? 'Light' : 'Dark';
     canvas.style.opacity      = next === 'light' ? '0' : '1';
   }
@@ -483,4 +480,21 @@
   }
   window.__applyEventsCollapse = applyEventsCollapse;
   applyEventsCollapse(); // static fallback content is already in the DOM at this point
+
+  // ═══ CREDENTIALS TABS — switch between Certifications and Events views ═══
+  document.querySelectorAll('.cred-tab').forEach((tab) => {
+    tab.addEventListener('click', () => {
+      const which = tab.dataset.credTab;
+      document.querySelectorAll('.cred-tab').forEach((t) => {
+        t.classList.toggle('active', t === tab);
+        t.setAttribute('aria-selected', String(t === tab));
+      });
+      document.querySelectorAll('[data-cred-panel]').forEach((panel) => {
+        panel.classList.toggle('cred-tab-hidden', panel.dataset.credPanel !== which);
+      });
+      // Re-check the events show-more collapse each time that tab becomes visible,
+      // since a hidden container reports 0 height and could throw off the count.
+      if (which === 'events') applyEventsCollapse();
+    });
+  });
 })();

@@ -71,32 +71,98 @@
     setTimeout(() => {
       el.innerHTML = html;
       el.style.opacity = '1';
+      // The scroll-triggered reveal IntersectionObserver in index.js only
+      // ever observed the ORIGINAL static elements at page load. These new
+      // nodes (just inserted) were never registered with it, so without
+      // this they'd sit at opacity:0 forever — the exact "projects aren't
+      // loading" bug. Force them straight to their revealed state instead
+      // of trying to re-wire the observer across files.
+      el.classList.add('active');
+      el.querySelectorAll('.reveal, .reveal-stagger').forEach(child => child.classList.add('active'));
     }, 200);
+  }
+
+  function resumeCertItemHTML(c) {
+    return `<div class="cert-item">
+      <span class="cert-name">${escapeHTML(c.title)}</span>
+      <span class="cert-issuer">${escapeHTML(c.issuer_line)}</span>
+    </div>`;
+  }
+
+  function resumeProjectItemHTML(p) {
+    const tags = (p.tags || []).map(t => `<span class="stack-tag">${escapeHTML(t)}</span>`).join('');
+    const links = [
+      p.live_url ? `<a href="${escapeAttr(p.live_url)}" target="_blank" class="project-link">Live ↗</a>` : '',
+      p.github_url ? `<a href="${escapeAttr(p.github_url)}" target="_blank" class="project-link">GitHub ↗</a>` : ''
+    ].join('');
+    return `<div class="project-item">
+      <div class="project-header">
+        <h3 class="project-name">${escapeHTML(p.title)}</h3>
+        <div class="project-links">${links}</div>
+      </div>
+      <p class="project-desc">${escapeHTML(p.description)}</p>
+      <div class="project-stack">${tags}</div>
+    </div>`;
   }
 
   async function renderIntoPage() {
     const certsGrid = document.getElementById('cms-certs-grid');
     const eventsGrid = document.getElementById('cms-events-grid');
     const projectsGrid = document.getElementById('cms-projects-grid');
-    if (!certsGrid && !eventsGrid && !projectsGrid) return; // page has no CMS mount points
+    const resumeCerts = document.getElementById('cms-resume-certs');
+    const resumeEvents = document.getElementById('cms-resume-events');
+    const resumeProjects = document.getElementById('cms-resume-projects');
+    const hasAnyMount = certsGrid || eventsGrid || projectsGrid || resumeCerts || resumeEvents || resumeProjects;
+    if (!hasAnyMount) return; // page has no CMS mount points
 
-    if (certsGrid || eventsGrid) {
-      const certs = await fetchCertifications();
-      if (certsGrid) {
-        const items = certs.filter(c => c.category === 'certification');
-        if (items.length) fadeSwap(certsGrid, items.map(certCardHTML).join(''));
-      }
-      if (eventsGrid) {
-        const items = certs.filter(c => c.category === 'event');
-        if (items.length) fadeSwap(eventsGrid, items.map(certCardHTML).join(''));
-      }
+    // Independent fetches — run in parallel so a slow/failed certs fetch can
+    // never block projects from loading (or vice versa). Previously these
+    // were sequential (`await` one, then `await` the other), which meant a
+    // hung certifications request silently prevented projects from ever
+    // being attempted at all.
+    const tasks = [];
+    if (certsGrid || eventsGrid || resumeCerts || resumeEvents) {
+      tasks.push(
+        fetchCertifications().then((certs) => {
+          if (certsGrid) {
+            const items = certs.filter(c => c.category === 'certification');
+            if (items.length) fadeSwap(certsGrid, items.map(certCardHTML).join(''));
+          }
+          if (eventsGrid) {
+            const items = certs.filter(c => c.category === 'event');
+            if (items.length) fadeSwap(eventsGrid, items.map(certCardHTML).join(''));
+          }
+          if (resumeCerts) {
+            const items = certs.filter(c => c.category === 'certification');
+            if (items.length) resumeCerts.innerHTML = items.map(resumeCertItemHTML).join('');
+          }
+          if (resumeEvents) {
+            const items = certs.filter(c => c.category === 'event');
+            if (items.length) resumeEvents.innerHTML = items.map(resumeCertItemHTML).join('');
+          }
+        }).catch(err => console.error('cms: certifications render failed', err))
+      );
     }
-    if (projectsGrid) {
-      const projects = await fetchProjects();
-      if (projects.length) fadeSwap(projectsGrid, projects.map((p, i) => projectCardHTML(p, i)).join(''));
+    if (projectsGrid || resumeProjects) {
+      tasks.push(
+        fetchProjects().then((projects) => {
+          if (projectsGrid && projects.length) fadeSwap(projectsGrid, projects.map((p, i) => projectCardHTML(p, i)).join(''));
+          if (resumeProjects && projects.length) resumeProjects.innerHTML = projects.map(resumeProjectItemHTML).join('');
+        }).catch(err => console.error('cms: projects render failed', err))
+      );
     }
+    await Promise.all(tasks);
     // content just changed under the events grid — re-apply the show-more collapse
     setTimeout(() => { if (window.__applyEventsCollapse) window.__applyEventsCollapse(); }, 250);
+    // resume.js's PDF-export gate waits on this. Only meaningful on
+    // resume.html; harmless no-op elsewhere. Checks actual populated content
+    // rather than just "the fetch attempt finished", since a caught/logged
+    // error above would otherwise leave an empty section but still report ready.
+    const resumeMountsOk =
+      (!resumeCerts    || resumeCerts.innerHTML.trim() !== '') &&
+      (!resumeEvents   || resumeEvents.innerHTML.trim() !== '') &&
+      (!resumeProjects || resumeProjects.innerHTML.trim() !== '');
+    window.__resumeContentReady = resumeMountsOk;
   }
 
   // ───────────────── admin auth ─────────────────

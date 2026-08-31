@@ -8,11 +8,13 @@
 User-agent: *
 Allow: /
 Disallow: /admin.html
+Disallow: /api/
 
 # ─── Google ─────────────────────────────────
 User-agent: Googlebot
 Allow: /
 Disallow: /admin.html
+Disallow: /api/
 
 User-agent: Googlebot-Image
 Allow: /

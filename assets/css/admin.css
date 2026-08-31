@@ -54,6 +54,8 @@
 .card-subhead { margin: 0 0 var(--space-2); font-size: var(--text-lg); }
 .btn-inline { margin-top: 0; }
 .btn-sm { padding: 0.3rem 0.7rem; font-size: var(--text-xs); }
+.mt-3 { margin-top: var(--space-3); }
+.ai-job-textarea { min-height: 140px; }
 
 .list-hd {
   display: flex; justify-content: space-between; align-items: center;
@@ -63,9 +65,81 @@
 .sort-btns { display: flex; gap: var(--space-1); }
 
 .drag-hint { color: var(--text-3); font-size: var(--text-xs); margin: 0 0 var(--space-2); }
-.drag-handle-icon { cursor: grab; color: var(--text-3); }
+.drag-handle-icon {
+  cursor: grab;
+  color: var(--text-3);
+  opacity: 0.35;
+  padding: 0.3rem;
+  touch-action: none; /* stops the browser's native scroll gesture from hijacking the drag on touch */
+}
+/* Handle is only interactive-looking once "Edit Order" is active, so it
+   doesn't invite taps that do nothing the rest of the time. */
+#certs-list.reorder-mode .drag-handle-icon,
+#events-list.reorder-mode .drag-handle-icon,
+#projects-list.reorder-mode .drag-handle-icon { opacity: 1; }
 
-.item-row[draggable="true"] { cursor: grab; }
-.item-row.dragging { opacity: 0.4; }
+/* While reordering, hide Edit/Delete so there's no ambiguity between
+   "tap to act on this row" and "drag to move this row". */
+#certs-list.reorder-mode .item-row .row,
+#events-list.reorder-mode .item-row .row,
+#projects-list.reorder-mode .item-row .row { display: none; }
+
+.item-row.dragging { opacity: 0.6; position: relative; z-index: 5; }
 .item-row.drag-over-top { border-top: 2px solid var(--accent); }
 .item-row.drag-over-bottom { border-bottom: 2px solid var(--accent); }
+
+/* ── AI Tailor ── */
+.ai-security-note {
+  font-size: var(--text-xs);
+  color: var(--text-3);
+  line-height: 1.5;
+  margin: 0 0 var(--space-3);
+}
+.ai-security-note a { color: var(--accent); }
+
+.ai-security-details {
+  background: var(--surface-2);
+  border: 1px solid var(--border-lo);
+  border-radius: var(--r-md);
+  padding: var(--space-3);
+  margin-bottom: var(--space-3);
+}
+.ai-security-details ul { margin: 0; padding-left: 1.2rem; }
+.ai-security-details li { font-size: var(--text-xs); color: var(--text-2); margin-bottom: 0.4rem; line-height: 1.5; }
+
+.ai-status-line { font-size: var(--text-sm); color: var(--text-2); margin: 0 0 var(--space-2); }
+
+.ai-preview-section-hd {
+  font-size: var(--text-sm);
+  color: var(--text-3);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin: var(--space-4) 0 var(--space-2);
+}
+.ai-preview-section-hd:first-child { margin-top: 0; }
+
+.ai-preview-item {
+  border: 1px solid var(--border-lo);
+  border-radius: var(--r-md);
+  padding: var(--space-3);
+  margin-bottom: var(--space-2);
+}
+.ai-preview-check {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: var(--text-sm);
+  cursor: pointer;
+}
+.ai-preview-diff { margin-top: var(--space-2); font-size: var(--text-xs); line-height: 1.6; }
+.ai-preview-old { color: var(--text-3); text-decoration: line-through; margin-bottom: 0.3rem; }
+.ai-preview-new { color: var(--text-1); }
+.ai-preview-tag {
+  display: inline-block;
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text-3);
+  margin-right: 0.4rem;
+}
+

@@ -17,59 +17,97 @@
   // ═══ Reusable drag-and-drop + sort for any list of {id, sort_order, ...} ═══
   // Native HTML5 DnD only — no external library, since CSP (script-src 'self')
   // rules out CDN-hosted sortable libraries anyway.
-  function makeReorderable(container, getItems, setItems, upsertFn, getKey) {
-    let draggedId = null;
+  // Reorder is OFF by default; toggled on per-list via "Edit Order" button.
+  // Dragging is only initiated from the ⠿ handle (never the row body), and
+  // only while that list's reorder mode is active — this is what makes it
+  // safe on touch (no conflict with page-scroll gestures) and desktop alike,
+  // since Pointer Events unify mouse/touch/pen instead of relying on the
+  // native HTML5 DnD API (which doesn't fire on touch devices at all, and
+  // was the root cause of "drag doesn't work on mobile").
+  function makeReorderable(container, toggleBtn, hintEl, getItems, setItems, upsertFn, getKey) {
+    let active = false;
+    let pointerId = null;
+    let draggingRow = null;
+    let draggingId = null;
+    let startY = 0;
+    let startTop = 0;
 
-    container.addEventListener('dragstart', (e) => {
-      const row = e.target.closest('.item-row');
+    function setActive(next) {
+      active = next;
+      container.classList.toggle('reorder-mode', active);
+      hintEl.classList.toggle('hidden', !active);
+      toggleBtn.textContent = active ? 'Done' : 'Edit Order';
+      toggleBtn.classList.toggle('ghost', !active);
+    }
+
+    toggleBtn.addEventListener('click', () => setActive(!active));
+    setActive(false); // sync initial visual state (ghost styling, hint hidden)
+
+    container.addEventListener('pointerdown', (e) => {
+      if (!active) return;
+      const handle = e.target.closest('.drag-handle-icon');
+      if (!handle) return;
+      const row = handle.closest('.item-row');
       if (!row) return;
-      draggedId = row.dataset.id;
+      e.preventDefault();
+      draggingRow = row;
+      draggingId = row.dataset.id;
+      pointerId = e.pointerId;
+      startY = e.clientY;
+      startTop = row.offsetTop;
+      try { row.setPointerCapture(pointerId); } catch (err) { /* non-fatal — reorder still tracked via module state */ }
       row.classList.add('dragging');
-      e.dataTransfer.effectAllowed = 'move';
     });
 
-    container.addEventListener('dragend', (e) => {
-      const row = e.target.closest('.item-row');
-      if (row) row.classList.remove('dragging');
-      container.querySelectorAll('.drag-over-top,.drag-over-bottom').forEach(el =>
-        el.classList.remove('drag-over-top', 'drag-over-bottom'));
-    });
-
-    container.addEventListener('dragover', (e) => {
+    container.addEventListener('pointermove', (e) => {
+      if (!draggingRow || e.pointerId !== pointerId) return;
       e.preventDefault();
-      const row = e.target.closest('.item-row');
-      if (!row || row.dataset.id === draggedId) return;
-      container.querySelectorAll('.drag-over-top,.drag-over-bottom').forEach(el =>
-        el.classList.remove('drag-over-top', 'drag-over-bottom'));
-      const rect = row.getBoundingClientRect();
-      const before = (e.clientY - rect.top) < rect.height / 2;
-      row.classList.add(before ? 'drag-over-top' : 'drag-over-bottom');
+      const dy = e.clientY - startY;
+      draggingRow.style.transform = `translateY(${dy}px)`;
+
+      // Find which sibling row the pointer is currently over, for the
+      // top/bottom insertion-line indicator (purely visual until drop).
+      container.querySelectorAll('.item-row').forEach(r => r.classList.remove('drag-over-top', 'drag-over-bottom'));
+      const siblings = Array.from(container.querySelectorAll('.item-row')).filter(r => r !== draggingRow);
+      for (const sib of siblings) {
+        const rect = sib.getBoundingClientRect();
+        if (e.clientY >= rect.top && e.clientY <= rect.bottom) {
+          const before = (e.clientY - rect.top) < rect.height / 2;
+          sib.classList.add(before ? 'drag-over-top' : 'drag-over-bottom');
+          break;
+        }
+      }
     });
 
-    container.addEventListener('drop', async (e) => {
-      e.preventDefault();
-      const targetRow = e.target.closest('.item-row');
-      container.querySelectorAll('.drag-over-top,.drag-over-bottom').forEach(el =>
-        el.classList.remove('drag-over-top', 'drag-over-bottom'));
-      if (!targetRow || !draggedId || targetRow.dataset.id === draggedId) return;
+    async function finishDrag(e) {
+      if (!draggingRow || e.pointerId !== pointerId) return;
+      try { draggingRow.releasePointerCapture(pointerId); } catch (err) { /* non-fatal */ }
+      draggingRow.classList.remove('dragging');
+      draggingRow.style.transform = '';
 
-      const items = getItems();
-      const fromIdx = items.findIndex(i => getKey(i) === draggedId);
-      let toIdx = items.findIndex(i => getKey(i) === targetRow.dataset.id);
-      if (fromIdx === -1 || toIdx === -1) return;
+      const overTop = container.querySelector('.drag-over-top');
+      const overBottom = container.querySelector('.drag-over-bottom');
+      const targetEl = overTop || overBottom;
+      container.querySelectorAll('.item-row').forEach(r => r.classList.remove('drag-over-top', 'drag-over-bottom'));
 
-      const rect = targetRow.getBoundingClientRect();
-      const before = (e.clientY - rect.top) < rect.height / 2;
-      if (!before) toIdx += 1;
+      if (targetEl && targetEl.dataset.id !== draggingId) {
+        const items = getItems();
+        const fromIdx = items.findIndex(i => getKey(i) === draggingId);
+        let toIdx = items.findIndex(i => getKey(i) === targetEl.dataset.id);
+        if (fromIdx !== -1 && toIdx !== -1) {
+          if (overBottom) toIdx += 1;
+          const [moved] = items.splice(fromIdx, 1);
+          items.splice(fromIdx < toIdx ? toIdx - 1 : toIdx, 0, moved);
+          items.forEach((item, i) => { item.sort_order = (i + 1) * 10; }); // room for future manual edits
+          setItems(items);
+          await persistOrder(items, upsertFn);
+        }
+      }
+      draggingRow = null; draggingId = null; pointerId = null;
+    }
 
-      const [moved] = items.splice(fromIdx, 1);
-      items.splice(fromIdx < toIdx ? toIdx - 1 : toIdx, 0, moved);
-
-      // Renumber in steps of 10 so future manual DB edits have room between rows.
-      items.forEach((item, i) => { item.sort_order = (i + 1) * 10; });
-      setItems(items);
-      await persistOrder(items, upsertFn);
-    });
+    container.addEventListener('pointerup', finishDrag);
+    container.addEventListener('pointercancel', finishDrag);
   }
 
   async function persistOrder(items, upsertFn) {
@@ -146,6 +184,7 @@
       const name = tab.dataset.tab;
       document.getElementById('panel-certs').classList.toggle('hidden', !(name === 'certs' || name === 'events'));
       document.getElementById('panel-projects').classList.toggle('hidden', name !== 'projects');
+      document.getElementById('panel-ai').classList.toggle('hidden', name !== 'ai');
       document.getElementById('panel-account').classList.toggle('hidden', name !== 'account');
       if (name === 'events') document.getElementById('cert-category').value = 'event';
       if (name === 'certs') document.getElementById('cert-category').value = 'certification';
@@ -166,7 +205,7 @@
 
   function renderCertList(container, items) {
     container.innerHTML = items.map(c => `
-      <div class="item-row" draggable="true" data-id="${c.id}">
+      <div class="item-row" data-id="${c.id}">
         <span class="drag-handle-icon">⠿</span>
         <div class="item-body">
           <div class="item-title">${c.icon || ''} ${escapeHTML(c.title)}</div>
@@ -181,11 +220,15 @@
 
   makeReorderable(
     document.getElementById('certs-list'),
+    document.querySelector('[data-reorder-toggle="certs-list"]'),
+    document.querySelector('[data-reorder-hint="certs-list"]'),
     () => certsCache, (items) => { certsCache = items; renderCertList(document.getElementById('certs-list'), items); },
     (row) => CMS.upsertCertification(row), (item) => item.id
   );
   makeReorderable(
     document.getElementById('events-list'),
+    document.querySelector('[data-reorder-toggle="events-list"]'),
+    document.querySelector('[data-reorder-hint="events-list"]'),
     () => eventsCache, (items) => { eventsCache = items; renderCertList(document.getElementById('events-list'), items); },
     (row) => CMS.upsertCertification(row), (item) => item.id
   );
@@ -262,7 +305,7 @@
 
   function renderProjectList(items) {
     document.getElementById('projects-list').innerHTML = items.map(p => `
-      <div class="item-row" draggable="true" data-id="${p.id}">
+      <div class="item-row" data-id="${p.id}">
         <span class="drag-handle-icon">⠿</span>
         <div class="item-body">
           <div class="item-title">${escapeHTML(p.title)}</div>
@@ -277,6 +320,8 @@
 
   makeReorderable(
     document.getElementById('projects-list'),
+    document.querySelector('[data-reorder-toggle="projects-list"]'),
+    document.querySelector('[data-reorder-hint="projects-list"]'),
     () => projectsCache, (items) => { projectsCache = items; renderProjectList(items); },
     (row) => CMS.upsertProject(row), (item) => item.id
   );
@@ -358,6 +403,16 @@
   }
 
   function loadAll() { loadCerts(); loadProjects(); }
+
+  // Exposed so ai-tailor-ui.js can read current data and trigger reloads
+  // after applying AI-suggested changes, without duplicating the fetch/cache logic.
+  window.AdminData = {
+    getCerts: () => certsCache,
+    getEvents: () => eventsCache,
+    getProjects: () => projectsCache,
+    reloadCerts: loadCerts,
+    reloadProjects: loadProjects
+  };
 
   boot();
 })();

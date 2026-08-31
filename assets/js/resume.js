@@ -49,12 +49,16 @@
    */
   const LibCheck = (() => {
     function run() {
-      const dot  = document.getElementById('dlStatusDot');
-      const hint = document.getElementById('dlStatusHint');
+      const dot        = document.getElementById('dlStatusDot');
+      const hint       = document.getElementById('dlStatusHint');
+      const downloadBtn = document.getElementById('downloadBtn');
 
       const jsPDFReady    = typeof window.jspdf !== 'undefined';
       const html2pdfReady = typeof html2pdf    !== 'undefined';
-      const allReady      = jsPDFReady && html2pdfReady;
+      // Projects/certs/events are Supabase-driven now — exporting a PDF
+      // before that data arrives would silently ship an incomplete resume.
+      const contentReady  = window.__resumeContentReady === true;
+      const allReady      = jsPDFReady && html2pdfReady && contentReady;
 
       if (!dot) return;
 
@@ -62,19 +66,36 @@
         dot.dataset.state = 'ready';
         dot.ariaLabel     = 'PDF generator ready';
         if (hint) hint.textContent = 'Ready to download';
+        if (downloadBtn) downloadBtn.disabled = false;
       } else {
-        dot.dataset.state = 'failed';
-        dot.ariaLabel     = 'PDF library failed to load — try refreshing';
-        if (hint) hint.textContent = 'PDF library failed — refresh the page';
-        console.warn(
-          '[LibCheck] Missing libs →',
-          !jsPDFReady    ? 'jsPDF '    : '',
-          !html2pdfReady ? 'html2pdf'  : ''
-        );
+        dot.dataset.state = jsPDFReady && html2pdfReady ? 'loading' : 'failed';
+        if (jsPDFReady && html2pdfReady && !contentReady) {
+          dot.ariaLabel = 'Loading resume content';
+          if (hint) hint.textContent = 'Loading your latest data…';
+          if (downloadBtn) downloadBtn.disabled = true;
+        } else {
+          dot.ariaLabel = 'PDF library failed to load — try refreshing';
+          if (hint) hint.textContent = 'PDF library failed — refresh the page';
+          if (downloadBtn) downloadBtn.disabled = true;
+          console.warn(
+            '[LibCheck] Missing libs →',
+            !jsPDFReady    ? 'jsPDF '    : '',
+            !html2pdfReady ? 'html2pdf'  : ''
+          );
+        }
       }
+      return allReady;
     }
 
-    return { run };
+    // Poll briefly for content-ready, since the CMS fetch is async and may
+    // not have resolved yet on the very first run() call at DOMContentLoaded.
+    function runAndWatch() {
+      if (run()) return;
+      const interval = setInterval(() => { if (run()) clearInterval(interval); }, 300);
+      setTimeout(() => clearInterval(interval), 15000); // give up after 15s, LibCheck.run()'s failed state stays visible
+    }
+
+    return { run, runAndWatch };
   })();
 
   // ═══════════════════════════════════════════════════════════
@@ -642,8 +663,8 @@
   // M7 — INIT
   // ═══════════════════════════════════════════════════════════
   function init() {
-    // Check libs loaded → drive status dot
-    LibCheck.run();
+    // Check libs + content loaded → drive status dot, gate the download button
+    LibCheck.runAndWatch();
 
     // Wire download button → modal
     const downloadBtn = document.getElementById('downloadBtn');

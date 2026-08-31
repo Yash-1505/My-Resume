@@ -256,6 +256,28 @@ a:hover { text-decoration: underline; }
   margin-top: 0.2rem;
 }
 
+.edu-prior {
+  margin-top: 0.9rem;
+  padding-top: 0.7rem;
+  border-top: 1px dashed var(--border);
+}
+
+.edu-prior-label {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-3);
+  margin-bottom: 0.3rem;
+}
+
+.edu-prior-line {
+  font-size: 0.78rem;
+  color: var(--text-3);
+  line-height: 1.5;
+}
+
 /* =============================================
    SKILLS
    ============================================= */

@@ -5,7 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="noindex, nofollow">
 <title>Admin · Yashwanth Marella</title>
-<link rel="stylesheet" href="assets/css/tokens.css">
+<link rel="icon" type="image/svg+xml" href="/assets/icons/favicon.svg">
+  <link rel="stylesheet" href="assets/css/tokens.css">
 <link rel="stylesheet" href="assets/css/admin.css">
 </head>
 <body>
@@ -37,6 +38,7 @@
       <div class="tab active" data-tab="certs">Certifications</div>
       <div class="tab" data-tab="events">Events / Masterclasses</div>
       <div class="tab" data-tab="projects">Projects</div>
+      <div class="tab" data-tab="ai">AI Tailor</div>
       <div class="tab" data-tab="account">Account</div>
     </div>
 
@@ -64,27 +66,33 @@
       <div class="card">
         <div class="list-hd">
           <h2 class="card-subhead">Certifications</h2>
-          <div class="sort-btns" data-list="certs">
-            <button class="ghost btn-inline btn-sm" data-sort="az">A–Z</button>
-            <button class="ghost btn-inline btn-sm" data-sort="za">Z–A</button>
-            <button class="ghost btn-inline btn-sm" data-sort="new">Newest</button>
-            <button class="ghost btn-inline btn-sm" data-sort="old">Oldest</button>
+          <div class="row">
+            <div class="sort-btns" data-list="certs">
+              <button class="ghost btn-inline btn-sm" data-sort="az">A–Z</button>
+              <button class="ghost btn-inline btn-sm" data-sort="za">Z–A</button>
+              <button class="ghost btn-inline btn-sm" data-sort="new">Newest</button>
+              <button class="ghost btn-inline btn-sm" data-sort="old">Oldest</button>
+            </div>
+            <button class="btn-inline btn-sm" data-reorder-toggle="certs-list">Edit Order</button>
           </div>
         </div>
-        <p class="drag-hint">Drag <span class="drag-handle-icon">⠿</span> to reorder — saves automatically.</p>
+        <p class="drag-hint hidden" data-reorder-hint="certs-list">Drag <span class="drag-handle-icon">⠿</span> to reorder — works on touch too. Tap "Done" when finished.</p>
         <div id="certs-list"></div>
       </div>
       <div class="card">
         <div class="list-hd">
           <h2 class="card-subhead">Events &amp; Masterclasses</h2>
-          <div class="sort-btns" data-list="events">
-            <button class="ghost btn-inline btn-sm" data-sort="az">A–Z</button>
-            <button class="ghost btn-inline btn-sm" data-sort="za">Z–A</button>
-            <button class="ghost btn-inline btn-sm" data-sort="new">Newest</button>
-            <button class="ghost btn-inline btn-sm" data-sort="old">Oldest</button>
+          <div class="row">
+            <div class="sort-btns" data-list="events">
+              <button class="ghost btn-inline btn-sm" data-sort="az">A–Z</button>
+              <button class="ghost btn-inline btn-sm" data-sort="za">Z–A</button>
+              <button class="ghost btn-inline btn-sm" data-sort="new">Newest</button>
+              <button class="ghost btn-inline btn-sm" data-sort="old">Oldest</button>
+            </div>
+            <button class="btn-inline btn-sm" data-reorder-toggle="events-list">Edit Order</button>
           </div>
         </div>
-        <p class="drag-hint">Drag <span class="drag-handle-icon">⠿</span> to reorder — saves automatically.</p>
+        <p class="drag-hint hidden" data-reorder-hint="events-list">Drag <span class="drag-handle-icon">⠿</span> to reorder — works on touch too. Tap "Done" when finished.</p>
         <div id="events-list"></div>
       </div>
     </div>
@@ -114,15 +122,94 @@
       <div class="card">
         <div class="list-hd">
           <h2 class="card-subhead">Projects</h2>
-          <div class="sort-btns" data-list="projects">
-            <button class="ghost btn-inline btn-sm" data-sort="az">A–Z</button>
-            <button class="ghost btn-inline btn-sm" data-sort="za">Z–A</button>
-            <button class="ghost btn-inline btn-sm" data-sort="new">Newest</button>
-            <button class="ghost btn-inline btn-sm" data-sort="old">Oldest</button>
+          <div class="row">
+            <div class="sort-btns" data-list="projects">
+              <button class="ghost btn-inline btn-sm" data-sort="az">A–Z</button>
+              <button class="ghost btn-inline btn-sm" data-sort="za">Z–A</button>
+              <button class="ghost btn-inline btn-sm" data-sort="new">Newest</button>
+              <button class="ghost btn-inline btn-sm" data-sort="old">Oldest</button>
+            </div>
+            <button class="btn-inline btn-sm" data-reorder-toggle="projects-list">Edit Order</button>
           </div>
         </div>
-        <p class="drag-hint">Drag <span class="drag-handle-icon">⠿</span> to reorder — saves automatically.</p>
+        <p class="drag-hint hidden" data-reorder-hint="projects-list">Drag <span class="drag-handle-icon">⠿</span> to reorder — works on touch too. Tap "Done" when finished.</p>
         <div id="projects-list"></div>
+      </div>
+    </div>
+
+    <!-- AI Tailor panel -->
+    <div id="panel-ai" class="tab-panel hidden">
+      <div class="card">
+        <h2 class="card-subhead">AI Settings</h2>
+        <p class="ai-security-note">
+          Your API key is encrypted in this browser (AES-256-GCM, PBKDF2) and never leaves it except
+          directly to the provider you choose, over HTTPS. It is never stored in plaintext, never sent to
+          this site's own server, and never logged anywhere. Unlocking it holds it in memory only for this
+          tab session — don't unlock on a shared or public computer. <a href="#" id="aiSecurityDetailsLink">Full details ↓</a>
+        </p>
+        <div id="aiSecurityDetails" class="ai-security-details hidden">
+          <ul>
+            <li>Encryption: AES-256-GCM, key derived via PBKDF2-SHA256 with 250,000 iterations and a random salt.</li>
+            <li>The passphrase itself is never stored anywhere, in any form.</li>
+            <li>Every request to your LLM provider is hard-blocked from using plain HTTP — HTTPS only, no exceptions.</li>
+            <li>The key is sent only in a request header, never in a URL, so it can't leak via browser history or access logs.</li>
+            <li>Recommendation: create a <strong>dedicated</strong> API key for this tool on your provider's dashboard, and set a spending cap there, so a mistake anywhere can't cascade.</li>
+          </ul>
+        </div>
+
+        <div id="aiVaultConfigured" class="hidden">
+          <p class="ai-status-line">Configured for <strong id="aiConfiguredProvider">—</strong>, model <code id="aiConfiguredModel">—</code>.</p>
+          <div class="row">
+            <button id="aiUnlockBtn">Unlock for this session</button>
+            <button class="ghost" id="aiLockBtn">Lock</button>
+            <button class="danger" id="aiWipeBtn">Delete stored key</button>
+          </div>
+          <div id="aiUnlockPrompt" class="hidden mt-3">
+            <label>Passphrase</label>
+            <input type="password" id="aiUnlockPassphrase" autocomplete="off">
+            <button id="aiUnlockConfirmBtn">Unlock</button>
+          </div>
+          <p class="msg hidden" id="aiVaultMsg"></p>
+        </div>
+
+        <div id="aiVaultSetup">
+          <label>Provider</label>
+          <select id="aiProvider">
+            <option value="anthropic">Anthropic (Claude)</option>
+            <option value="groq">Groq (free tier, open models)</option>
+            <option value="openrouter">OpenRouter</option>
+            <option value="openai">OpenAI</option>
+          </select>
+          <label>Endpoint (prefilled per provider — only change if you know why)</label>
+          <input type="text" id="aiEndpoint">
+          <label>Model name</label>
+          <input type="text" id="aiModel">
+          <label>API key</label>
+          <input type="password" id="aiApiKey" autocomplete="off" placeholder="sk-...">
+          <label>Passphrase to encrypt it with (not stored anywhere — don't forget it)</label>
+          <input type="password" id="aiPassphrase" autocomplete="off">
+          <button id="aiSaveKeyBtn">Save &amp; Encrypt</button>
+          <p class="msg hidden" id="aiSaveMsg"></p>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2 class="card-subhead">Tailor for a Job</h2>
+        <label>Job description or role</label>
+        <textarea id="aiJobDesc" class="ai-job-textarea" placeholder="Paste the job description, or just describe the role..."></textarea>
+        <button id="aiGenerateBtn">Generate Suggestions</button>
+        <p class="msg hidden" id="aiGenerateMsg"></p>
+      </div>
+
+      <div class="card hidden" id="aiPreviewCard">
+        <h2 class="card-subhead">Review Suggestions</h2>
+        <p class="ai-security-note">Nothing below is live yet. Review each item, uncheck anything you don't want, then click Apply.</p>
+        <div id="aiPreviewList"></div>
+        <div class="row mt-3">
+          <button id="aiApplyBtn">Apply Selected</button>
+          <button class="ghost" id="aiDiscardBtn">Discard All</button>
+        </div>
+        <p class="msg hidden" id="aiApplyMsg"></p>
       </div>
     </div>
 
@@ -142,6 +229,10 @@
 
 <script src="assets/js/vendor/supabase.min.js"></script>
 <script src="assets/js/cms.js"></script>
+<script src="assets/js/vault.js"></script>
+<script src="assets/js/llm.js"></script>
+<script src="assets/js/tailor.js"></script>
 <script src="assets/js/admin.js"></script>
+<script src="assets/js/ai-tailor-ui.js"></script>
 </body>
 </html>

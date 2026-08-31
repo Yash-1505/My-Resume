@@ -18,6 +18,7 @@
 
   <!-- ═══ STYLESHEETS ═══ -->
   <!-- tokens.css must be first — all other sheets depend on its custom properties -->
+  <link rel="icon" type="image/svg+xml" href="/assets/icons/favicon.svg">
   <link rel="stylesheet" href="assets/css/tokens.css">
   <link rel="stylesheet" href="assets/css/resume.css">
 </head>
@@ -37,7 +38,7 @@
         aria-label="PDF generator loading…"
         title="PDF generator status"
       ></span>
-      <button class="btn-print" id="downloadBtn" aria-haspopup="dialog">
+      <button class="btn-print" id="downloadBtn" aria-haspopup="dialog" disabled>
         Download PDF ↓
       </button>
     </div>
@@ -47,16 +48,16 @@
 
     <!-- ─── HEADER ─── -->
     <header class="resume-header">
-      <h1 class="resume-name">Yashwanth Marella<span class="period">.</span></h1>
+      <h1 class="resume-name">Yashwanth Siva Sai Kumar Marella<span class="period">.</span></h1>
       <p class="resume-role">Applied AI Engineer &nbsp;·&nbsp; B.Tech AI &amp; Data Science</p>
       <div class="contact-row">
         <span class="contact-item">
-          <span>✉</span>
+          <span>@</span>
           <a href="mailto:yashwanth.marella@yahoo.com">yashwanth.marella@yahoo.com</a>
         </span>
         <span class="contact-sep">|</span>
         <span class="contact-item">
-          <span>🌐</span>
+          <span>W</span>
           <a href="https://itsyashwanth.vercel.app" target="_blank">itsyashwanth.vercel.app</a>
         </span>
         <span class="contact-sep">|</span>
@@ -71,7 +72,6 @@
         </span>
         <span class="contact-sep">|</span>
         <span class="contact-item">
-          <span>📍</span>
           Vadodara, Gujarat, India
         </span>
       </div>
@@ -111,6 +111,12 @@
         <p class="edu-school">Parul University, Vadodara, Gujarat, India</p>
         <p class="edu-detail">Concurrent diploma alongside B.Tech, currently in Semester 2 of 2 (final semester) — covers CNNs, RNNs, LSTMs, attention mechanisms, GANs, transfer learning</p>
       </div>
+
+      <div class="edu-prior">
+        <span class="edu-prior-label">Prior Education</span>
+        <p class="edu-prior-line">PUC (12th) — Narayana Junior College, Vijayawada, Andhra Pradesh · APBIE · 2024</p>
+        <p class="edu-prior-line">SSLC (10th) — Kennedy High School, Vijayawada, Andhra Pradesh · CBSE · 2022</p>
+      </div>
     </section>
 
     <!-- ─── SKILLS ─── -->
@@ -131,7 +137,7 @@
         </div>
         <div class="skill-row">
           <span class="skill-cat">Data</span>
-          <span class="skill-vals">SQL, Data Visualization, Statistical Analysis, EDA</span>
+          <span class="skill-vals">SQL, Data Visualization, Statistical Analysis</span>
         </div>
         <div class="skill-row">
           <span class="skill-cat">Generative AI</span>
@@ -143,7 +149,7 @@
         </div>
         <div class="skill-row">
           <span class="skill-cat">CS Fundamentals</span>
-          <span class="skill-vals">Data Structures &amp; Algorithms, Agile / SDLC, UML Diagrams</span>
+          <span class="skill-vals">Data Structures &amp; Algorithms, UML Diagrams</span>
         </div>
         <div class="skill-row">
           <span class="skill-cat">Soft Skills</span>
@@ -155,109 +161,19 @@
     <!-- ─── PROJECTS ─── -->
     <section class="resume-section" aria-label="Projects">
       <h2 class="section-title">Projects</h2>
-
-      <div class="project-item">
-        <div class="project-header">
-          <h3 class="project-name">StudentMind</h3>
-          <div class="project-links">
-            <a href="https://studentmind-v1.vercel.app/" target="_blank" class="project-link">Live ↗</a>
-            <a href="https://github.com/Yash-1505/studentmind-v1" target="_blank" class="project-link">GitHub ↗</a>
-          </div>
-        </div>
-        <p class="project-desc">
-          Multi-provider AI study companion integrating 6 LLM providers (Gemini, Groq, OpenAI, Anthropic, Mistral,
-          Cohere) with zero backend dependency — API keys stay client-side. Select a mode (Summary, Cheat Sheet,
-          Learning Path, Quiz, Resource Finder), upload a PDF or document, and receive structured output instantly.
-          Features a localStorage session manager with 30+ saved conversations, one-click PDF / DOCX / Markdown
-          export via html2pdf.js and the docx library, 16-language support via Sarvam and Google Translate APIs,
-          and GitHub Actions CI/CD shipped under a BUSL 1.1 production licence.
-        </p>
-        <div class="project-stack">
-          <span class="stack-tag">TypeScript</span>
-          <span class="stack-tag">React 19</span>
-          <span class="stack-tag">Vite</span>
-          <span class="stack-tag">Tailwind v4</span>
-          <span class="stack-tag">Gemini · Groq · OpenAI</span>
-          <span class="stack-tag">Sarvam AI</span>
-        </div>
-      </div>
-
-      <div class="project-item">
-        <div class="project-header">
-          <h3 class="project-name">NotebookLM Prompt Vault</h3>
-          <div class="project-links">
-            <a href="https://notebooklm-prompt-vault.vercel.app/" target="_blank" class="project-link">Live ↗</a>
-            <a href="https://github.com/Yash-1505/notebooklm-prompt-vault" target="_blank" class="project-link">GitHub ↗</a>
-          </div>
-        </div>
-        <p class="project-desc">
-          Multi-page, batch-aware prompt library for Parul University students — organises 2,700+ lines of curriculum
-          data across 7+ academic programs using a vanilla JavaScript ES-module architecture with a barrel-import
-          pattern (curricula/index.js) for dynamic per-subject prompt generation. Cross-tab state sync via the
-          Storage API, persistent theming via localStorage, custom security headers, and dual-hosted on Vercel +
-          Netlify with 4+ shipped bug fixes covering state persistence, cross-tab desync, and race conditions.
-        </p>
-        <div class="project-stack">
-          <span class="stack-tag">JavaScript</span>
-          <span class="stack-tag">HTML5 / CSS3</span>
-          <span class="stack-tag">Prompt Engineering</span>
-          <span class="stack-tag">Vercel + Netlify</span>
-        </div>
-      </div>
+      <div id="cms-resume-projects"></div>
     </section>
 
     <!-- ─── CERTIFICATIONS ─── -->
     <section class="resume-section" aria-label="Certifications">
       <h2 class="section-title">Certifications</h2>
-      <div class="cert-list">
-        <div class="cert-item">
-          <span class="cert-name">Computer Networks &amp; Internet Protocol</span>
-          <span class="cert-issuer">NPTEL · 12-week · 4 Credits · Jan–Apr 2026</span>
-        </div>
-        <div class="cert-item">
-          <span class="cert-name">AI Fluency for Students</span>
-          <span class="cert-issuer">Anthropic (Claude) · 2026</span>
-        </div>
-        <div class="cert-item">
-          <span class="cert-name">Generative AI Fundamentals — 7 Badges</span>
-          <span class="cert-issuer">Microsoft Learn · 2026</span>
-        </div>
-        <div class="cert-item">
-          <span class="cert-name">Statistics 101</span>
-          <span class="cert-issuer">eTrain (IBM) · 2026</span>
-        </div>
-        <div class="cert-item">
-          <span class="cert-name">Python</span>
-          <span class="cert-issuer">eTrain (IBM) · Jul 2025</span>
-        </div>
-        <div class="cert-item">
-          <span class="cert-name">IT Specialist — JavaScript</span>
-          <span class="cert-issuer">Certiport / Pearson VUE · Mar 2025</span>
-        </div>
-        <div class="cert-item">
-          <span class="cert-name">IT Specialist — HTML &amp; CSS</span>
-          <span class="cert-issuer">Certiport / Pearson VUE · Feb 2025</span>
-        </div>
-      </div>
+      <div class="cert-list" id="cms-resume-certs"></div>
     </section>
 
     <!-- ─── EVENTS ─── -->
     <section class="resume-section" aria-label="Events and Workshops">
       <h2 class="section-title">Events &amp; Workshops</h2>
-      <div class="cert-list">
-        <div class="cert-item">
-          <span class="cert-name">Vadodara Hackathon 6.0 — Participant</span>
-          <span class="cert-issuer">Parul Innovation &amp; Entrepreneurship Research Centre · Sep 2025</span>
-        </div>
-        <div class="cert-item">
-          <span class="cert-name">21 Days Masterclass — Jetson AI</span>
-          <span class="cert-issuer">Pantech e Learning / IETE · Nov–Dec 2024</span>
-        </div>
-        <div class="cert-item">
-          <span class="cert-name">Scaler Masterclass Series — RAG Pipelines, Docker &amp; Kubernetes, AI Careers, Agentic AI (6 sessions)</span>
-          <span class="cert-issuer">Scaler · Aug 2026</span>
-        </div>
-      </div>
+      <div class="cert-list" id="cms-resume-events"></div>
     </section>
 
     <footer class="resume-footer">
@@ -297,7 +213,7 @@
 
         <!-- ATS PDF -->
         <button class="dl-option" id="dlATSBtn" type="button">
-          <span class="dl-option-icon" aria-hidden="true">📄</span>
+          <span class="dl-option-icon" aria-hidden="true">A</span>
           <span class="dl-option-info">
             <strong>ATS PDF</strong>
             <span>Clean black-on-white · fully text-searchable · recruiter &amp; scanner safe</span>
@@ -306,7 +222,7 @@
 
         <!-- Modern PDF -->
         <button class="dl-option" id="dlModernBtn" type="button">
-          <span class="dl-option-icon" aria-hidden="true">✨</span>
+          <span class="dl-option-icon" aria-hidden="true">M</span>
           <span class="dl-option-info">
             <strong>Modern PDF</strong>
             <span>Branded styled version · matches your current theme · portfolio quality</span>
@@ -322,6 +238,8 @@
        html2pdf.bundle requires 'unsafe-eval' (html2canvas) — set in vercel.json.
        resume.js deferred — all libs load first.
   ══════════════════════════════════════════════════════════ -->
+  <script src="assets/js/vendor/supabase.min.js" defer></script>
+  <script src="assets/js/cms.js" defer></script>
   <script src="assets/js/lib/jspdf.umd.min.js"></script>
   <script src="assets/js/lib/html2pdf.bundle.min.js"></script>
   <script src="assets/js/resume.js" defer></script>
