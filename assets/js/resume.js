@@ -1,6 +1,6 @@
 /**
  * resume.js — Resume Page Runtime
- * Portfolio v3.2.0 · itsyashwanth.vercel.app
+ * Portfolio v3.2.0 · yashwanthmarella.me
  *
  * ─── Architecture Change v3.1.0 ──────────────────────────────
  * Serverless Chromium removed. Vercel's free-tier runtime lacks

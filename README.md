@@ -1,10 +1,11 @@
 # Yashwanth Marella — Portfolio & Resume
 
-**Live site:** [itsyashwanth.vercel.app](https://itsyashwanth.vercel.app)  
-**Resume page:** [itsyashwanth.vercel.app/resume](https://itsyashwanth.vercel.app/resume)  
-**Version:** 3.2.1 · Deployed on Vercel (free / Hobby tier)
+**Live site:** [yashwanthmarella.me](https://yashwanthmarella.me)  
+**Resume page:** [yashwanthmarella.me/resume](https://yashwanthmarella.me/resume)  
+**Fallback domain:** itsyashwanth.vercel.app  
+**Version:** 3.2.2 · Deployed on Vercel (free / Hobby tier)
 
-Personal portfolio and resume website for Yashwanth Marella — 3rd-year B.Tech AI & Data Science student at Parul University, Vadodara, simultaneously completing a Diploma in Neural Networks & Deep Learning. Targeting AI/ML, Data Science, Full-Stack, and Prompt Engineering internships.
+Personal portfolio and resume website for Yashwanth Marella — 3rd-year B.Tech AI & Data Science student at Parul University, Vadodara, with a completed One Year Diploma in Neural Network & Deep Learning (CGPA 8.03, First Class with Distinction). Targeting AI/ML, Data Science, Full-Stack, and Prompt Engineering internships.
 
 ---
 
@@ -203,6 +204,17 @@ Every skill on the resume was rated before being added. Do not bypass this.
 ---
 
 ## Changelog
+
+### v3.2.2 — Content and consistency rectification
+- Primary domain is now `yashwanthmarella.me` in canonical, Open Graph, JSON-LD, sitemap, robots, resume and llms files
+- Contact email `Yashwanth.Marella@yahoo.com` and Instagram `its.yash.1505` made consistent everywhere
+- Diploma shown as completed (One Year Diploma, CGPA 8.03, First Class with Distinction); "Dual Degree" wording removed
+- About, hero, process card, resume summary and project text rewritten; unverified claims ("real users", prompt-time claim) removed
+- Skills regrouped by evidence with the project that proves each group; unsupported skills dropped
+- StudentMind API-key wording corrected (stored in the browser, sent only to the selected provider)
+- Added AWS Cloud Practitioner Essentials, AWS Academy Cloud Foundations and the VaultofCodes Ethical Hacking workshop
+- Emoji removed from the UI; CMS icons that contain emoji now render the title's first letter
+- Hardening: CMS link URLs restricted to http(s)/relative, admin list rendering escaped
 
 ### v3.2.1 — Project content refresh
 - Updated StudentMind description to reflect all 6 LLM providers, export formats, CI/CD, and BUSL licence

@@ -2,30 +2,30 @@
 
 > Applied AI Engineer & Full Stack Developer | Parul University, Vadodara, India
 
-Yashwanth Marella (also known online as "itsyashwanth") is a 3rd year B.Tech AI & Data Science student at Parul University, Vadodara, Gujarat, India. He is simultaneously completing a Dual Degree in Neural Networks & Deep Learning (NNDL). He builds real-world AI and full-stack products with a focus on usability and impact.
+Yashwanth Marella (also known online as "itsyashwanth") is a 3rd year B.Tech AI & Data Science student at Parul University, Vadodara, Gujarat, India. He completed a One Year Diploma in Neural Network & Deep Learning (CGPA 8.03, First Class with Distinction). He builds practical AI applications with LLMs, deep learning and full-stack development.
 
 ## Identity
 
 - **Full name**: Yashwanth Marella
 - **Also known as**: itsyashwanth, Yash-1505
 - **Location**: Vadodara, Gujarat, India
-- **Email**: yashwanth.marella@yahoo.com
-- **Portfolio**: https://itsyashwanth.vercel.app
+- **Email**: Yashwanth.Marella@yahoo.com
+- **Portfolio**: https://yashwanthmarella.me
 - **GitHub**: https://github.com/Yash-1505
 - **LinkedIn**: https://linkedin.com/in/itsyashwanth
 - **Instagram**: https://instagram.com/its.yash.1505
 
 ## Education
 
-- **B.Tech AI & Data Science** — Parul University (PIET), Vadodara | Aug 2024 – Present (Semester 5, Year 3 of 4)
-- **Dual Degree in Neural Networks & Deep Learning (NNDL)** — Parul University | Aug 2025 – Present (Semester 2 of 2, final semester)
+- **B.Tech AI & Data Science** — Parul University (PIET), Vadodara | Aug 2024 – Present (Year 3 of 4)
+- **One Year Diploma in Neural Network & Deep Learning** — Faculty of Engineering and Technology, Parul University | 2025 – 2026 | Completed, CGPA 8.03/10, First Class with Distinction
 
 ## Projects
 
 ### StudentMind
 - **URL**: https://studentmind-v1.vercel.app/
 - **GitHub**: https://github.com/Yash-1505/studentmind-v1
-- **Description**: Multi-provider AI study companion integrating 6 LLM providers (Gemini, Groq, OpenAI, Anthropic, Mistral, Cohere) with zero backend dependency — API keys stay client-side. Five study modes (Summary, Cheat Sheet, Learning Path, Quiz, Resource Finder), PDF/DOCX upload, voice input, localStorage session manager with 30+ saved conversations, one-click PDF/DOCX/Markdown export, 16-language support via Sarvam and Google Translate APIs, GitHub Actions CI/CD, BUSL 1.1 licence.
+- **Description**: Multi-provider AI study companion integrating 6 LLM providers (Gemini, Groq, OpenAI, Anthropic, Mistral, Cohere) with no backend — API keys are stored in the browser and sent only to the provider the user selects. Five study modes (Summary, Cheat Sheet, Learning Path, Quiz, Resource Finder), PDF/DOCX upload, voice input, localStorage session manager with 30+ saved conversations, one-click PDF/DOCX/Markdown export, 16-language support via Sarvam and Google Translate APIs, GitHub Actions CI/CD, BUSL 1.1 licence.
 - **Stack**: TypeScript, React 19, Vite, Tailwind v4, Gemini API, Groq, OpenAI, Anthropic, Mistral, Cohere, Sarvam AI
 
 ### NotebookLM Prompt Vault
@@ -36,13 +36,14 @@ Yashwanth Marella (also known online as "itsyashwanth") is a 3rd year B.Tech AI 
 
 ## Skills
 
-- **AI / ML**: Python, TensorFlow, Keras, NumPy, Pandas, Matplotlib, Scikit-learn, Supervised ML, Unsupervised ML
-- **Deep Learning**: CNNs, RNNs, LSTMs, BiLSTM + Attention, Transfer Learning
-- **Full Stack**: JavaScript (ES6+), TypeScript, React 19, Next.js, HTML5, CSS3, MongoDB, Django, Flask, FastAPI, REST APIs
-- **Data**: SQL, Data Visualization, Statistical Analysis, EDA
-- **Generative AI**: LLMs, Prompt Engineering, Generative AI, AI Ethics
-- **Languages & Tools**: C, C++, Java, Git, GitHub, GitHub Actions, Vite, Tailwind CSS, Linux, Shell Scripting, Postman
-- **CS Fundamentals**: Data Structures & Algorithms, Agile / SDLC, UML Diagrams
+- **Deep Learning**: TensorFlow, Keras, BiLSTM + Attention (TruthLens diploma project)
+- **Data**: Python, Pandas, EDA
+- **LLM Applications**: LLM API integration, prompt engineering, bring-your-own-key design
+- **Front End**: JavaScript, TypeScript, React, Tailwind CSS, HTML & CSS
+- **Backend & Automation**: REST APIs, Supabase (PostgreSQL), Vercel serverless, GitHub Actions
+- **Browser Security**: WebCrypto (AES-256-GCM), PBKDF2
+- **Tools**: Git, GitHub, Vercel
+- **Coursework level**: Java, SQL, Scikit-learn
 
 ## Certifications
 
@@ -53,17 +54,12 @@ Yashwanth Marella (also known online as "itsyashwanth") is a 3rd year B.Tech AI 
 - Python — eTrain (IBM), Jul 2025
 - IT Specialist: JavaScript — Certiport / Pearson VUE, Mar 2025
 - IT Specialist: HTML & CSS — Certiport / Pearson VUE, Feb 2025
+- AWS Cloud Practitioner Essentials — AWS Training & Certification, Sep 2026
+- AWS Academy Graduate, Cloud Foundations — AWS Academy, Sep 2026
+- Ethical Hacking & Cybersecurity Workshop — VaultofCodes, 1 Nov 2026 (assessment score 80/100)
 - Vadodara Hackathon 6.0 — PIERC, Sep 2025
 - 21-Day Masterclass: Jetson AI — Pantech / IETE, Nov–Dec 2024
 
 ## Availability
 
 Open to internships and collaborations in Applied AI, ML Engineering, and Full Stack Development.
-
-## How Yashwanth Works
-
-1. SPOT — identifies gaps others overlook
-2. DEBATE — validates the approach before writing a line
-3. ORCHESTRATE — uses every available tool to build it
-4. SHIP — delivers complete, not half-baked
-5. MEASURE — judges output by real-world impact, not lines of code

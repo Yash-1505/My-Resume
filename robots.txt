@@ -1,5 +1,5 @@
 # ═══════════════════════════════════════════
-#  robots.txt — itsyashwanth.vercel.app
+#  robots.txt — yashwanthmarella.me
 #  Yashwanth Marella Portfolio
 #  Updated: 2026
 # ═══════════════════════════════════════════
@@ -66,7 +66,7 @@ User-agent: YouBot
 Allow: /
 
 # ─── Sitemap ────────────────────────────────
-Sitemap: https://itsyashwanth.vercel.app/sitemap.xml
+Sitemap: https://yashwanthmarella.me/sitemap.xml
 
 # ─── Host ───────────────────────────────────
-Host: itsyashwanth.vercel.app
+Host: yashwanthmarella.me

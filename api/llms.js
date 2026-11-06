@@ -20,26 +20,27 @@ const IDENTITY = {
   shortName: 'Yashwanth Marella',
   aka: 'itsyashwanth, Yash-1505',
   location: 'Vadodara, Gujarat, India',
-  email: 'yashwanth.marella@yahoo.com',
-  portfolio: 'https://itsyashwanth.vercel.app',
+  email: 'Yashwanth.Marella@yahoo.com',
+  portfolio: 'https://yashwanthmarella.me',
   github: 'https://github.com/Yash-1505',
   linkedin: 'https://linkedin.com/in/itsyashwanth',
-  instagram: 'https://instagram.com/yashwanth.marella'
+  instagram: 'https://instagram.com/its.yash.1505'
 };
 
 const EDUCATION = [
-  'B.Tech AI & Data Science — Parul University (PIET), Vadodara | Aug 2024 – Present (Semester 5, Year 3 of 4)',
-  'Diploma in Neural Network & Deep Learning — Parul University | Aug 2025 – Present (Semester 2 of 2, final semester)'
+  'B.Tech AI & Data Science — Parul University (PIET), Vadodara | Aug 2024 – Present (Year 3 of 4)',
+  'One Year Diploma in Neural Network & Deep Learning — Faculty of Engineering and Technology, Parul University | 2025 – 2026 | Completed, CGPA 8.03/10, First Class with Distinction'
 ];
 
 const SKILLS = [
-  '**AI / ML**: Python, TensorFlow, Keras, NumPy, Pandas, Matplotlib, Scikit-learn, Supervised ML, Unsupervised ML',
-  '**Deep Learning**: CNNs, RNNs, LSTMs, BiLSTM + Attention, Transfer Learning',
-  '**Full Stack**: JavaScript (ES6+), TypeScript, React 19, Next.js, HTML5, CSS3, MongoDB, Django, Flask, FastAPI, REST APIs',
-  '**Data**: SQL, Data Visualization, Statistical Analysis',
-  '**Generative AI**: LLMs (via APIs), Prompt Engineering, Generative AI, AI Ethics',
-  '**Languages & Tools**: C, C++, Java, Git, GitHub, GitHub Actions, Vite, Tailwind CSS, Linux, Shell Scripting, Postman',
-  '**CS Fundamentals**: Data Structures & Algorithms, UML Diagrams'
+  '**Deep Learning**: TensorFlow, Keras, BiLSTM + Attention (TruthLens diploma project)',
+  '**Data**: Python, Pandas, EDA',
+  '**LLM Applications**: LLM API integration, prompt engineering, bring-your-own-key design (StudentMind, NotebookLM Prompt Vault)',
+  '**Front End**: JavaScript, TypeScript, React, Tailwind CSS, HTML & CSS',
+  '**Backend & Automation**: REST APIs, Supabase (PostgreSQL), Vercel serverless, GitHub Actions',
+  '**Browser Security**: WebCrypto (AES-256-GCM), PBKDF2',
+  '**Tools**: Git, GitHub, Vercel',
+  '**Coursework level**: Java, SQL, Scikit-learn'
 ];
 
 async function fetchTable(table, order) {
@@ -72,7 +73,7 @@ function buildLlmsTxt(projects, certifications, events) {
 
 > Applied AI Engineer & Full Stack Developer | Parul University, Vadodara, India
 
-${IDENTITY.fullName} (also known online as "itsyashwanth") is a 3rd year B.Tech AI & Data Science student at Parul University, Vadodara, Gujarat, India. He is simultaneously completing a Diploma in Neural Network & Deep Learning. He builds real-world AI and full-stack products with a focus on usability and impact.
+${IDENTITY.fullName} (also known online as "itsyashwanth") is a 3rd year B.Tech AI & Data Science student at Parul University, Vadodara, Gujarat, India. He completed a One Year Diploma in Neural Network & Deep Learning (CGPA 8.03, First Class with Distinction). He builds practical AI applications with LLMs, deep learning and full-stack development.
 
 ## Identity
 
@@ -108,14 +109,6 @@ ${renderCertList(events)}
 ## Availability
 
 Open to internships and collaborations in Applied AI, ML Engineering, and Full Stack Development.
-
-## How Yashwanth Works
-
-1. SPOT — identifies gaps others overlook
-2. DEBATE — validates the approach before writing a line
-3. ORCHESTRATE — uses every available tool to build it
-4. SHIP — delivers complete, not half-baked
-5. MEASURE — judges output by real-world impact, not lines of code
 
 ---
 Generated live from current data at request time.

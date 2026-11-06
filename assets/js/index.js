@@ -1,5 +1,5 @@
 /**
- * Portfolio runtime — itsyashwanth.vercel.app
+ * Portfolio runtime — yashwanthmarella.me
  *
  * Modules (all contained in a single IIFE to avoid global scope pollution):
  *   1. Theme          — dark/light toggle (dark is hard default, no localStorage)
@@ -95,7 +95,7 @@
 
   /* ── 4. TAGLINE CYCLE ─────────────────────────────────────────────────── */
 
-  const CYCLE_WORDS    = ['Builder.', 'Problem Solver.', 'Thinker.', 'Maker.', 'Orchestrator.'];
+  const CYCLE_WORDS    = ['AI applications.', 'LLM tools.', 'deep learning models.', 'full-stack web apps.'];
   const CYCLE_INTERVAL = 2800;
   const CYCLE_FADE_MS  = 320;
   const wordEl = document.getElementById('cycleWord');
@@ -223,7 +223,7 @@
   function setSubmitLoading() {
     submitBtn.disabled    = true;
     submitLabel.textContent = 'Sending...';
-    submitIcon.textContent  = '⏳';
+    submitIcon.textContent  = '…';
   }
 
   /** Restores the submit button to its idle state. */
@@ -255,7 +255,7 @@
     if (!isWeb3FormsConfigured()) {
       showFormStatus(
         'fail',
-        "✗ This form isn't connected yet — please email me directly at yashwanth.marella@yahoo.com"
+        "✗ This form isn't connected yet — please email me directly at Yashwanth.Marella@yahoo.com"
       );
       return;
     }
@@ -294,8 +294,8 @@
       showFormStatus(
         'fail',
         isTimeout
-          ? '✗ Request timed out. Please try again or email me directly at yashwanth.marella@yahoo.com'
-          : '✗ Something went wrong. Email me directly at yashwanth.marella@yahoo.com'
+          ? '✗ Request timed out. Please try again or email me directly at Yashwanth.Marella@yahoo.com'
+          : '✗ Something went wrong. Email me directly at Yashwanth.Marella@yahoo.com'
       );
     } finally {
       resetSubmitButton();

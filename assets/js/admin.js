@@ -208,7 +208,7 @@
       <div class="item-row" data-id="${c.id}">
         <span class="drag-handle-icon">⠿</span>
         <div class="item-body">
-          <div class="item-title">${c.icon || ''} ${escapeHTML(c.title)}</div>
+          <div class="item-title">${escapeHTML(CMS.iconText(c))} ${escapeHTML(c.title)}</div>
           <div class="item-meta">${escapeHTML(c.issuer_line)}</div>
         </div>
         <div class="row">
@@ -283,7 +283,7 @@
       title: document.getElementById('cert-title').value.trim(),
       issuer_line: document.getElementById('cert-issuer').value.trim(),
       url: document.getElementById('cert-url').value.trim(),
-      icon: document.getElementById('cert-icon').value.trim() || '📄',
+      icon: document.getElementById('cert-icon').value.trim() || 'D',
       category: document.getElementById('cert-category').value,
       sort_order: parseInt(document.getElementById('cert-sort').value, 10) || 0
     };
@@ -309,7 +309,7 @@
         <span class="drag-handle-icon">⠿</span>
         <div class="item-body">
           <div class="item-title">${escapeHTML(p.title)}</div>
-          <div class="item-meta">${(p.tags || []).join(', ')}</div>
+          <div class="item-meta">${(p.tags || []).map(escapeHTML).join(', ')}</div>
         </div>
         <div class="row">
           <button class="ghost btn-inline" data-action="edit-project" data-id="${p.id}">Edit</button>

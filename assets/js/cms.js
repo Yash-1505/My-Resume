@@ -33,10 +33,10 @@
   }
 
   function certCardHTML(c) {
-    const href = c.url || '#';
+    const href = safeUrl(c.url);
     const targetAttrs = c.url && c.url.startsWith('http') ? 'target="_blank" rel="noopener"' : (c.url ? 'target="_blank"' : '');
     return `<a href="${escapeAttr(href)}" ${targetAttrs} class="cert-card">
-      <div class="cert-icon-wrap">${escapeHTML(c.icon || '📄')}</div>
+      <div class="cert-icon-wrap">${escapeHTML(iconText(c))}</div>
       <div class="cert-info"><div class="cert-name">${escapeHTML(c.title)}</div><div class="cert-meta">${escapeHTML(c.issuer_line)}</div></div>
       <span class="cert-arrow">↗</span>
     </a>`;
@@ -45,8 +45,8 @@
   function projectCardHTML(p, index) {
     const tags = (p.tags || []).map(t => `<span class="ptag">${escapeHTML(t)}</span>`).join('');
     const links = [
-      p.live_url ? `<a href="${escapeAttr(p.live_url)}" target="_blank" rel="noopener" class="plink">Live ↗</a>` : '',
-      p.github_url ? `<a href="${escapeAttr(p.github_url)}" target="_blank" rel="noopener" class="plink">GitHub</a>` : ''
+      p.live_url ? `<a href="${escapeAttr(safeUrl(p.live_url))}" target="_blank" rel="noopener" class="plink">Live ↗</a>` : '',
+      p.github_url ? `<a href="${escapeAttr(safeUrl(p.github_url))}" target="_blank" rel="noopener" class="plink">GitHub</a>` : ''
     ].join('');
     const num = String(index + 1).padStart(2, '0');
     return `<article class="pcard reveal reveal-up">
@@ -64,6 +64,21 @@
     return String(s == null ? '' : s).replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
   }
   function escapeAttr(s) { return escapeHTML(s); }
+
+  // Only http(s), same-site paths, anchors and mailto links may reach an href.
+  // Blocks javascript:/data: URLs coming from database rows.
+  function safeUrl(u) {
+    const v = String(u == null ? '' : u).trim();
+    return /^(https?:\/\/|\/(?!\/)|#|mailto:)/i.test(v) ? v : '#';
+  }
+
+  // Cert icons render as plain text; anything emoji-like falls back to the title's first letter.
+  function iconText(c) {
+    const raw = String((c && c.icon) || '').trim();
+    const pictograph = /[\u2190-\u2BFF\u{1F000}-\u{1FAFF}\uFE0F]/u.test(raw);
+    if (raw && !pictograph) return raw;
+    return String((c && c.title) || '?').trim().charAt(0).toUpperCase() || '?';
+  }
 
   function fadeSwap(el, html) {
     el.style.transition = 'opacity 0.2s ease';
@@ -92,8 +107,8 @@
   function resumeProjectItemHTML(p) {
     const tags = (p.tags || []).map(t => `<span class="stack-tag">${escapeHTML(t)}</span>`).join('');
     const links = [
-      p.live_url ? `<a href="${escapeAttr(p.live_url)}" target="_blank" class="project-link">Live ↗</a>` : '',
-      p.github_url ? `<a href="${escapeAttr(p.github_url)}" target="_blank" class="project-link">GitHub ↗</a>` : ''
+      p.live_url ? `<a href="${escapeAttr(safeUrl(p.live_url))}" target="_blank" class="project-link">Live ↗</a>` : '',
+      p.github_url ? `<a href="${escapeAttr(safeUrl(p.github_url))}" target="_blank" class="project-link">GitHub ↗</a>` : ''
     ].join('');
     return `<div class="project-item">
       <div class="project-header">
@@ -221,7 +236,7 @@
     const { data, error } = await sb.rpc('admin_upsert_certification', {
       p_token: s.token, p_id: row.id || null, p_title: row.title,
       p_issuer_line: row.issuer_line, p_url: row.url || null,
-      p_icon: row.icon || '📄', p_category: row.category, p_sort_order: row.sort_order || 0
+      p_icon: row.icon || 'D', p_category: row.category, p_sort_order: row.sort_order || 0
     });
     if (error) throw error;
     return data;
@@ -268,7 +283,8 @@
   window.PortfolioCMS = {
     fetchCertifications, fetchProjects, renderIntoPage,
     login, logout, verify, changePassword, getSession,
-    upsertCertification, deleteCertification, upsertProject, deleteProject
+    upsertCertification, deleteCertification, upsertProject, deleteProject,
+    iconText
   };
 
   function boot() {
