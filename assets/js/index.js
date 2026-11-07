@@ -95,7 +95,7 @@
 
   /* ── 4. TAGLINE CYCLE ─────────────────────────────────────────────────── */
 
-  const CYCLE_WORDS    = ['AI applications.', 'LLM tools.', 'deep learning models.', 'full-stack web apps.'];
+  const CYCLE_WORDS    = ['AI & machine learning.', 'Python and data.', 'web development.', 'cloud basics.'];
   const CYCLE_INTERVAL = 2800;
   const CYCLE_FADE_MS  = 320;
   const wordEl = document.getElementById('cycleWord');
@@ -145,7 +145,7 @@
     card.style.transform = '';
   }
 
-  document.querySelectorAll('.skill-group, .pcard').forEach((card) => {
+  document.querySelectorAll('.skill-group').forEach((card) => {
     card.addEventListener('mousemove', (e) => onMagneticMove(card, e));
     card.addEventListener('mouseleave', () => onMagneticLeave(card));
   });

@@ -55,9 +55,7 @@
 
       const jsPDFReady    = typeof window.jspdf !== 'undefined';
       const html2pdfReady = typeof html2pdf    !== 'undefined';
-      // Projects/certs/events are Supabase-driven now — exporting a PDF
-      // before that data arrives would silently ship an incomplete resume.
-      const contentReady  = window.__resumeContentReady === true;
+      const contentReady  = true; // content is static HTML now
       const allReady      = jsPDFReady && html2pdfReady && contentReady;
 
       if (!dot) return;

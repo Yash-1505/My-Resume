@@ -1,18 +1,18 @@
 # Yashwanth Marella — Portfolio
 
-> Applied AI Engineer & Full Stack Developer | Parul University, Vadodara, India
+> B.Tech AI & Data Science student | Parul University, Vadodara, India
 
-Yashwanth Marella (also known online as "itsyashwanth") is a 3rd year B.Tech AI & Data Science student at Parul University, Vadodara, Gujarat, India. He completed a One Year Diploma in Neural Network & Deep Learning (CGPA 8.03, First Class with Distinction). He builds practical AI applications with LLMs, deep learning and full-stack development.
+Yashwanth Marella (also known online as "itsyashwanth") is a 3rd year B.Tech AI & Data Science student at Parul University, Vadodara, Gujarat, India. He completed a One Year Diploma in Neural Network & Deep Learning (CGPA 8.03, First Class with Distinction). He is learning Python, data analysis and web development, and is looking for internships.
 
 ## Identity
 
-- **Full name**: Yashwanth Marella
+- **Full name**: Yashwanth Siva Sai Kumar Marella
 - **Also known as**: itsyashwanth, Yash-1505
 - **Location**: Vadodara, Gujarat, India
 - **Email**: Yashwanth.Marella@yahoo.com
 - **Portfolio**: https://yashwanthmarella.me
 - **GitHub**: https://github.com/Yash-1505
-- **LinkedIn**: https://linkedin.com/in/itsyashwanth
+- **LinkedIn**: https://linkedin.com/in/yashwanth-marella
 - **Instagram**: https://instagram.com/its.yash.1505
 
 ## Education
@@ -22,44 +22,54 @@ Yashwanth Marella (also known online as "itsyashwanth") is a 3rd year B.Tech AI 
 
 ## Projects
 
-### StudentMind
-- **URL**: https://studentmind-v1.vercel.app/
-- **GitHub**: https://github.com/Yash-1505/studentmind-v1
-- **Description**: Multi-provider AI study companion integrating 6 LLM providers (Gemini, Groq, OpenAI, Anthropic, Mistral, Cohere) with no backend — API keys are stored in the browser and sent only to the provider the user selects. Five study modes (Summary, Cheat Sheet, Learning Path, Quiz, Resource Finder), PDF/DOCX upload, voice input, localStorage session manager with 30+ saved conversations, one-click PDF/DOCX/Markdown export, 16-language support via Sarvam and Google Translate APIs, GitHub Actions CI/CD, BUSL 1.1 licence.
-- **Stack**: TypeScript, React 19, Vite, Tailwind v4, Gemini API, Groq, OpenAI, Anthropic, Mistral, Cohere, Sarvam AI
-
-### NotebookLM Prompt Vault
-- **URL**: https://notebooklm-prompt-vault.vercel.app/
-- **GitHub**: https://github.com/Yash-1505/notebooklm-prompt-vault
-- **Description**: Multi-page, batch-aware prompt library for Parul University students — organises 2,700+ lines of curriculum data across 7+ academic programs using vanilla JavaScript ES modules with a barrel-import pattern (curricula/index.js) for dynamic per-subject prompt generation. Cross-tab state sync via Storage API, persistent theming via localStorage, custom security headers, dual-hosted on Vercel + Netlify, 4+ shipped bug fixes (state persistence, cross-tab desync, race conditions).
-- **Stack**: JavaScript, HTML5, CSS3, Prompt Engineering, Vercel, Netlify
+None published yet. Projects will be added when they are ready.
 
 ## Skills
 
-- **Deep Learning**: TensorFlow, Keras, BiLSTM + Attention (TruthLens diploma project)
-- **Data**: Python, Pandas, EDA
-- **LLM Applications**: LLM API integration, prompt engineering, bring-your-own-key design
-- **Front End**: JavaScript, TypeScript, React, Tailwind CSS, HTML & CSS
-- **Backend & Automation**: REST APIs, Supabase (PostgreSQL), Vercel serverless, GitHub Actions
-- **Browser Security**: WebCrypto (AES-256-GCM), PBKDF2
-- **Tools**: Git, GitHub, Vercel
-- **Coursework level**: Java, SQL, Scikit-learn
+- **Data**: Python, Pandas, EDA (diploma coursework, IBM eTrain Python & Statistics)
+- **LLM Applications**: Prompt engineering, generative AI fundamentals (courses only)
+- **Front End**: JavaScript, HTML & CSS
+- **Backend & Hosting**: Supabase (PostgreSQL), Vercel
+- **Tools**: Git, GitHub (basic working use)
+- **Coursework level**: Java, SQL
 
 ## Certifications
 
-- Computer Networks & Internet Protocol — NPTEL, 12-week, 4 Credits (Jan–Apr 2026)
+- AWS Cloud Practitioner Essentials — AWS Training & Certification, Sep 2026
+- AWS Academy Graduate — Cloud Foundations — AWS Academy, 20 course hours, Sep 2026
+- Computer Networks & Internet Protocol — NPTEL, 12-week, 4 Credits, Jan–Apr 2026
 - AI Fluency for Students — Anthropic (Claude), 2026
 - Generative AI Fundamentals (7 Badges) — Microsoft Learn, 2026
 - Statistics 101 — eTrain (IBM), 2026
 - Python — eTrain (IBM), Jul 2025
-- IT Specialist: JavaScript — Certiport / Pearson VUE, Mar 2025
-- IT Specialist: HTML & CSS — Certiport / Pearson VUE, Feb 2025
-- AWS Cloud Practitioner Essentials — AWS Training & Certification, Sep 2026
-- AWS Academy Graduate, Cloud Foundations — AWS Academy, Sep 2026
-- Ethical Hacking & Cybersecurity Workshop — VaultofCodes, 1 Nov 2026 (assessment score 80/100)
-- Vadodara Hackathon 6.0 — PIERC, Sep 2025
-- 21-Day Masterclass: Jetson AI — Pantech / IETE, Nov–Dec 2024
+- IT Specialist — JavaScript — Certiport / Pearson VUE, Mar 2025
+- IT Specialist — HTML & CSS — Certiport / Pearson VUE, Feb 2025
+
+## Events & Masterclasses
+
+- Ethical Hacking & Cybersecurity Workshop — VaultofCodes, 1 Nov 2026, Assessment score 80/100
+- Forward Deployed Engineer — Scaler Masterclass, 8 Sep 2026
+- Transition from Non-Data Science to Data Science roles — Scaler Masterclass, 8 Sep 2026
+- How to get an SDE Job Outside India? — Scaler Masterclass, 5 Sep 2026
+- Data Science using Python — Scaler Masterclass, 5 Sep 2026
+- SOLID Principles Every Developer Must Know — Scaler Masterclass, 3 Sep 2026
+- The Roadmap to AI — Scaler Masterclass, 3 Sep 2026
+- Orchestrating Multi-Agent AI Systems — Scaler Masterclass, 1 Sep 2026
+- Building Self-Healing Microservices with Kubernetes and Service Mesh — Scaler Masterclass, 1 Sep 2026
+- Designing Effective Harnesses for AI Agents — Scaler Masterclass, 29 Aug 2026
+- Machine Learning with Python: From Model to Production — Scaler Masterclass, 27 Aug 2026
+- Data Engineering in 2026 — Scaler Masterclass, 27 Aug 2026
+- Get Noticed by Employers: Add AI & ML Projects to Your CV — Scaler Masterclass, 25 Aug 2026
+- AI-First Leadership: How Tech Leaders Build 10X Teams — Scaler Masterclass, 25 Aug 2026
+- Understand RAG vs AI Agents vs Agentic AI — Scaler Masterclass, 20 Aug 2026
+- How to Crack AI Roles in Companies like OpenAI, Emergent? — Scaler Masterclass, 20 Aug 2026
+- Become an AI Product Manager — Scaler, Online PGP in Business and AI, 18 Aug 2026
+- Fundamentals of Docker & Kubernetes — Scaler Masterclass, 17 Aug 2026
+- Data Science vs Machine Learning vs Artificial Intelligence — Scaler Masterclass, 14 Aug 2026
+- Designing Scalable RAG Pipelines — Scaler Masterclass, 11 Aug 2026
+- Vadodara Hackathon 6.0 — Parul Innovation & Entrepreneurship Research Centre, Sep 2025
+- 21 Days Masterclass — Jetson AI — Pantech e Learning / IETE, Nov–Dec 2024
 
 ## Availability
 
-Open to internships and collaborations in Applied AI, ML Engineering, and Full Stack Development.
+Open to internships and collaborations in AI/ML, data science and full-stack development.

@@ -3,7 +3,7 @@
 **Live site:** [yashwanthmarella.me](https://yashwanthmarella.me)  
 **Resume page:** [yashwanthmarella.me/resume](https://yashwanthmarella.me/resume)  
 **Fallback domain:** itsyashwanth.vercel.app  
-**Version:** 3.2.2 · Deployed on Vercel (free / Hobby tier)
+**Version:** 3.2.3 · Deployed on Vercel (free / Hobby tier)
 
 Personal portfolio and resume website for Yashwanth Marella — 3rd-year B.Tech AI & Data Science student at Parul University, Vadodara, with a completed One Year Diploma in Neural Network & Deep Learning (CGPA 8.03, First Class with Distinction). Targeting AI/ML, Data Science, Full-Stack, and Prompt Engineering internships.
 
@@ -145,7 +145,7 @@ All download components live at the **bottom of `assets/css/resume.css`**, after
 
 ## Content Sync Rule
 
-Any change to **skills, education, projects, or certifications** must be applied to **all three files simultaneously**. Failing to sync causes ATS to see different skills than the portfolio page.
+The site is fully static (since v3.2.3). Any change to **skills, education, projects, certifications or events** is made by editing the HTML and must be applied to **all three files simultaneously** (certifications and events live in `index.html` `#cms-certs-grid` / `#cms-events-grid`, `resume.html` `#cms-resume-certs` / `#cms-resume-events`, and `llms.txt`). Failing to sync causes ATS to see different skills than the portfolio page.
 
 | File | Section | HTML pattern |
 |------|---------|--------------|
@@ -195,7 +195,7 @@ Every skill on the resume was rated before being added. Do not bypass this.
 | Dropped serverless PDF | Removed `api/` entirely | Vercel free tier lacks `libnss3.so`. Both Sparticuz Chromium v121 and v131 failed identically. Full bundle likely exceeds free-tier function size limit. |
 | Local vendor bundles | `assets/js/lib/` for both PDF libs | CSP is `script-src 'self'` — CDN would be blocked. Same-origin files pass cleanly. |
 | `'unsafe-eval'` in CSP | `script-src` directive only | `html2canvas` inside `html2pdf.bundle.min.js` requires `eval()` for canvas render. Acceptable risk on a static personal site with no user input. |
-| 2-row contact layout (M3) | Contacts split: row 1 = email · portfolio · linkedin, row 2 = github · location | Single joined string at 9pt Helvetica hit the column width mid-URL, splitting `linkedin.com/in/itsyashwanth`. |
+| 2-row contact layout (M3) | Contacts split: row 1 = email · portfolio · linkedin, row 2 = github · location | Single joined string at 9pt Helvetica hit the column width mid-URL, splitting `linkedin.com/in/yashwanth-marella`. |
 | Cert query scoped (M3) | `section[aria-label="Certifications"] .cert-item` | Global `.querySelectorAll('.cert-item')` also captured Events section entries, duplicating Hackathon + Jetson AI items in the Certifications section. |
 | `pdf-export-mode` cert layout | `flex-direction: column` on `.cert-item` | Long cert names like *"Vadodara Hackathon 6.0 — Participant"* wrapped when `white-space: nowrap` issuer sat alongside. |
 | `break-inside: avoid` (pdf-export-mode) | Applied to `.section-card`, `.project-card`, `.cert-card` | Reduces blank-page gap artifact between Projects and Certifications sections in Modern PDF. |
@@ -204,6 +204,15 @@ Every skill on the resume was rated before being added. Do not bypass this.
 ---
 
 ## Changelog
+
+### v3.2.3 — Static site, projects paused
+- CMS switched off: no Supabase calls, no `api/llms.js`; `llms.txt` is a static file. `admin.html` stays as a locked notice page with no login or editing. The old CMS/admin/AI-tailor code (`cms.js`, `admin.js`, `vault.js`, `llm.js`, `tailor.js`, `ai-tailor-ui.js`) was removed and can be restored from the v3.2.2 commit (`320672e`)
+- CSP tightened: `connect-src` now only allows `'self'` and `api.web3forms.com`
+- All projects removed for now (site section, nav links, resume, llms.txt)
+- Skills reduced to Data, LLM Applications (courses only), Front End (JavaScript, HTML & CSS), Backend & Hosting (Supabase, Vercel), Tools (Git, GitHub), Coursework Level (Java, SQL); Deep Learning, Browser Security and Scikit-learn removed
+- Static certifications and events brought up to date (9 certifications, 22 events, newest first)
+- LinkedIn changed to `linkedin.com/in/yashwanth-marella`
+- Hero, About, meta and JSON-LD copy rewritten without project or deep-learning-skill claims
 
 ### v3.2.2 — Content and consistency rectification
 - Primary domain is now `yashwanthmarella.me` in canonical, Open Graph, JSON-LD, sitemap, robots, resume and llms files
